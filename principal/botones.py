@@ -1,5 +1,14 @@
 from tkinter import *
 
+from estructuras_opciones.arbol_binario_opciones import ArbolBinarioOpciones
+from estructuras_opciones.arbol_busqueda_opciones import ArbolBusquedaOpciones
+from estructuras_opciones.cola_opciones import ColaOpciones
+from estructuras_opciones.lista_circular_opciones import ListaCircularOpciones
+from estructuras_opciones.lista_dob_enlazada_opciones import ListaDobEnOpciones
+from estructuras_opciones.lista_opciones import ListaOpciones
+from estructuras_opciones.pila_opciones import PilaOpciones
+
+
 class Botones(Frame):
 
     def __init__(self, master):
@@ -8,25 +17,25 @@ class Botones(Frame):
         # Elementos del frame
 
         # Botón iniciar el frame del árbol
-        self.arbol_boton = Button(self, text="Arbol", command=self.iniciar_ventana_arbol)
+        self.arbol_boton = Button(self, text="Arbol", command=lambda:self.iniciar_ventana(ArbolBinarioOpciones))
 
         # Botón iniciar el frame del arbol de busqueda
-        self.arbol_busqueda_boton = Button(self, text="Arbol de Busqueda", command=self.iniciar_ventana_arbol_busqueda)
+        self.arbol_busqueda_boton = Button(self, text="Arbol de Busqueda", command=lambda:self.iniciar_ventana(ArbolBusquedaOpciones))
 
         # Botón iniciar el frame de cola
-        self.cola_boton = Button(self, text="Cola", command=self.iniciar_ventana_cola)
+        self.cola_boton = Button(self, text="Cola", command=lambda:self.iniciar_ventana(ColaOpciones))
 
         # Botón iniciar el frame de la lista circular
-        self.lista_circular = Button(self, text="Lista Circular", command=self.iniciar_ventana_lista_circular)
+        self.lista_circular = Button(self, text="Lista Circular", command=lambda:self.iniciar_ventana(ListaCircularOpciones))
 
         # Botón iniciar el frame de la lista doblemente enlazada
-        self.lista_doble = Button(self, text="Lista Doble", command=self.iniciar_ventana_lista_doble)
+        self.lista_doble = Button(self, text="Lista Doble", command=lambda:self.iniciar_ventana(ListaDobEnOpciones))
 
         # Botón iniciar el frame de la lista simplemente enlazada
-        self.lista_simple = Button(self, text="Lista Simple", command=self.iniciar_ventana_lista_simple)
+        self.lista_simple = Button(self, text="Lista Simple", command=lambda:self.iniciar_ventana(ListaOpciones))
 
         # Botón iniciar el frame de la pila
-        self.pila_boton = Button(self, text="Pila", command=self.iniciar_ventana_pila)
+        self.pila_boton = Button(self, text="Pila", command=lambda:self.iniciar_ventana(PilaOpciones))
     
         # Configuraciones de los botones
         self.aplicar_configuracion(self.arbol_boton)
@@ -56,23 +65,8 @@ class Botones(Frame):
             fg="white"
         )
     
-    def iniciar_ventana_arbol(self):
-        pass
-
-    def iniciar_ventana_arbol_busqueda(self):
-        pass
-
-    def iniciar_ventana_cola(self):
-        pass
-
-    def iniciar_ventana_lista_circular(self):
-        pass
-
-    def iniciar_ventana_lista_doble(self):
-        pass
-
-    def iniciar_ventana_lista_simple(self):
-        pass
-
-    def iniciar_ventana_pila(self):
-        pass
+    def iniciar_ventana(self, estructura):
+        root = Toplevel()
+        ventana = estructura(root)
+        ventana.pack()
+        root.mainloop()
