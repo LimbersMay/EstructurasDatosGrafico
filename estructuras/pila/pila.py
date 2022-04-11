@@ -18,12 +18,15 @@ class Pila:
 
     def recorrer(self):
         aux = self.tope
+        elementos = []
         while True:
             if aux == None:
                 break
             else:
-                print(aux)
+                elementos.append(aux.nombre)
                 aux = aux.siguiente
+
+        return elementos
 
     def eliminar(self):
         if self.tope == None:
