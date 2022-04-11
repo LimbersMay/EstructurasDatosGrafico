@@ -18,6 +18,7 @@ class PilaInterfaz(Frame):
         self.grid_propagate(False)
 
         # Elementos de la ventana
+        self.canvas = Canvas(self, width=200, height=150, bg='darkred')
 
 
 
@@ -26,21 +27,4 @@ class PilaInterfaz(Frame):
 
 
         # Posicionamiento de los elementos
-
-    def dibujar_pila(self):
-
-        self.pila.insertar(5)
-
-        elementos_pila = self.pila.recorrer()
-
-        # Creamos un frame por cada elemento
-        for i in range(len(elementos_pila)):
-
-            # Creamos un frame
-            frame = Frame(self)
-
-            # Posicionamiento del frame
-            frame.grid(row=i, column=0)
-
-            # Insertamos el elemento en el frame
-            Label(frame, text=elementos_pila[i]).pack()
+        self.canvas.grid(row=1, column=0)
