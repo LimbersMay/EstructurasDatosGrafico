@@ -29,6 +29,13 @@ class Botones(Frame):
         self.pila_boton = Button(self, text="Pila", command=self.iniciar_ventana_pila)
     
         # Configuraciones de los botones
+        self.aplicar_configuracion(self.arbol_boton)
+        self.aplicar_configuracion(self.arbol_busqueda_boton)
+        self.aplicar_configuracion(self.cola_boton)
+        self.aplicar_configuracion(self.lista_circular)
+        self.aplicar_configuracion(self.lista_doble)
+        self.aplicar_configuracion(self.lista_simple)
+        self.aplicar_configuracion(self.pila_boton)
 
         # Posicionamiento
         self.arbol_boton.grid(row=0, column=0)
@@ -42,10 +49,10 @@ class Botones(Frame):
 
     def aplicar_configuracion(self, boton):
         boton.config(
-            bg="#066163",
-            width=10,
-            height=2,
-            font=("rockwell", 15),
+            bg="#383838",
+            width=20,
+            height=1,
+            font=("rockwell", 12),
             fg="white"
         )
     
