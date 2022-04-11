@@ -1,9 +1,9 @@
 class Nodo:
-    def __init__(self, nombre_pelicula):
+    def __init__(self, elemento):
         # Parte amarilla
-        self.nombre = nombre_pelicula
+        self.nombre = elemento
         # Parte morada
         self.siguiente = None
 
     def __str__(self):
-        return self.nombre
+        return str(self.nombre)

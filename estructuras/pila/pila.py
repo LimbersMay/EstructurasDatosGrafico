@@ -7,9 +7,9 @@ class Pila:
         self.tamanio = 0
         self.max = max
 
-    def insertar(self, nombre_pelicula):
+    def insertar(self, elemento):
         if self.max == -1 or self.tamanio < self.max:
-            nuevo_pelicula = Nodo(nombre_pelicula)
+            nuevo_pelicula = Nodo(elemento)
             nuevo_pelicula.siguiente = self.tope
             self.tope = nuevo_pelicula
             self.tamanio += 1
@@ -34,3 +34,15 @@ class Pila:
             aux.siguiente = None
             self.tamanio -= 1
             return aux
+    
+    def buscar(self, elemento):
+        aux = self.tope
+        while True:
+            if aux == None:
+                break
+            else:
+                if aux.nombre == elemento:
+                    return True
+                else:
+                    aux = aux.siguiente
+        return False
