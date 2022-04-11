@@ -9,7 +9,10 @@ class Ventana(Frame):
 
         # El usuario tendrá 7 opciones a elegir correspondientes a las 7 estructuras 
         master.title("Estructuras de Datos")
-        master.geometry("400x500")
+        master.geometry("400x300")
+        master.config(bg="#066163")
+
+        self.config(bg="#066163")
 
         # Elementos de la ventana principal
 
