@@ -39,3 +39,33 @@ class Botones(Frame):
         self.lista_simple.grid(row=5, column=0)
         self.pila_boton.grid(row=6, column=0)
     
+
+    def aplicar_configuracion(self, boton):
+        boton.config(
+            bg="#066163",
+            width=10,
+            height=2,
+            font=("rockwell", 15),
+            fg="white"
+        )
+    
+    def iniciar_ventana_arbol(self):
+        pass
+
+    def iniciar_ventana_arbol_busqueda(self):
+        pass
+
+    def iniciar_ventana_cola(self):
+        pass
+
+    def iniciar_ventana_lista_circular(self):
+        pass
+
+    def iniciar_ventana_lista_doble(self):
+        pass
+
+    def iniciar_ventana_lista_simple(self):
+        pass
+
+    def iniciar_ventana_pila(self):
+        pass
