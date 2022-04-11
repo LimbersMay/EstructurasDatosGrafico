@@ -1,5 +1,5 @@
 from typing import Optional, TypeVar
-from node import Node
+from .node import Node
 
 
 T = TypeVar('T')

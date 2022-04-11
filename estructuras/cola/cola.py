@@ -1,4 +1,5 @@
-from nodo import Nodo
+from .nodo import Nodo
+
 class Cola:
     def __init__(self,max = -1):
         self.tamanio = 0
