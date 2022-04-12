@@ -23,13 +23,6 @@ class PilaInterfaz(Frame):
         self.canvas.grid(row=1, column=0)
 
     def dibujar_pila(self, buscar_elemento=None):
-
-        self.pila.insertar(5)
-        self.pila.insertar(4)
-        self.pila.insertar(3)
-        self.pila.insertar(2)
-        self.pila.insertar(1)
-
         elementos_pila = self.pila.recorrer()
 
         # We draw rectangles in horizontal for each element in the stack and we draw the top element in red color and the rest in blue color and we put the value of the element in the rectangle and we draw it in the center of the rectangle.
