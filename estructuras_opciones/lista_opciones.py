@@ -36,3 +36,15 @@ class BotonesInferiores(Frame):
         self.eliminar_inicio = Button(self, text="Eliminar al inicio")
 
         self.buscar_button = Button(self, text="Buscar") 
+
+        # Posicionamiento de los elementos
+        self.texto_dato.grid(row=0, column=0)
+        self.dato_entry.grid(row=0, column=1)
+
+        self.insertar_final.grid(row=0, column=2)
+        self.insertar_inicio.grid(row=0, column=3)
+
+        self.eliminar_final.grid(row=0, column=4)
+        self.eliminar_inicio.grid(row=0, column=5)
+
+        self.buscar_button.grid(row=0, column=6)
