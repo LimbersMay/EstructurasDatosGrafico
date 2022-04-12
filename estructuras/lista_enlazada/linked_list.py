@@ -131,22 +131,20 @@ class LinkedList(Generic[T]):
         self._size -= 1
         return aux
 
+    # Method that remove the tail node
     def remove_tail(self):
         aux = self._tail
 
         if self.is_empty():
-            raise Exception('Subdesbordamiento de lista')
+            raise Exception('Subdesbordamiento')
 
         elif self._size == 1:
             self._head = None
             self._tail = None
 
         else:
-            slot = self.search_node_position(aux.nombre)
-            precedent = self.search_position_node(slot - 1)
-
-            precedent.next = None
-            self._tail = precedent
+            self._tail = self.search_position_node(self._size - 2)
+            self._tail.next = None
 
         self._size -= 1
         return aux
