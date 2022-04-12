@@ -91,7 +91,7 @@ class CircularList:
             self._size -= 1
         return aux
 
-    def _position_search(self, number: int) -> Node:
+    def search_position_node(self, number: int) -> Node:
         aux = self._head
         iterations = 0
 

@@ -146,7 +146,7 @@ class DoubleLinkedList:
             return aux
 
     # Look for items in the list
-    def search(self, data: T) -> Node:
+    def search_position_node(self, data: T) -> Node:
         aux = self._head
 
         while aux is not self._tail:
