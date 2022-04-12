@@ -9,13 +9,6 @@ class PilaInterfaz(Frame):
         self.pila = Pila()
 
         # Configuraciones de la ventana
-        self.config(
-            width = 800,
-            height = 500,
-            bg = 'brown',
-        )
-
-        self.grid_propagate(False)
 
         # Elementos de la ventana
         self.canvas = Canvas(self, width=800, height=350, bg='darkred')
