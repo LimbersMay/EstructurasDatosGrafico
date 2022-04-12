@@ -29,13 +29,13 @@ class BotonesInferiores(Frame):
         self.texto_dato = Label(self, text="Introduce un valor: ")
         self.dato_entry = Entry(self)
 
-        self.insertar_final = Button(self, text="Insertar al final")
-        self.insertar_inicio = Button(self, text="Insertar al inicio")
+        self.insertar_final = Button(self, text="Insertar al final", command=self.insertar_final)
+        self.insertar_inicio = Button(self, text="Insertar al inicio", command=self.insertar_inicio)
 
-        self.eliminar_final = Button(self, text="Eliminar al final")
-        self.eliminar_inicio = Button(self, text="Eliminar al inicio")
+        self.eliminar_final = Button(self, text="Eliminar al final", command=self.eliminar_final)
+        self.eliminar_inicio = Button(self, text="Eliminar al inicio", command=self.eliminar_inicio)
 
-        self.buscar_button = Button(self, text="Buscar") 
+        self.buscar_button = Button(self, text="Buscar", command=self.buscar) 
 
         # Posicionamiento de los elementos
         self.texto_dato.grid(row=0, column=0)
@@ -48,3 +48,18 @@ class BotonesInferiores(Frame):
         self.eliminar_inicio.grid(row=0, column=5)
 
         self.buscar_button.grid(row=0, column=6)
+    
+    def insertar_final(self):
+        self.lista_interfaz.insertar_final(self.dato_entry.get())
+    
+    def insertar_inicio(self):
+        self.lista_interfaz.insertar_inicio(self.dato_entry.get())
+
+    def eliminar_final(self):
+        self.lista_interfaz.eliminar_final()
+    
+    def eliminar_inicio(self):
+        self.lista_interfaz.eliminar_inicio()
+    
+    def buscar(self):
+        self.lista_interfaz.buscar(self.dato_entry.get())
