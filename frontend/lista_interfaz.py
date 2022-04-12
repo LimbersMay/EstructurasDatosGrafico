@@ -1,3 +1,4 @@
+from abc import abstractclassmethod
 from tkinter import *
 
 from matplotlib.pyplot import text
@@ -66,7 +67,7 @@ class ListaInterfaz(Frame):
         # Posicionamos los frames en el medio de la ventana, uno a la derecha del otro
         for i in range(len(self.lista_frames)):
             self.lista_frames[i].grid(row=0, column=i, sticky=W)
-    
+
     def insertar_inicio(self, data):
         # Insertamos el nodo en la lista
         self.lista.prepend(data)
