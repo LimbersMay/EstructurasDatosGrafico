@@ -9,9 +9,9 @@ class Pila:
 
     def insertar(self, elemento):
         if self.max == -1 or self.tamanio < self.max:
-            nuevo_pelicula = Nodo(elemento)
-            nuevo_pelicula.siguiente = self.tope
-            self.tope = nuevo_pelicula
+            nuevo_nodo = Nodo(elemento)
+            nuevo_nodo.siguiente = self.tope
+            self.tope = nuevo_nodo
             self.tamanio += 1
         else:
             raise Exception('Desbordamiento de pila')
@@ -49,3 +49,17 @@ class Pila:
                 else:
                     aux = aux.siguiente
         return False
+    
+    def buscar_nodo(self, elemento):
+        # Buscamos la referencia en memoria del nodo
+        aux = self.tope
+        while True:
+            if aux == None:
+                break
+            else:
+                if aux.nombre == elemento:
+                    return aux
+                else:
+                    aux = aux.siguiente
+        
+        return None

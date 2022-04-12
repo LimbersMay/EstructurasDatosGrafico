@@ -4,6 +4,4 @@ class Nodo:
         self.nombre = elemento
         # Parte morada
         self.siguiente = None
-
-    def __str__(self):
-        return str(self.nombre)
+    
