@@ -38,10 +38,10 @@ class PilaInterfaz(Frame):
         self.pila.insertar(1)
 
         elementos_pila = self.pila.recorrer()
-        node_reference = id(self.pila.buscar_nodo(elementos_pila[i]))
 
         # We draw rectangles in horizontal for each element in the stack and we draw the top element in red color and the rest in blue color and we put the value of the element in the rectangle and we draw it in the center of the rectangle.
         for i in range(len(elementos_pila)):
+            node_reference = id(self.pila.buscar_nodo(elementos_pila[i]))
             if i == 0:
                 self.canvas.create_rectangle(100, 100, 200, 200, fill='red')
                 self.canvas.create_text(150, 150, text=elementos_pila[i], fill='white')
