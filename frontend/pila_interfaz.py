@@ -26,25 +26,35 @@ class PilaInterfaz(Frame):
         elementos_pila = self.pila.recorrer()
 
         # We draw rectangles in horizontal for each element in the stack and we draw the top element in red color and the rest in blue color and we put the value of the element in the rectangle and we draw it in the center of the rectangle.
+
+        bandera = False # Bandera para saber si el elemento que estamos buscando esta en la pila
+        
         for i in range(len(elementos_pila)):
             node_reference = id(self.pila.buscar_nodo(elementos_pila[i]))
+
             if i == 0:
                 self.canvas.create_rectangle(100, 100, 200, 200, fill='red')
-                self.canvas.create_text(150, 150, text=elementos_pila[i], fill='white')
+                self.canvas.create_text(150, 140, text=elementos_pila[i], fill='white', font=('Arial', 20))
+                self.canvas.create_text(150, 170, text=node_reference, fill='white', font=('Arial', '10'))
+
             else:
                 
-                if not buscar_elemento == elementos_pila[i]:
+                # Si el elemento en la posición no es la que buscamos, lo dibujamos en azul
+                if not buscar_elemento == elementos_pila[i] or bandera:
                     self.canvas.create_rectangle(100 + (i * 100), 100, 200 + (i * 100), 200, fill='blue')
 
                     # We draw the value of the element in the center of the rectangle and we put the reference of the node under the value of the element.
-                    self.canvas.create_text(150 + (i * 100), 140, text=elementos_pila[i], fill='white', font=('Arial', '10'))
+                    self.canvas.create_text(150 + (i * 100), 140, text=elementos_pila[i], fill='white', font=('Arial', '20'))
                     self.canvas.create_text(150 + (i * 100), 170, text=node_reference, fill='white', font=('Arial', '10'))
                 
-                if buscar_elemento == elementos_pila[i]:
-                    self.canvas.create_rectangle(100 + (i * 100), 100, 200 + (i * 100), 200, fill='green')
+                # Si el elemento en la posición es la que buscamos, lo dibujamos de azul
+                if buscar_elemento == elementos_pila[i] and not bandera:
+                    self.canvas.create_rectangle(100 + (i * 100), 100, 200 + (i * 100), 200, fill='#062C30')
 
-                    self.canvas.create_text(150 + (i * 100), 150, text=elementos_pila[i], fill='white', font=('Arial', '10'))
+                    self.canvas.create_text(150 + (i * 100), 140, text=elementos_pila[i], fill='white', font=('Arial', '20'))
                     self.canvas.create_text(150 + (i * 100), 170, text=node_reference, fill='white', font=('Arial', '10'))
+
+                    bandera = True
     
     def insertar(self, valor):
         self.pila.insertar(valor)
