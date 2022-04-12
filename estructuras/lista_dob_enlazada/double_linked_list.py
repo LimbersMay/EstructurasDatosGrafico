@@ -144,6 +144,26 @@ class DoubleLinkedList:
 
             self._size -= 1
             return aux
+    
+    # Method that remove a node by position
+    def remove_node_position(self, position: int) -> Node:
+        aux = self.position_search(position)
+
+        if aux is self._head:
+            self.remove_head()
+
+        elif aux is self._tail:
+            self.remove_tail()
+
+        else:
+            prev = self.position_search(position-1)
+            prev.next = aux.next
+            aux.next.prev = prev
+            aux.next = None
+            aux.prev = None
+
+            self._size -= 1
+            return aux
 
     # Look for items in the list
     def search_position_node(self, data: T) -> Node:
