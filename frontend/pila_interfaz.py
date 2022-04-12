@@ -29,7 +29,7 @@ class PilaInterfaz(Frame):
         # Posicionamiento de los elementos
         self.canvas.grid(row=1, column=0)
 
-    def dibujar_pila(self):
+    def dibujar_pila(self, buscar_elemento=None):
 
         self.pila.insertar(5)
         self.pila.insertar(4)
@@ -38,6 +38,7 @@ class PilaInterfaz(Frame):
         self.pila.insertar(1)
 
         elementos_pila = self.pila.recorrer()
+        node_reference = id(self.pila.buscar_nodo(elementos_pila[i]))
 
         # We draw rectangles in horizontal for each element in the stack and we draw the top element in red color and the rest in blue color and we put the value of the element in the rectangle and we draw it in the center of the rectangle.
         for i in range(len(elementos_pila)):
@@ -45,11 +46,41 @@ class PilaInterfaz(Frame):
                 self.canvas.create_rectangle(100, 100, 200, 200, fill='red')
                 self.canvas.create_text(150, 150, text=elementos_pila[i], fill='white')
             else:
-                self.canvas.create_rectangle(100 + (i * 100), 100, 200 + (i * 100), 200, fill='blue')
                 
-                node_reference = id(self.pila.buscar_nodo(elementos_pila[i]))
-                print("Referencia: ", self.pila.buscar_nodo(elementos_pila[i]))
+                if not buscar_elemento == elementos_pila[i]:
+                    self.canvas.create_rectangle(100 + (i * 100), 100, 200 + (i * 100), 200, fill='blue')
 
-                # We draw the value of the element in the center of the rectangle and we put the reference of the node under the value of the element.
-                self.canvas.create_text(150 + (i * 100), 140, text=elementos_pila[i], fill='white', font=('Arial', '10'))
-                self.canvas.create_text(150 + (i * 100), 170, text=node_reference, fill='white', font=('Arial', '10'))
+                    # We draw the value of the element in the center of the rectangle and we put the reference of the node under the value of the element.
+                    self.canvas.create_text(150 + (i * 100), 140, text=elementos_pila[i], fill='white', font=('Arial', '10'))
+                    self.canvas.create_text(150 + (i * 100), 170, text=node_reference, fill='white', font=('Arial', '10'))
+                
+                if buscar_elemento == elementos_pila[i]:
+                    self.canvas.create_rectangle(100 + (i * 100), 100, 200 + (i * 100), 200, fill='green')
+
+                    self.canvas.create_text(150 + (i * 100), 150, text=elementos_pila[i], fill='white', font=('Arial', '10'))
+                    self.canvas.create_text(150 + (i * 100), 170, text=node_reference, fill='white', font=('Arial', '10'))
+    
+    def insertar(self, valor):
+        self.pila.insertar(valor)
+        
+        # Borramos todos los elementos que hay en el canvas
+        self.canvas.delete("all")
+
+        # Dibujamos la pila
+        self.dibujar_pila()
+
+    def eliminar(self):
+        self.pila.eliminar()
+
+        # Borramos todos los elementos que hay en el canvas
+        self.canvas.delete("all")
+
+        # Dibujamos la pila
+        self.dibujar_pila()
+    
+    def buscar(self, valor):
+        # Borramos todos los elementos que hay en el canvas
+        self.canvas.delete("all")
+
+        # Dibujamos la pila
+        self.dibujar_pila(valor)
