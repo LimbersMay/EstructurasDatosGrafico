@@ -21,3 +21,18 @@ class ListaOpciones(Frame):
 class BotonesInferiores(Frame):
     def __init__(self, master, lista_interfaz):
         Frame.__init__(self, master)
+
+        # Recibimos la lista interfaz para poder acceder a los métodos de eliminar, insertar y demás
+        self.lista_interfaz = lista_interfaz
+
+        # Elementos del frame
+        self.texto_dato = Label(self, text="Introduce un valor: ")
+        self.dato_entry = Entry(self)
+
+        self.insertar_final = Button(self, text="Insertar al final")
+        self.insertar_inicio = Button(self, text="Insertar al inicio")
+
+        self.eliminar_final = Button(self, text="Eliminar al final")
+        self.eliminar_inicio = Button(self, text="Eliminar al inicio")
+
+        self.buscar_button = Button(self, text="Buscar") 
