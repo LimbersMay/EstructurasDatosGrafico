@@ -43,9 +43,9 @@ class LinkedList(Generic[T]):
         current: Optional[Node] = self._head
         while current is not None:
             if current == self._tail:
-                result += str(current)
+                result += str(current.data)
             else:
-                result += str(current) + '->'
+                result += str(current.data) + '->'
             current = current.next
         return result
 
@@ -92,18 +92,15 @@ class LinkedList(Generic[T]):
 
         raise Exception('Inexistent element')
 
-    # Método que añade al inicio un nuevo nodo a la lista
-    def prepend(self, data) -> None:
-        new = Node(data)
-
+    # Method to insert a new node at the beginning of the list
+    def prepend(self, data: T) -> None:
+        new_node: Node = Node(data)
         if self.is_empty():
-            self._head = new
-            self._tail = new
-
+            self._head = new_node
+            self._tail = new_node
         else:
-            self._tail.next = new
-            self._tail = new
-
+            new_node.next = self._head
+            self._head = new_node
         self._size += 1
 
     # Método que añade al final un nuevo nodo a la lista
