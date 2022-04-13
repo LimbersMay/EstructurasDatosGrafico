@@ -10,7 +10,7 @@ class Nodo:
 
 class Cola:
     def __init__(self,max = -1):
-        self.tamanio = 0
+        self._size = 0
         self.frente = None
         self.fondo = None
         self.max = max
@@ -26,14 +26,14 @@ class Cola:
             self.frente = nuevo
             self.fondo = nuevo
 
-        elif self.tamanio == self.max :
+        elif self._size == self.max :
             raise Exception('No hay espacio, DESBORDAMIENTO DE PILA')
        
         else:
             self.fondo.siguiente =nuevo
             self.fondo = nuevo
             #4 - actualizar datos
-        self.tamanio += 1
+        self._size += 1
 
     def recorrer(self):
         resultado = ''
@@ -48,7 +48,7 @@ class Cola:
     def buscar_nodo(self,elemento):
         aux = self.frente
         vistos = 0
-        while vistos < self.tamanio:
+        while vistos < self._size:
             if elemento == aux.elemento:
                 return aux
             else:
@@ -56,15 +56,15 @@ class Cola:
             vistos += 1
         
 
-        if vistos == self.tamanio:
+        if vistos == self._size:
             raise Exception ('Error, el elemento no existe')
     def eliminar(self):
         # 1- crear el auxiliar (señalar al frente)
         aux = self.frente
         
-        if self.tamanio == 0:
+        if self._size == 0:
             raise Exception('SUBDESBORDAMIENTO DE COLA')
-        elif self.tamanio == 1:
+        elif self._size == 1:
             self.frente = None
             self.fondo = None
         else:
@@ -75,10 +75,10 @@ class Cola:
             aux.siguiente = None
         
         # 4- disminuir tamaño
-        self.tamanio -= 1
+        self._size -= 1
 
         # 5- devolver el nodo eliminado
         return aux
 
     def __str__(self):
-        return f"Tamaño: {self.tamanio}\nMax: {self.max}\nFrente: {self.frente}\nFondo: {self.fondo}"
+        return f"Tamaño: {self._size}\nMax: {self.max}\nFrente: {self.frente}\nFondo: {self.fondo}"
