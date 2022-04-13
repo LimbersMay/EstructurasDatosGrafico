@@ -22,17 +22,16 @@ class CircularList:
 
             return aux
 
-    def move_right(self) -> Node:
+    # Method that rotate the list to the right
+    def move_right(self):
         if self.is_empty():
             raise Exception('Empty List')
 
         else:
-            aux = self._tail
-            precedent = self._position_search(self._size - 2)
             self._head = self._tail
-            self._tail = precedent
+            anterior = self.search_position_node(self._size - 1)
+            self._tail = anterior
 
-            return aux
 
     def remove_head(self) -> Node:
         if self.is_empty():
