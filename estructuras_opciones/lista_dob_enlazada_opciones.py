@@ -27,8 +27,6 @@ class BotonesInferiores(PlantillaBotones):
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)
 
-        self.lista_interfaz = lista_interfaz
-
         # Elementos del frame
         self.indice_label = Label(self, text="Indice: ")
         self.indice_entry = Entry(self)
