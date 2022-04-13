@@ -1,4 +1,4 @@
-from frontend.lista_interfaz import ListaInterfaz
+from frontend.lista_simple_template import ListaInterfaz
 from estructuras.cola import Cola
 
 class ColaInterfaz(ListaInterfaz):

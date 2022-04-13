@@ -1,5 +1,6 @@
 from estructuras.linked_list import LinkedList
-from frontend.lista_interfaz import ListaInterfaz
+from frontend.lista_simple_template import ListaInterfaz
+
 
 class ListaSimpleInterfaz(ListaInterfaz):
     def __init__(self, master):

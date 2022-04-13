@@ -1,5 +1,5 @@
 from estructuras.double_linked_list import DoubleLinkedList
-from frontend.lista_interfaz import ListaInterfaz
+from frontend.lista_simple_template import ListaInterfaz
 
 class ListaDobEnlazadaInterfaz(ListaInterfaz):
     
