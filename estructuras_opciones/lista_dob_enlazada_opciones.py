@@ -1,6 +1,6 @@
 from tkinter import *
 from frontend.lista_dobl_interfaz import ListaDobEnlazadaInterfaz
-from estructuras_opciones.botones_inf_listas import PlantillaBotones
+from estructuras_opciones.operaciones_listas import PlantillaBotones
 
 class ListaDobEnOpciones(Frame):
 
