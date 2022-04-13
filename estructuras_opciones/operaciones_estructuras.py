@@ -60,4 +60,4 @@ class BotonesBasicos(Frame):
         pass
     
     def buscar(self, elemento):
-        pass
+        self.estructura_interfaz.buscar(elemento)
