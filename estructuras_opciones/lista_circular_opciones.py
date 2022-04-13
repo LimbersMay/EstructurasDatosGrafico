@@ -31,10 +31,13 @@ class BotonesInferiores(PlantillaBotones):
         self.dato_label.grid(row=0, column=0)
         self.dato_entry.grid(row=0, column=1)
 
-        self.insertar_button.grid(row=0, column=2)
-        self.eliminar_button.grid(row=0, column=3)
-        self.buscar_button.grid(row=0, column=4)
+        self.rotar_izquierda_button.grid(row=0, column=2)
+        self.rotar_derecha_button.grid(row=0, column=3)
 
-        self.rotar_izquierda_button.grid(row=0, column=5)
-        self.rotar_derecha_button.grid(row=0, column=6)
+        self.insertar_inicio.grid(row=0, column=4)
+        self.insertar_final.grid(row=0, column=5)
 
+        self.eliminar_inicio.grid(row=0, column=6)
+        self.eliminar_final.grid(row=0, column=7)
+
+        self.buscar_button.grid(row=0, column=8)
