@@ -1,18 +1,37 @@
 from tkinter import *
 from estructuras.lista_dob_enlazada.double_linked_list import DoubleLinkedList
-from lista_interfaz import ListaInterfaz
+from frontend.lista_interfaz import ListaInterfaz
 
-class ListaDobEnlazadaInterfaz(ListaInterfaz, Frame):
+class ListaDobEnlazadaInterfaz(ListaInterfaz):
     
     def __init__(self, master):
-        ListaInterfaz.__init__(self, master)
-        Frame.__init__(self, master)
+        super().__init__(master)
         
         self.lista = DoubleLinkedList()
-        self.lista_frames = []
-        
-        # Configuraciones de la ventana
-        self.config(width=800, height=350, bg="#146356")
-        self.grid_propagate(False)
-        
-        self.rowconfigure(0, weight=1)
+    
+    def dibujar_lista(self):
+        super().dibujar_lista()
+
+    # Métodos de la lista enlazada doble
+    def insertar_inicio(self, data):
+        super().insertar_inicio(data)
+    
+    def insertar_final(self, data):
+        super().insertar_final(data)
+    
+    def insertar_posicion(self, data, posicion):
+        self.lista.append_in_position(data, posicion)
+
+        super().dibujar_lista()
+    
+    def eliminar_inicio(self):
+        super().eliminar_inicio()
+    
+    def eliminar_final(self):
+        super().eliminar_final()
+    
+    def eliminar_por_posicion(self, posicion):
+        self.lista.remove_node_position(posicion)
+    
+    def buscar(self, valor):
+        super().dibujar_lista(valor)
