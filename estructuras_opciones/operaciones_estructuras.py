@@ -37,15 +37,27 @@ class BotonesLista(Frame):
         self.lista_interfaz.buscar(self.dato_entry.get())
 
 class BotonesBasicos(Frame):
-    def __init__(self, master):
+    def __init__(self, master, estructura_interfaz):
         Frame.__init__(self, master)
 
+        self.estructura_interfaz = estructura_interfaz
+
         # Elementos del frame
-        self.insertar_button = Button(self, text="Insertar")
-        self.eliminar_button = Button(self, text="Eliminar")
-        self.buscar_button = Button(self, text="Buscar")
+        self.insertar_button = Button(self, text="Insertar", command=self.insertar)
+        self.eliminar_button = Button(self, text="Eliminar", command=self.eliminar)
+        self.buscar_button = Button(self, text="Buscar", command=self.buscar)
 
         # Posicionamiento de los elementos del frame
         self.insertar_button.grid(row=0, column=0)
         self.eliminar_button.grid(row=0, column=1)
         self.buscar_button.grid(row=0, column=2)
+    
+    # Métodos de la estructura (Pila o Cola)
+    def insertar(self, elemento):
+        self.estructura_interfaz.insertar(elemento)
+    
+    def eliminar(self):
+        self.estructura_interfaz.eliminar()
+    
+    def buscar(self, elemento):
+        self.estructura_interfaz.buscar(elemento)
