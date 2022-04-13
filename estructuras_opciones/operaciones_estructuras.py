@@ -54,10 +54,10 @@ class BotonesBasicos(Frame):
     
     # Métodos de la estructura (Pila o Cola)
     def insertar(self, elemento):
-        self.estructura_interfaz.insertar(elemento)
+        pass
     
     def eliminar(self):
-        self.estructura_interfaz.eliminar()
+        pass
     
     def buscar(self, elemento):
-        self.estructura_interfaz.buscar(elemento)
+        pass
