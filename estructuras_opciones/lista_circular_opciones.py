@@ -17,3 +17,20 @@ class ListaCircularOpciones(Frame):
 class BotonesInferiores(PlantillaBotones):
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)
+
+        # Elementos del frame
+        self.rotar_izquierda_button = Button(self, text="Rotar Izquierda")
+        self.rotar_derecha_button = Button(self, text="Rotar Derecha")
+
+        # Posicionamiento de los elementos del frame
+        self.dato_label.grid(row=0, column=0)
+        self.dato_entry.grid(row=0, column=1)
+
+        self.insertar_button.grid(row=0, column=2)
+        self.eliminar_button.grid(row=0, column=3)
+        self.buscar_button.grid(row=0, column=4)
+
+        self.rotar_izquierda_button.grid(row=0, column=5)
+        self.rotar_derecha_button.grid(row=0, column=6)
+
+        
