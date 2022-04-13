@@ -1,6 +1,6 @@
 from tkinter import *
 from frontend.lista_dobl_interfaz import ListaDobEnlazadaInterfaz
-from estructuras_opciones.operaciones_estructuras import PlantillaBotones
+from estructuras_opciones.operaciones_estructuras import BotonesLista
 
 class ListaDobEnOpciones(Frame):
 
@@ -22,7 +22,7 @@ class ListaDobEnOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
-class BotonesInferiores(PlantillaBotones):
+class BotonesInferiores(BotonesLista):
 
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)

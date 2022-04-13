@@ -1,5 +1,6 @@
 from tkinter import *
-from estructuras_opciones.operaciones_estructuras import PlantillaBotones
+from estructuras_opciones.lista_opciones import ListaOpciones
+from estructuras_opciones.operaciones_estructuras import BotonesLista
 from frontend.lista_circular_interfaz import ListaCircularInterfaz
 
 class ListaCircularOpciones(Frame):
@@ -19,7 +20,7 @@ class ListaCircularOpciones(Frame):
         self.lista_interfaz.grid(row=1, column=0)
         self.botones_inferiores.grid(row=2, column=0)
 
-class BotonesInferiores(PlantillaBotones):
+class BotonesInferiores(BotonesLista):
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)
 
