@@ -1,7 +1,12 @@
 from typing import Optional, TypeVar, Generic
-from .node import Node
 
 T = TypeVar('T')
+
+
+class Node:
+    def __init__(self, data: T):
+        self.data: T = data
+        self.next: Optional[Node] = None
 
 
 # Crea una lista que solo permita nodos de un tipo de dato (genérico)

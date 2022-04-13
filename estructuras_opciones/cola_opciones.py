@@ -1,5 +1,4 @@
 from tkinter import *
-from estructuras.cola.cola import Cola
 from frontend.cola_interfaz import ColaInterfaz
 from estructuras_opciones.operaciones_estructuras import BotonesBasicos
 

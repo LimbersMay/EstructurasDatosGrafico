@@ -1,4 +1,14 @@
-from .nodo import Nodo
+class Nodo:
+    def __init__(self,nombre,edad):
+
+        self.nombre = nombre
+        self.edad = edad
+
+        self.siguiente = None
+    
+    def __str__(self):
+        return f"{self.nombre} - {self.edad} años "
+
 
 class Cola:
     def __init__(self,max = -1):
@@ -8,11 +18,11 @@ class Cola:
         self.max = max
 
     def insertar(self,nombre,edad):
-         # 1. - construir el nodo
+        # 1. - construir el nodo
         nuevo = Nodo(nombre,edad)
 
-         # 2 - visitar el nodo
-          # 3 - consultar si la cola esta vacia
+        # 2 - visitar el nodo
+        # 3 - consultar si la cola esta vacia
         if self.frente == None and self.fondo == None:
             # 3.1  Frente y fondo apuntan a nuevo
             self.frente = nuevo

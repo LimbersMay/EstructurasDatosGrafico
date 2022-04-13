@@ -1,5 +1,5 @@
 from frontend.lista_interfaz import ListaInterfaz
-from estructuras.cola.cola import Cola
+from estructuras.cola import Cola
 
 class ColaInterfaz(ListaInterfaz):
 

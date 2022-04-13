@@ -1,4 +1,4 @@
-from estructuras.lista_circular.circular_list import CircularList
+from estructuras.circular_list import CircularList
 from frontend.lista_interfaz import ListaInterfaz
 
 class ListaCircularInterfaz(ListaInterfaz):

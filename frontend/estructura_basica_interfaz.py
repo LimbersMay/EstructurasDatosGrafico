@@ -1,5 +1,5 @@
 from tkinter import *
-from estructuras.cola.cola import Cola
+from estructuras.cola import Cola
 # Estructura básica dirigida para las colas y las pilas, pues ambos comparten métodos similares como lo son: insertar, eliminar y buscar.
 
 class EstructuraBasica(Frame):

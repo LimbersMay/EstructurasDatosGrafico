@@ -1,4 +1,4 @@
-from estructuras.lista_enlazada.linked_list import LinkedList
+from estructuras.linked_list import LinkedList
 from frontend.lista_interfaz import ListaInterfaz
 
 class ListaSimpleInterfaz(ListaInterfaz):

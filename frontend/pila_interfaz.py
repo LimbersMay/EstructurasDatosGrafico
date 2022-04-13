@@ -1,5 +1,5 @@
 from tkinter import *
-from estructuras.pila.pila import Pila
+from estructuras.pila import Pila
 
 class PilaInterfaz(Frame):
 
