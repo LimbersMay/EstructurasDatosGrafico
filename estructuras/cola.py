@@ -1,13 +1,11 @@
 class Nodo:
-    def __init__(self,nombre,edad):
+    def __init__(self,elemento):
 
-        self.nombre = nombre
-        self.edad = edad
-
+        self.elemento = elemento
         self.siguiente = None
     
     def __str__(self):
-        return f"{self.nombre} - {self.edad} años "
+        return f"{self.elemento}"
 
 
 class Cola:
@@ -17,9 +15,9 @@ class Cola:
         self.fondo = None
         self.max = max
 
-    def insertar(self,nombre,edad):
+    def insertar(self,elemento):
         # 1. - construir el nodo
-        nuevo = Nodo(nombre,edad)
+        nuevo = Nodo(elemento)
 
         # 2 - visitar el nodo
         # 3 - consultar si la cola esta vacia
@@ -47,11 +45,11 @@ class Cola:
             aux = aux.siguiente
 
         return resultado
-    def buscar_nodo(self,nombre):
+    def buscar_nodo(self,elemento):
         aux = self.frente
         vistos = 0
         while vistos < self.tamanio:
-            if nombre == aux.nombre:
+            if elemento == aux.elemento:
                 return aux
             else:
                 aux = aux.siguiente
