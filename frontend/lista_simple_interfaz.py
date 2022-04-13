@@ -1,7 +1,4 @@
-from abc import abstractclassmethod
 from tkinter import *
-
-from matplotlib.pyplot import text
 from estructuras.lista_enlazada.linked_list import LinkedList
 
 class ListaInterfaz(Frame):

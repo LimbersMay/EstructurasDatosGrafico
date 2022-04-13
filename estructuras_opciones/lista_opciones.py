@@ -1,5 +1,5 @@
 from tkinter import *
-from frontend.lista_interfaz import ListaInterfaz
+from frontend.lista_simple_interfaz import ListaInterfaz
 
 class ListaOpciones(Frame):
 
