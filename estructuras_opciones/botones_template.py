@@ -1,5 +1,6 @@
 from tkinter import *
 
+
 # Clase plantilla para los botones inferiores de todas los tipos de listas
 class BotonesLista(Frame):
 
@@ -8,7 +9,7 @@ class BotonesLista(Frame):
 
         # Atributos
         self.lista_interfaz = lista_interfaz
-        
+
         # Elementos del frame
         self.dato_label = Label(self, text="Valor: ")
         self.dato_entry = Entry(self)
@@ -20,21 +21,22 @@ class BotonesLista(Frame):
         self.eliminar_inicio = Button(self, text="Eliminar al inicio", command=self.eliminar_inicio)
 
         self.buscar_button = Button(self, text="Buscar")
-    
+
     def insertar_final(self):
         self.lista_interfaz.insertar_final(self.dato_entry.get())
-    
+
     def insertar_inicio(self):
         self.lista_interfaz.insertar_inicio(self.dato_entry.get())
 
     def eliminar_final(self):
         self.lista_interfaz.eliminar_final()
-    
+
     def eliminar_inicio(self):
         self.lista_interfaz.eliminar_inicio()
-    
+
     def buscar(self):
         self.lista_interfaz.buscar(self.dato_entry.get())
+
 
 class BotonesBasicos(Frame):
     def __init__(self, master, estructura_interfaz):
@@ -51,13 +53,13 @@ class BotonesBasicos(Frame):
         self.insertar_button.grid(row=0, column=0)
         self.eliminar_button.grid(row=0, column=1)
         self.buscar_button.grid(row=0, column=2)
-    
+
     # Métodos de la estructura (Pila o Cola)
     def insertar(self, elemento):
         pass
-    
+
     def eliminar(self):
         pass
-    
+
     def buscar(self, elemento):
         self.estructura_interfaz.buscar(elemento)

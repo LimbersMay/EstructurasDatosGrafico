@@ -1,10 +1,9 @@
 from tkinter import *
 from frontend.lista_dobl_interfaz import ListaDobEnlazadaInterfaz
-from estructuras_opciones.operaciones_estructuras import BotonesLista
+from estructuras_opciones.botones_template import BotonesLista
+
 
 class ListaDobEnOpciones(Frame):
-
-    # Variable estatica para el manejo de la lista
 
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -52,10 +51,10 @@ class BotonesInferiores(BotonesLista):
         self.eliminar_inicio.grid(row=0, column=9)
 
         self.buscar_button.grid(row=0, column=10)
-    
+
     # Métodos de la lista
     def insertar_posicion(self):
         self.lista_interfaz.insertar_posicion(self.dato_entry.get(), int(self.indice_entry.get()))
-    
+
     def eliminar_posicion(self):
         self.lista_interfaz.eliminar_por_posicion(int(self.indice_entry.get()))

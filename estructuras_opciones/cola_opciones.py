@@ -1,6 +1,7 @@
 from tkinter import *
 from frontend.cola_interfaz import ColaInterfaz
-from estructuras_opciones.operaciones_estructuras import BotonesBasicos
+from estructuras_opciones.botones_template import BotonesBasicos
+
 
 class ColaOpciones(Frame):
 
