@@ -1,4 +1,3 @@
-from tkinter import *
 from estructuras.lista_circular.circular_list import CircularList
 from frontend.lista_interfaz import ListaInterfaz
 

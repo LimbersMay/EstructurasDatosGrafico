@@ -1,14 +1,13 @@
 # Clase que será la plantilla para todas las listas
 # Contendrá las operaciones básicas de una lista, cada lista agregará sus propias funcionalidades adicionales
 from tkinter import *
-from estructuras.lista_enlazada.linked_list import LinkedList
 
 class ListaInterfaz(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.lista = LinkedList()
+        self.lista = None # Nosotros definimos qué tipo de lista usaremos cuando heredemos de esta clase y sobreescribamos este atributo
         self.lista_frames = []
 
         # Configuraciones de la ventana

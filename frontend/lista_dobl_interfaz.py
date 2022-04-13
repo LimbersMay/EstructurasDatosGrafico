@@ -1,4 +1,3 @@
-from tkinter import *
 from estructuras.lista_dob_enlazada.double_linked_list import DoubleLinkedList
 from frontend.lista_interfaz import ListaInterfaz
 
