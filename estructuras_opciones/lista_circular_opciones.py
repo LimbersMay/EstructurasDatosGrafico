@@ -24,8 +24,8 @@ class BotonesInferiores(PlantillaBotones):
         super().__init__(master, lista_interfaz)
 
         # Elementos del frame
-        self.rotar_izquierda_button = Button(self, text="Rotar Izquierda")
-        self.rotar_derecha_button = Button(self, text="Rotar Derecha")
+        self.rotar_izquierda_button = Button(self, text="Rotar Izquierda", command=self.rotar_izquierda)
+        self.rotar_derecha_button = Button(self, text="Rotar Derecha", command=self.rotar_derecha)
 
         # Posicionamiento de los elementos del frame
         self.dato_label.grid(row=0, column=0)
@@ -41,3 +41,10 @@ class BotonesInferiores(PlantillaBotones):
         self.eliminar_final.grid(row=0, column=7)
 
         self.buscar_button.grid(row=0, column=8)
+
+    # Métodos de la lista
+    def rotar_izquierda(self):
+        self.lista_interfaz.rotar_izquierda()
+    
+    def rotar_derecha(self):
+        self.lista_interfaz.rotar_derecha()
