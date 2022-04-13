@@ -1,5 +1,5 @@
 from tkinter import *
-from frontend.lista_simple_interfaz import ListaInterfaz
+from frontend.lista_simple_interfaz import ListaSimpleInterfaz
 
 class ListaOpciones(Frame):
 
@@ -10,7 +10,7 @@ class ListaOpciones(Frame):
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista simplemente enlazada")
-        self.lista_interfaz = ListaInterfaz(self)
+        self.lista_interfaz = ListaSimpleInterfaz(self)
         self.botones_inferiores = BotonesInferiores(self, self.lista_interfaz)
 
         # Posicionamiento de los elementos
