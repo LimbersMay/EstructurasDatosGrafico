@@ -165,22 +165,20 @@ class DoubleLinkedList:
             self._size -= 1
             return aux
 
-    # Look for items in the list
-    def search_position_node(self, data: T) -> Node:
+    # Method that return the node in one position
+    def search_position_node(self, position: int) -> Node:
         aux = self._head
+        iterations = 0
 
-        while aux is not self._tail:
-            if aux.data == data:
+        while iterations <= self._size:
+            if iterations == position:
                 return aux
 
             else:
                 aux = aux.next
+                iterations += 1
 
-        if aux is self._tail:
-            return aux
-
-        else:
-            raise Exception('No item found')
+        raise Exception('Invalid position')
 
     def search_position(self, data: T) -> int:
         aux = self._head
