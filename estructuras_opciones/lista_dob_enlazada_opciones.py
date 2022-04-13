@@ -1,7 +1,10 @@
 from tkinter import *
-from frontend.lista_dobl_interfaz import ListaDobleInterfaz
+from frontend.lista_dobl_interfaz import ListaDobEnlazadaInterfaz
+from estructuras_opciones.botones_inf_listas import PlantillaBotones
 
 class ListaDobEnOpciones(Frame):
+
+    # Variable estatica para el manejo de la lista
 
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -10,15 +13,40 @@ class ListaDobEnOpciones(Frame):
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista Doble Enlazada")
-        self.lista_doble_interfaz = ListaDobleInterfaz(self)
-        self.botones_inferiores = BotonesInferiores(self, self.lista_doble_interfaz)
+        self.lista_interfaz = ListaDobEnlazadaInterfaz(self)
+        self.botones_inferiores = BotonesInferiores(self, self.lista_interfaz)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
-        self.lista_doble_interfaz.grid(row=1, column=0)
+        self.lista_interfaz.grid(row=1, column=0)
         self.botones_inferiores.grid(row=2, column=0)
 
 
-class BotonesInferiores(Frame):
-    def __init__(self, lista_doble_interfaz):
-        pass
+class BotonesInferiores(PlantillaBotones):
+
+    def __init__(self, master, lista_interfaz):
+        super().__init__(master, lista_interfaz)
+
+        # Elementos del frame
+        self.indice_label = Label(self, text="Indice: ")
+        self.indice_entry = Entry(self)
+
+        self.insertar_posicion_button = Button(self, text="Insertar en posicion")
+
+        # Posicionamiento de los elementos
+        self.dato_label.grid(row=0, column=0)
+        self.dato_entry.grid(row=0, column=1)
+
+        self.indice_label.grid(row=0, column=2)
+        self.indice_entry.grid(row=0, column=3)
+
+        self.insertar_posicion_button.grid(row=0, column=4)
+
+        self.insertar_final.grid(row=0, column=5)
+        self.insertar_inicio.grid(row=0, column=6)
+
+        self.eliminar_final.grid(row=0, column=7)
+        self.eliminar_inicio.grid(row=0, column=8)
+
+        self.buscar_button.grid(row=0, column=9)
+    
