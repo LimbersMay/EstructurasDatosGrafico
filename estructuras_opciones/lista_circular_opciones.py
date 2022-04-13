@@ -1,5 +1,5 @@
 from tkinter import *
-from estructuras_opciones.operaciones_listas import PlantillaBotones
+from estructuras_opciones.operaciones_estructuras import PlantillaBotones
 from frontend.lista_circular_interfaz import ListaCircularInterfaz
 
 class ListaCircularOpciones(Frame):
