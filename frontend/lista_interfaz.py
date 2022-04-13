@@ -13,7 +13,7 @@ class ListaInterfaz(Frame):
         self.lista_frames = []
 
         # Configuraciones de la ventana
-        self.config(width=870, height=350, bg="#146356")
+        self.config(width=1000, height=350, bg="#146356")
         self.grid_propagate(False)
 
         self.rowconfigure(0, weight=1)
