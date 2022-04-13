@@ -86,7 +86,7 @@ class DoubleLinkedList:
                 self._size += 1
                 return new
 
-    # Removal of items
+    # Method that removes the head
     def remove_head(self) -> Node:
         if self.is_empty():
             raise Exception('subdesbordamiento')
@@ -95,16 +95,13 @@ class DoubleLinkedList:
             self._head = None
             self._tail = None
 
-            self._size -= 1
-
         else:
-            prev_head = self._head
-            self._head.next.prev = None
+            aux = self._head
             self._head = self._head.next
-            self._head.next = None
+            self._head.prev = None
 
             self._size -= 1
-            return prev_head
+            return aux
 
     def remove_tail(self) -> Node:
         if self.is_empty():
