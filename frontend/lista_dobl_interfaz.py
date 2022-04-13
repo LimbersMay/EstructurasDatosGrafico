@@ -12,9 +12,9 @@ class ListaDobEnlazadaInterfaz(ListaInterfaz):
     def insertar_posicion(self, data, posicion):
         self.lista.append_in_position(data, posicion)
 
-        super().dibujar_lista()
+        self.dibujar_lista()
     
     def eliminar_por_posicion(self, posicion):
         self.lista.remove_node_position(posicion)
 
-        super().dibujar_lista()
+        self.dibujar_lista()

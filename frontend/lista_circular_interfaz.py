@@ -5,13 +5,17 @@ from frontend.lista_interfaz import ListaInterfaz
 class ListaCircularInterfaz(ListaInterfaz):
 
     def __init__(self, master):
-        Frame.__init__(self, master)
+        super().__init__(master)
 
         self.lista = CircularList()
     
     # Métodos de la lista circular
     def rotar_izquierda(self):
-        pass
+        self.lista.move_left()
+
+        self.dibujar_lista()
 
     def rotar_derecha(self):
-        pass
+        self.lista.move_right()
+
+        self.dibujar_lista()
