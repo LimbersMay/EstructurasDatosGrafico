@@ -27,11 +27,13 @@ class BotonesInferiores(PlantillaBotones):
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)
 
+        self.lista_interfaz = lista_interfaz
+
         # Elementos del frame
         self.indice_label = Label(self, text="Indice: ")
         self.indice_entry = Entry(self)
 
-        self.insertar_posicion_button = Button(self, text="Insertar en posicion")
+        self.insertar_posicion_button = Button(self, text="Insertar en posicion", command=self.insertar_posicion)
 
         # Posicionamiento de los elementos
         self.dato_label.grid(row=0, column=0)
@@ -50,3 +52,6 @@ class BotonesInferiores(PlantillaBotones):
 
         self.buscar_button.grid(row=0, column=9)
     
+    # Métodos de la lista
+    def insertar_posicion(self):
+        self.lista_interfaz.insertar_posicion(self.dato_entry.get(), int(self.indice_entry.get()))
