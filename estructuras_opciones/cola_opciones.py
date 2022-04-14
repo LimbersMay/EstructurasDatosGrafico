@@ -1,6 +1,7 @@
 from tkinter import *
-from frontend.cola_interfaz import ColaInterfaz
-from estructuras_opciones.botones_template import BotonesBasicos
+from estructuras.cola import Cola
+from .templates.lista_simple_template import ListaInterfaz
+from .templates.botones_lineales_template import BotonesBasicos
 
 
 class ColaOpciones(Frame):
@@ -19,6 +20,24 @@ class ColaOpciones(Frame):
         self.titulo.grid(row=0, column=0)
         self.cola_interfaz.grid(row=1, column=0)
         self.botones_inferiores.grid(row=2, column=0)
+
+
+class ColaInterfaz(ListaInterfaz):
+
+    def __init__(self, master):
+        super().__init__(master)
+
+        self.lista = Cola()
+
+    def insertar(self, elemento):
+        self.lista.insertar(elemento)
+
+        self.dibujar_lista()
+
+    def eliminar(self):
+        self.lista.eliminar()
+
+        self.dibujar_lista()
 
 
 class BotonesCola(BotonesBasicos):

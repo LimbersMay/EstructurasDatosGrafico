@@ -1,6 +1,7 @@
 from tkinter import *
-from estructuras_opciones.botones_template import BotonesLista
-from frontend.lista_simple_interfaz import ListaSimpleInterfaz
+from estructuras.linked_list import LinkedList
+from .templates.lista_simple_template import ListaInterfaz
+from .templates.botones_lineales_template import BotonesLista
 
 
 class ListaOpciones(Frame):
@@ -19,6 +20,13 @@ class ListaOpciones(Frame):
         self.titulo.grid(row=0, column=0)
         self.lista_interfaz.grid(row=1, column=0)
         self.botones_inferiores.grid(row=2, column=0)
+
+
+class ListaSimpleInterfaz(ListaInterfaz):
+    def __init__(self, master):
+        super().__init__(master)
+
+        self.lista = LinkedList()
 
 
 class BotonesInferiores(BotonesLista):

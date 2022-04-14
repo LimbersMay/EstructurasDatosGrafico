@@ -1,6 +1,7 @@
 from tkinter import *
-from frontend.lista_dobl_interfaz import ListaDobEnlazadaInterfaz
-from estructuras_opciones.botones_template import BotonesLista
+from estructuras.double_linked_list import DoubleLinkedList
+from .templates.lista_simple_template import ListaInterfaz
+from .templates.botones_lineales_template import BotonesLista
 
 
 class ListaDobEnOpciones(Frame):
@@ -21,6 +22,24 @@ class ListaDobEnOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
+class ListaDobEnlazadaInterfaz(ListaInterfaz):
+
+    def __init__(self, master):
+        super().__init__(master)
+
+        self.lista = DoubleLinkedList()
+
+    def insertar_posicion(self, data, posicion):
+        self.lista.append_in_position(data, posicion)
+
+        self.dibujar_lista()
+
+    def eliminar_por_posicion(self, posicion):
+        self.lista.remove_node_position(posicion)
+
+        self.dibujar_lista()
+
+
 class BotonesInferiores(BotonesLista):
 
     def __init__(self, master, lista_interfaz):
@@ -31,7 +50,6 @@ class BotonesInferiores(BotonesLista):
         self.indice_entry = Entry(self)
 
         self.insertar_posicion_button = Button(self, text="Insertar en posicion", command=self.insertar_posicion)
-
         self.eliminar_posicion_button = Button(self, text="Eliminar en posicion", command=self.eliminar_posicion)
 
         # Posicionamiento de los elementos

@@ -1,12 +1,14 @@
 from tkinter import *
-from estructuras_opciones.botones_template import BotonesBasicos
-from frontend.pila_interfaz import PilaInterfaz
+from estructuras.pila import Pila
+from .templates.lista_simple_template import ListaInterfaz
+from .templates.botones_lineales_template import BotonesBasicos
+
 
 class PilaOpciones(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
-    
+
         master.title("Estructura de datos Pila")
 
         # Elementos del frame
@@ -18,6 +20,27 @@ class PilaOpciones(Frame):
         self.label_titulo.grid(row=0, column=0)
         self.pila_interfaz.grid(row=1, column=0)
         self.botones_inferiores.grid(row=2, column=0)
+
+
+class PilaInterfaz(ListaInterfaz):
+
+    def __init__(self, master):
+        super().__init__(master)
+
+        self.lista = Pila()
+
+    def insertar(self, valor):
+        self.lista.insertar(valor)
+
+        self.dibujar_lista()
+
+    def eliminar(self):
+        self.lista.eliminar()
+
+        self.dibujar_lista()
+
+    def buscar(self, valor):
+        self.dibujar_lista(valor)
 
 
 class BotonesPila(BotonesBasicos):

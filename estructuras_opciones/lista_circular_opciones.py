@@ -1,6 +1,7 @@
 from tkinter import *
-from estructuras_opciones.botones_template import BotonesLista
-from frontend.lista_circular_interfaz import ListaCircularInterfaz
+from estructuras.circular_list import CircularList
+from .templates.lista_simple_template import ListaInterfaz
+from .templates.botones_lineales_template import BotonesLista
 
 
 class ListaCircularOpciones(Frame):
@@ -19,6 +20,25 @@ class ListaCircularOpciones(Frame):
         self.titulo.grid(row=0, column=0)
         self.lista_interfaz.grid(row=1, column=0)
         self.botones_inferiores.grid(row=2, column=0)
+
+
+class ListaCircularInterfaz(ListaInterfaz):
+
+    def __init__(self, master):
+        super().__init__(master)
+
+        self.lista = CircularList()
+
+    # Métodos de la lista circular
+    def rotar_izquierda(self):
+        self.lista.move_left()
+
+        self.dibujar_lista()
+
+    def rotar_derecha(self):
+        self.lista.move_right()
+
+        self.dibujar_lista()
 
 
 class BotonesInferiores(BotonesLista):
