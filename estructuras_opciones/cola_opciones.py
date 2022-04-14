@@ -24,3 +24,11 @@ class ColaOpciones(Frame):
 class BotonesCola(BotonesBasicos):
     def __init__(self, master, cola_interfaz):
         super().__init__(master, cola_interfaz)
+
+        # Posicionamiento de los elementos del frame
+        self.dato_label.grid(row=0, column=0)
+        self.dato_entry.grid(row=0, column=1)
+
+        self.insertar_button.grid(row=0, column=2)
+        self.eliminar_button.grid(row=0, column=3)
+        self.buscar_button.grid(row=0, column=4)

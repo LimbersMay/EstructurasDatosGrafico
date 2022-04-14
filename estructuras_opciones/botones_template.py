@@ -52,14 +52,6 @@ class BotonesBasicos(Frame):
         self.eliminar_button = Button(self, text="Eliminar", command=self.eliminar)
         self.buscar_button = Button(self, text="Buscar", command=self.buscar)
 
-        # Posicionamiento de los elementos del frame
-        self.dato_label.grid(row=0, column=0)
-        self.dato_entry.grid(row=0, column=1)
-
-        self.insertar_button.grid(row=0, column=2)
-        self.eliminar_button.grid(row=0, column=3)
-        self.buscar_button.grid(row=0, column=4)
-
     # Métodos de la estructura (Pila o Cola)
     def insertar(self):
         self.estructura_interfaz.insertar(self.dato_entry.get())
