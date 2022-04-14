@@ -17,7 +17,7 @@ class Node:
 
 class BinaryTree:
     def __init__(self, data):
-        self.__root = data
+        self.__root = Node(data)
 
     def insert_left(self, data: T, ref: T):
         node = self.__search(ref)
