@@ -6,4 +6,14 @@ class ColaInterfaz(ListaInterfaz):
     def __init__(self, master):
         super().__init__(master)
 
-        self.cola = Cola()
+        self.lista = Cola()
+    
+    def insertar(self, elemento):
+        self.lista.insertar(elemento)
+
+        self.dibujar_lista()
+    
+    def eliminar(self):
+        self.lista.eliminar()
+
+        self.dibujar_lista()
