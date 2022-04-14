@@ -142,3 +142,22 @@ class BinaryTree:
 
         else:
             return 'a'
+
+    # Algorithm that visit the nodes based on the depth
+    def level_order(self) -> str:
+        result = ''
+        queue = [self.__root]
+
+        while len(queue) > 0:
+            node = queue.pop(0)
+
+            if node is not None:
+                result += str(node.data) + ' '
+
+                if node.left is not None:
+                    queue.append(node.left)
+
+                if node.right is not None:
+                    queue.append(node.right)
+
+        return result
