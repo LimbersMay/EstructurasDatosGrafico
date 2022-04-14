@@ -20,7 +20,7 @@ class BotonesLista(Frame):
         self.eliminar_final = Button(self, text="Eliminar al final", command=self.eliminar_final)
         self.eliminar_inicio = Button(self, text="Eliminar al inicio", command=self.eliminar_inicio)
 
-        self.buscar_button = Button(self, text="Buscar")
+        self.buscar_button = Button(self, text="Buscar", command=self.buscar)
 
     def insertar_final(self):
         self.lista_interfaz.insertar_final(self.dato_entry.get())
