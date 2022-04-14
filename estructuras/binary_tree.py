@@ -15,19 +15,6 @@ class Node:
         return self.left is None and self.right is None
 
 
-class Node:
-    def __init__(self, data: T):
-        self.data = data
-        self.left: Optional[Node] = None
-        self.right: Optional[Node] = None
-
-    def is_leaf(self):
-        return self.left is None and self.right is None
-
-    def __str__(self):
-        return str(self.data)
-
-
 class BinaryTree:
     def __init__(self, data):
         self.__root = data
