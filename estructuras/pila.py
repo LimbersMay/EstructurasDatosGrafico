@@ -1,7 +1,7 @@
 class Nodo:
     def __init__(self, elemento):
         # Parte amarilla
-        self.nombre = elemento
+        self.data = elemento
         # Parte morada
         self.siguiente = None
 
@@ -10,15 +10,15 @@ class Pila:
     
     def __init__(self, max = -1):
         self.tope = None
-        self.tamanio = 0
+        self._size = 0
         self.max = max
 
     def insertar(self, elemento):
-        if self.max == -1 or self.tamanio < self.max:
+        if self.max == -1 or self._size < self.max:
             nuevo_nodo = Nodo(elemento)
             nuevo_nodo.siguiente = self.tope
             self.tope = nuevo_nodo
-            self.tamanio += 1
+            self._size += 1
         else:
             raise Exception('Desbordamiento de pila')
 
@@ -29,7 +29,7 @@ class Pila:
             if aux == None:
                 break
             else:
-                elementos.append(aux.nombre)
+                elementos.append(aux.data)
                 aux = aux.siguiente
 
         return elementos
@@ -41,7 +41,7 @@ class Pila:
             aux = self.tope
             self.tope = self.tope.siguiente
             aux.siguiente = None
-            self.tamanio -= 1
+            self._size -= 1
             return aux
     
     def buscar(self, elemento):
@@ -50,7 +50,7 @@ class Pila:
             if aux == None:
                 break
             else:
-                if aux.nombre == elemento:
+                if aux.data == elemento:
                     return True
                 else:
                     aux = aux.siguiente
@@ -63,9 +63,19 @@ class Pila:
             if aux == None:
                 break
             else:
-                if aux.nombre == elemento:
+                if aux.data == elemento:
                     return aux
                 else:
                     aux = aux.siguiente
         
         return None
+
+    
+    # Method that find a node in an index
+    def search_position_node(self, index):
+        if index < 0 or index >= self._size:
+            raise Exception('Index out of range')
+        aux = self.tope
+        for i in range(index):
+            aux = aux.siguiente
+        return aux
