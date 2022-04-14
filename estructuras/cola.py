@@ -1,7 +1,10 @@
+from lib2to3.pytree import Node
+
+
 class Nodo:
     def __init__(self,elemento):
 
-        self.elemento = elemento
+        self.data = elemento
         self.siguiente = None
     
     def __str__(self):
@@ -45,7 +48,7 @@ class Cola:
             aux = aux.siguiente
 
         return resultado
-    def buscar_nodo(self,elemento):
+    def buscar_nodo(self,elemento) -> Node:
         aux = self.frente
         vistos = 0
         while vistos < self._size:
@@ -58,6 +61,16 @@ class Cola:
 
         if vistos == self._size:
             raise Exception ('Error, el elemento no existe')
+    
+    # Method that return the node in an index
+    def search_position_node(self, index):
+        if index < 0 or index >= self._size:
+            raise Exception('Index out of range')
+        aux = self.frente
+        for i in range(index):
+            aux = aux.siguiente
+        return aux
+
     def eliminar(self):
         # 1- crear el auxiliar (señalar al frente)
         aux = self.frente
