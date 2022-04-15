@@ -1,4 +1,5 @@
 from __future__ import annotations
+from ast import arg
 from typing import Optional, TypeVar
 
 
@@ -14,11 +15,18 @@ class Node:
     def is_leaf(self):
         return self.left is None and self.right is None
 
+    def get_left(self):
+        return self.left
+
+    def get_right(self):
+        return self.right
+
 
 class BinaryTree:
     def __init__(self, data):
         self.__root = Node(data)
 
+    # Method that insert a node in the left side with a reference
     def insert_left(self, data: T, ref: T):
         node = self.__search(ref)
 
@@ -143,21 +151,86 @@ class BinaryTree:
         else:
             return 'a'
 
-    # Algorithm that visit the nodes based on the depth
-    def level_order(self) -> str:
-        result = ''
-        queue = [self.__root]
+    # Convert the binary tree to a list using Eytzi's algorithm
+    def to_list(self) -> list:
+        result = []
 
-        while len(queue) > 0:
-            node = queue.pop(0)
-
+        def to_list(node: Node, level: int) -> None:
             if node is not None:
-                result += str(node.data) + ' '
+                if level == len(result):
+                    result.append([])
 
-                if node.left is not None:
-                    queue.append(node.left)
+                result[level].append(node.data)
 
-                if node.right is not None:
-                    queue.append(node.right)
+                to_list(node.left, level + 1)
+                to_list(node.right, level + 1)
+
+        to_list(self.__root, 0)
 
         return result
+    
+
+    # Search the father of a node
+    def search_father(self, *args, child: Node) -> str:
+        node = self.__root if len(args) == 0 else args[0]
+
+        if node is not None:
+            if node.is_leaf():
+                return str(node.data)
+
+            else:
+                
+                if node.left == child or node.right == child:
+                    return node
+
+                father_left = self.search_father(node.left, child=child)
+                father_right = self.search_father(node.right, child=child)
+
+                if father_left is not None and not type(father_left) == str:
+                    return father_left
+                
+                elif father_right is not None and not type(father_right) == str:
+                    return father_right
+
+        else:
+            return 'a'
+
+    def search(self, data: T) -> Optional[Node]:
+        return self.__search(data)
+
+    # Complete the binary tree puting all the missing nodes in the left side
+    def complete_tree(self, *args) -> None:
+        node = self.__root if len(args) == 0 else args[0]
+        current_level = args[1] if len(args) >= 1 else 1
+        
+        if node is not None:
+            if node.is_leaf() and current_level == self.max_depth():
+                return
+
+            else:
+                if node.left is None:
+                    node.left = Node(None)
+
+                if node.right is None:
+                    node.right = Node(None)
+
+                self.complete_tree(node.left, current_level + 1)
+                self.complete_tree(node.right, current_level + 1)
+    
+    # Method that return the maximum depth of the tree
+    def max_depth(self, *args) -> int:
+        node = self.__root if len(args) == 0 else args[0]
+        current_level = args[1] if len(args) >= 1 else 1
+
+        if node is not None:
+            if node.is_leaf():
+                return current_level
+
+            else:
+                left = self.max_depth(node.left, current_level + 1)
+                right = self.max_depth(node.right, current_level + 1)
+
+                return max(left, right)
+
+        else:
+            return -1
