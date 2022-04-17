@@ -21,6 +21,9 @@ class Node:
     def get_right(self):
         return self.right
 
+    def get_data(self):
+        return self.data
+
 
 class BinaryTree:
     def __init__(self, data):
