@@ -171,10 +171,3 @@ class ArbolInterfaz(Frame):
             flecha.config(image=imagen)
         
         flecha.pack()
-        
-
-root = Tk()
-arbol = ArbolInterfaz(root)
-arbol.dibujar_arbol()
-arbol.pack()
-root.mainloop()
