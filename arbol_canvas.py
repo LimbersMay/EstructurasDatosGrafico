@@ -10,7 +10,7 @@ class Arbol(Frame):
         # Elementos del frame
         self.config(width=1000, height=350, bg="#146356")
 
-        self.matriz_nodos_frames = []
+        self.matriz_frames = []
         self.coordenadas = {}
 
         self.filas = 9
@@ -38,7 +38,7 @@ class Arbol(Frame):
                 # Posicionamos el frame
                 nodo_frame.grid(row=i, column=j)
 
-            self.matriz_nodos_frames.append(sub_matriz)
+            self.matriz_frames.append(sub_matriz)
 
     def dibujar_arbol(self):
 
@@ -48,127 +48,89 @@ class Arbol(Frame):
         self.arbol.insert_left(3, 5)
         self.arbol.insert_right(7, 5)
 
-        # 3
-        self.arbol.insert_left(2, 3)
-        self.arbol.insert_right(6, 3)
-
         # 7
+        self.arbol.insert_left(2, 7)
+        self.arbol.insert_right(6, 7)
 
         self.arbol.complete_tree()
 
-        matriz_arbol = self.arbol.to_list()
+        contador = 2
 
-        matriz_arbol_hashes = []
-
-        # Hacemos una copia del matriz arbol
-        for fila in matriz_arbol:
-            sub_matriz = []
-            for nodo in fila:
-                sub_matriz.append(nodo)
+        for nivel in range(self.arbol.max_depth()):
             
-            matriz_arbol_hashes.append(sub_matriz)
+            nodos_nivel = self.arbol.level_nodes(nivel)
 
-        #
-        # [[5], [2, 5], [8, 9, 22, 44], [11, 12, 14, 54, 23, 43, 98, 22]]
-        #
+            if nivel == 0:
+                self.insertar_raiz(nivel, nodos_nivel)
 
-        # Recorremos la matriz del árbol para insertar los nodos
-        for i in range(len(matriz_arbol)):
-            for j in range(len(matriz_arbol[i])):
+            if nivel >= 1:
+                # Para los primeros hijos
+                self.insertar_nodos(nivel + contador, nivel + contador, nodos_nivel)
+                contador += 1
 
-                # Si el nodo es la raíz
-                if i == 0 and j == 0:
-                    id = uuid.uuid4()
-
-                    self.insertar_raiz([i, round(self.columnas / 2)], matriz_arbol[i][j], id)
-                    matriz_arbol_hashes[i][j] = id
-
-                    break
-
-                # Nodos hijos de la raíz
-                elif len(matriz_arbol[i - 1]) == 1 and j == 0:
-
-                    # Id para identificar cada nodo
-                    id_izq = uuid.uuid4()
-                    id_der = uuid.uuid4()
-
-                    hash_nodo_padre = matriz_arbol_hashes[i - 1][0]
-                    inf_nodo = self.coordenadas[hash_nodo_padre]
-
-                    x, y = inf_nodo['coordenadas']
-
-                    self.insertar_izquierda([x + 1, y - 1], matriz_arbol[i][j], id_izq)
-                    self.insertar_derecha([x + 1, y + 1], matriz_arbol[i][j + 1], id_der)
-
-                    # Guardamos los hashes de los nodos
-                    matriz_arbol_hashes[i][j] = id_izq
-                    matriz_arbol_hashes[i][j + 1] = id_der
-                    break
-                
-                
-                # Nodos hijos de los nodos hijos de la raíz
-                contador = 0
-                for z in range(int(len(matriz_arbol[i]) / 2)):
-
-                    hash_nodo_padre = matriz_arbol_hashes[i - 1][z]
-                    inf_nodo = self.coordenadas[hash_nodo_padre]
-
-                    x, y = inf_nodo['coordenadas']
-
-                    # Id para identificar cada nodo
-                    id_izq = uuid.uuid4()
-                    id_der = uuid.uuid4()
-
-                    self.insertar_izquierda([x, y], matriz_arbol[i][contador + z], id_izq)
-                    self.insertar_derecha([x, y], matriz_arbol[i][contador+z + 1], id_der)
-
-                    # Guardamos los hashes de los nodos
-                    matriz_arbol_hashes[i][contador+z] = id_izq
-                    matriz_arbol_hashes[i][contador+z + 1] = id_der
-
-                    contador += 1
-
-                break
-
-    # Función para insertar un nodo a la izquierda
-    def insertar_raiz(self, coordenadas: list, valor: str, id):
-
-        x, y = coordenadas
-
-        frame_buscado = self.matriz_nodos_frames[x][y]
+    # Función para insertar el nodo raíz
+    def insertar_raiz(self, profundidad_y: int, nodo):
+        punto_medio_x = int(round(self.columnas / 2))
         
-        # Pintamos de amarillo el nodo que se encuentre en esas coordenadas, además de agregarle
-        # el texto que se le pase como parámetro
-        frame_buscado.config(bg='#FFC300')
-        Label(frame_buscado, text=valor, bg='#FFC300', font=("Helvetica", 12)).pack()
+        nodo_raiz = self.matriz_frames[profundidad_y][punto_medio_x]
 
-        self.coordenadas[id] = {'valor': valor, 'coordenadas': [x, y]}
+        # Datos del nodo
+        nodo_dato = nodo[0].get_data()
+        id_nodo = hex(id(nodo[0]))
 
-    # Función para insertar un nodo a la derecha recibiendo las coordenadas de su padre
-    def insertar_derecha(self, coordenadas: list, valor, id):
-        x, y = coordenadas
+        # Pintamos el nodo raíz
+        nodo_raiz.config(bg='#FFC107')
 
-        frame_buscado = self.matriz_nodos_frames[x + 2][y + 2]
+        # Ponemos el dato del nodo raíz
+        Label(nodo_raiz, text=nodo_dato, bg='#FFC107').pack()
+        Label(nodo_raiz, text=id_nodo, bg='#FFC107', font=("Helvetica", 7)).pack()
 
-        # Pintamos de amarillo el nodo que se encuentre en esas coordenadas, además de agregarle
-        # el texto que se le pase como parámetro
-        frame_buscado.config(bg='#FFC300')
-        Label(frame_buscado, text=valor, bg='#FFC300', font=("Helvetica", 12)).pack()
+        # Ponemos las flechas
 
-        self.coordenadas[id] = {'valor': valor, 'coordenadas': [x + 2, y + 2]}
 
-    # Función para insertar un nodo a la izquierda recibiendo las coordenadas de su padre
-    def insertar_izquierda(self, coordenadas: list, valor, id):
-        x, y = coordenadas
+    # Función para insertar nodos
+    def insertar_nodos(self, profundidad_y: int, separacion_x: int, nodos: list):
+        punto_medio = int(round(self.columnas / 2))
 
-        frame_buscado = self.matriz_nodos_frames[x + 2][y - 2]
+        print("Nodos: ", nodos)
 
-        # Pintamos de amarillo el nodo que se encuentre en esas coordenadas, además de agregarle
-        # el texto que se le pase como parámetro
-        frame_buscado.config(bg='#FFC300')
-        Label(frame_buscado, text=valor, bg='#FFC300', font=("Helvetica", 12)).pack()
+        # Por la cantidad de nodos que tiene el nivel
+        for i in range(0, len(nodos) + 1, 4):
+            
+            # Nodo derecho
+            # Comprobamos que el nodo derecho exista
+            if nodos[-1].get_data() is not None:
+                nodo_derecho_frame = self.matriz_frames[profundidad_y][punto_medio + separacion_x - i]
+                nodo_derecho_frame.config(bg='#FFC107')
 
-        self.coordenadas[id] = {'valor': valor, 'coordenadas': [x + 2, y - 2]}
+
+                # Datos del nodo
+                nodo_dato = nodos[-1].get_data()
+                id_nodo = hex(id(nodos[-1]))
+
+                # Label que contiene el dato del nodo
+                Label(nodo_derecho_frame, text=nodo_dato, bg='#FFC107').pack()
+
+                # Label que contiene el id del nodo
+                Label(nodo_derecho_frame, text=id_nodo, bg='#FFC107', font=("Helvetica", 7)).pack()
+            
+            # Nodo izquierdo
+            # Comprobamos que el nodo izquierdo exista
+            if nodos[0].get_data() is not None:
+                nodo_izquierdo_frame = self.matriz_frames[profundidad_y][punto_medio - separacion_x + i]
+                nodo_izquierdo_frame.config(bg='#FFC107')
+
+                # Datos del nodo
+                nodo_dato = nodos[0].get_data()
+                id_nodo = hex(id(nodos[0]))
+
+                # Label que contiene el dato del nodo
+                Label(nodo_izquierdo_frame, text=nodo_dato, bg='#FFC107').pack()
+                Label(nodo_izquierdo_frame, text=id_nodo, bg='#FFC107', font=("Helvetica", 7)).pack()
+
+            # Eliminamos los nodos
+            nodos.pop()
+            nodos.pop(0)
 
 
 root = Tk()
