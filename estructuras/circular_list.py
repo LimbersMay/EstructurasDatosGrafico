@@ -68,7 +68,7 @@ class CircularList:
 
         else:
             aux = self._tail
-            precedent = self._position_search(self._size - 2)
+            precedent = self.search_position_node(self._size - 2)
 
             precedent.next = self._head
             self._tail.next = None
@@ -88,7 +88,7 @@ class CircularList:
 
         else:
             position = self._search_positon(aux.data)
-            precedent = self._position_search(position-1)
+            precedent = self.search_position_node(position-1)
 
             precedent.next = aux.next
             aux.next = None
