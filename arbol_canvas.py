@@ -1,6 +1,6 @@
 from tkinter import *
 from estructuras.binary_tree import BinaryTree
-from nodo_coordenada import NodoCoordenada
+import uuid
 
 
 class Arbol(Frame):
@@ -56,18 +56,16 @@ class Arbol(Frame):
         self.arbol.complete_tree()
 
         matriz_arbol = self.arbol.to_list()
-        matriz_arbol_referencias = []
 
-        lista_nodos = []
+        matriz_arbol_hashes = []
 
-        # Recorremos la matriz del árbol y agregamos los nodos
-        for filas in matriz_arbol:
-            fila_referencias = []
-            for elemento in filas:
-                nodo = NodoCoordenada(elemento)
-                fila_referencias.append(nodo)
-
-            matriz_arbol_referencias.append(fila_referencias)
+        # Hacemos una copia del matriz arbol
+        for fila in matriz_arbol:
+            sub_matriz = []
+            for nodo in fila:
+                sub_matriz.append(nodo)
+            
+            matriz_arbol_hashes.append(sub_matriz)
 
         #
         # [[5], [2, 5], [8, 9, 22, 44], [11, 12, 14, 54, 23, 43, 98, 22]]
@@ -79,76 +77,79 @@ class Arbol(Frame):
 
                 # Si el nodo es la raíz
                 if i == 0 and j == 0:
-                    self.insertar_raiz([i, round(self.columnas / 2)], matriz_arbol[i][j])
+                    id = uuid.uuid4()
+
+                    self.insertar_raiz([i, round(self.columnas / 2)], matriz_arbol[i][j], id)
+                    matriz_arbol_hashes[i][j] = id
 
                     break
 
                 # Nodos hijos de la raíz
                 elif len(matriz_arbol[i - 1]) == 1 and j == 0:
-                    valor_anterior = matriz_arbol[i - 1][0]
 
-                    x, y = self.coordenadas[valor_anterior]
+                    # Id para identificar cada nodo
+                    id_izq = uuid.uuid4()
+                    id_der = uuid.uuid4()
 
-                    self.insertar_izquierda([x + 1, y - 1], matriz_arbol[i][j])
-                    self.insertar_derecha(
-                        [x + 1, y + 1], matriz_arbol[i][j + 1])
+                    hash_nodo_padre = matriz_arbol_hashes[i - 1][0]
+                    inf_nodo = self.coordenadas[hash_nodo_padre]
 
-                    print("Nodo padre: ", valor_anterior)
-                    print("Nodo izquierdo: ", matriz_arbol[i][j])
-                    print("Nodo derecho: ", matriz_arbol[i][j + 1])
-                    print("Coor izquierdo: ", self.coordenadas)
-                    print()
+                    x, y = inf_nodo['coordenadas']
 
+                    self.insertar_izquierda([x + 1, y - 1], matriz_arbol[i][j], id_izq)
+                    self.insertar_derecha([x + 1, y + 1], matriz_arbol[i][j + 1], id_der)
+
+                    # Guardamos los hashes de los nodos
+                    matriz_arbol_hashes[i][j] = id_izq
+                    matriz_arbol_hashes[i][j + 1] = id_der
                     break
-
+                
+                
                 # Nodos hijos de los nodos hijos de la raíz
                 contador = 0
-                for x in range(int(len(matriz_arbol[i]) / 2)):
-                    nodo_padre = matriz_arbol[i - 1][x]
+                for z in range(int(len(matriz_arbol[i]) / 2)):
 
-                    print("Nodo padre: ", nodo_padre)
-                    print("Nodo hijo derecho: ",
-                          matriz_arbol[i][contador+x + 1])
-                    print("Nodo hijo izquierdo: ",
-                          matriz_arbol[i][contador + x])
+                    hash_nodo_padre = matriz_arbol_hashes[i - 1][z]
+                    inf_nodo = self.coordenadas[hash_nodo_padre]
 
-                    self.insertar_izquierda(
-                        self.coordenadas[nodo_padre], matriz_arbol[i][contador + x])
-                    self.insertar_derecha(
-                        self.coordenadas[nodo_padre], matriz_arbol[i][contador+x + 1])
+                    x, y = inf_nodo['coordenadas']
 
-                    print("Coordenadas de hijos: ", self.coordenadas)
-                    print()
+                    # Id para identificar cada nodo
+                    id_izq = uuid.uuid4()
+                    id_der = uuid.uuid4()
+
+                    self.insertar_izquierda([x, y], matriz_arbol[i][contador + z], id_izq)
+                    self.insertar_derecha([x, y], matriz_arbol[i][contador+z + 1], id_der)
+
+                    # Guardamos los hashes de los nodos
+                    matriz_arbol_hashes[i][contador+z] = id_izq
+                    matriz_arbol_hashes[i][contador+z + 1] = id_der
 
                     contador += 1
 
                 break
 
-        print("Coordenadas: ", self.coordenadas)
-        print("Matriz del árbol: ", matriz_arbol)
-        print("Matriz del árbol referencias: ", matriz_arbol_referencias)
-
     # Función para insertar un nodo a la izquierda
-    def insertar_raiz(self, coordenadas: list, valor):
+    def insertar_raiz(self, coordenadas: list, valor: str, id):
 
         x, y = coordenadas
         self.matriz_nodos_frames[x][y].config(bg='#FFC300')
 
-        self.coordenadas[valor] = [x, y]
+        self.coordenadas[id] = {'valor': valor, 'coordenadas': [x, y]}
 
     # Función para insertar un nodo a la derecha recibiendo las coordenadas de su padre
-    def insertar_derecha(self, coordenadas: list, valor):
+    def insertar_derecha(self, coordenadas: list, valor, id):
         x, y = coordenadas
         self.matriz_nodos_frames[x + 2][y + 2].config(bg='#FFC300')
 
-        self.coordenadas[valor] = [x + 2, y + 2]
+        self.coordenadas[id] = {'valor': valor, 'coordenadas': [x + 2, y + 2]}
 
     # Función para insertar un nodo a la izquierda recibiendo las coordenadas de su padre
-    def insertar_izquierda(self, coordenadas: list, valor):
+    def insertar_izquierda(self, coordenadas: list, valor, id):
         x, y = coordenadas
         self.matriz_nodos_frames[x + 2][y - 2].config(bg='#FFC300')
 
-        self.coordenadas[valor] = [x + 2, y - 2]
+        self.coordenadas[id] = {'valor': valor, 'coordenadas': [x + 2, y - 2]}
 
 
 root = Tk()
