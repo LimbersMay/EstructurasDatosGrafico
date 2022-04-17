@@ -30,8 +30,9 @@ class Arbol(Frame):
         for i in range(self.filas):
             sub_matriz = []
             for j in range(self.columnas):
-                nodo_frame = Frame(self, width=25, height=25, bg='#141E27',
+                nodo_frame = Frame(self, width=40, height=40, bg='#141E27',
                                    highlightbackground="black", highlightthickness=1)
+                nodo_frame.pack_propagate(False)
                 sub_matriz.append(nodo_frame)
 
                 # Posicionamos el frame
@@ -133,21 +134,39 @@ class Arbol(Frame):
     def insertar_raiz(self, coordenadas: list, valor: str, id):
 
         x, y = coordenadas
-        self.matriz_nodos_frames[x][y].config(bg='#FFC300')
+
+        frame_buscado = self.matriz_nodos_frames[x][y]
+        
+        # Pintamos de amarillo el nodo que se encuentre en esas coordenadas, además de agregarle
+        # el texto que se le pase como parámetro
+        frame_buscado.config(bg='#FFC300')
+        Label(frame_buscado, text=valor, bg='#FFC300', font=("Helvetica", 12)).pack()
 
         self.coordenadas[id] = {'valor': valor, 'coordenadas': [x, y]}
 
     # Función para insertar un nodo a la derecha recibiendo las coordenadas de su padre
     def insertar_derecha(self, coordenadas: list, valor, id):
         x, y = coordenadas
-        self.matriz_nodos_frames[x + 2][y + 2].config(bg='#FFC300')
+
+        frame_buscado = self.matriz_nodos_frames[x + 2][y + 2]
+
+        # Pintamos de amarillo el nodo que se encuentre en esas coordenadas, además de agregarle
+        # el texto que se le pase como parámetro
+        frame_buscado.config(bg='#FFC300')
+        Label(frame_buscado, text=valor, bg='#FFC300', font=("Helvetica", 12)).pack()
 
         self.coordenadas[id] = {'valor': valor, 'coordenadas': [x + 2, y + 2]}
 
     # Función para insertar un nodo a la izquierda recibiendo las coordenadas de su padre
     def insertar_izquierda(self, coordenadas: list, valor, id):
         x, y = coordenadas
-        self.matriz_nodos_frames[x + 2][y - 2].config(bg='#FFC300')
+
+        frame_buscado = self.matriz_nodos_frames[x + 2][y - 2]
+
+        # Pintamos de amarillo el nodo que se encuentre en esas coordenadas, además de agregarle
+        # el texto que se le pase como parámetro
+        frame_buscado.config(bg='#FFC300')
+        Label(frame_buscado, text=valor, bg='#FFC300', font=("Helvetica", 12)).pack()
 
         self.coordenadas[id] = {'valor': valor, 'coordenadas': [x + 2, y - 2]}
 
