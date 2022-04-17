@@ -3,7 +3,7 @@ from estructuras.binary_tree import BinaryTree
 from PIL import ImageTk, Image
 
 
-class Arbol(Frame):
+class ArbolInterfaz(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
@@ -174,7 +174,7 @@ class Arbol(Frame):
         
 
 root = Tk()
-arbol = Arbol(root)
+arbol = ArbolInterfaz(root)
 arbol.dibujar_arbol()
 arbol.pack()
 root.mainloop()
