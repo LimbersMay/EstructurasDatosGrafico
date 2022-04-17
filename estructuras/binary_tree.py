@@ -234,3 +234,21 @@ class BinaryTree:
 
         else:
             return -1
+    
+    # Method that returns the nodes of a level
+    def level_nodes(self, level: int) -> list:
+        result = []
+
+        def level_nodes(node: Node, level: int) -> None:
+            if node is not None:
+                if level == len(result):
+                    result.append([])
+
+                result[level].append(node.data)
+
+                level_nodes(node.left, level + 1)
+                level_nodes(node.right, level + 1)
+
+        level_nodes(self.__root, 0)
+
+        return result[level]
