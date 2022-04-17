@@ -247,7 +247,7 @@ class BinaryTree:
                 if level == len(result):
                     result.append([])
 
-                result[level].append(node.data)
+                result[level].append(node)
 
                 level_nodes(node.left, level + 1)
                 level_nodes(node.right, level + 1)
