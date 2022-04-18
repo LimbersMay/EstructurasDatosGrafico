@@ -81,25 +81,29 @@ class ListaInterfaz(Frame):
         # Insertamos el nodo en la lista
         self.lista.prepend(data)
 
-        # Dibujamos la lista
+        # Dibujamos la lista y actualizamos la interfaz de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
     def insertar_final(self, data):
         self.lista.append(data)
 
-        # Dibujamos la lista
+        # Dibujamos la lista y actualizamos la interfaz de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
     def eliminar_inicio(self):
         self.lista.remove_head()
 
-        # Dibujamos la lista
+        # Dibujamos la lista y actualizamos la interfaz de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
     def eliminar_final(self):
         self.lista.remove_tail()
 
-        # Dibujamos la lista
+        # Dibujamos la lista y actualizamos la interfaz de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
     def buscar(self, valor):
