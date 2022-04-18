@@ -87,7 +87,7 @@ class Pila:
         return self.max
     
     def get_head(self):
-        return self.tope
+        return self.tope.data
     
     # Method that return the tail of the stack
     def get_tail(self):
@@ -97,7 +97,7 @@ class Pila:
             aux = self.tope
             while True:
                 if aux.siguiente == None:
-                    return aux
+                    return aux.data
                 else:
                     aux = aux.siguiente
         

@@ -103,7 +103,7 @@ class Cola:
         return self.max
 
     def get_head(self):
-        return self.frente
+        return self.frente.data
     
     def get_tail(self):
-        return self.fondo
+        return self.fondo.data

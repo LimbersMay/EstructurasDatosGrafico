@@ -190,7 +190,7 @@ class CircularList:
         return self._size
 
     def get_head(self):
-        return self._head
+        return self._head.data
 
     def get_tail(self):
-        return self._tail
+        return self._tail.data
