@@ -26,7 +26,7 @@ class Node:
 
 
 class BinaryTree:
-    def __init__(self, data):
+    def __init__(self, data=None):
         self.__root = Node(data)
 
     # Method that insert a node in the left side with a reference
@@ -261,3 +261,11 @@ class BinaryTree:
             return result_values[level]
         
         return result_references[level]
+    
+    # Method that insert the root of the tree
+    def insert_root(self, data: T) -> None:
+        if self.__root is None:
+            self.__root = Node(data)
+
+        else:
+            raise Exception('The root already exists')

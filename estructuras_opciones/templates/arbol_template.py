@@ -1,5 +1,4 @@
 from tkinter import *
-from estructuras.binary_tree import BinaryTree
 from PIL import ImageTk, Image
 
 
@@ -23,7 +22,7 @@ class ArbolInterfaz(Frame):
         self.recta_derecha = ImageTk.PhotoImage(Image.open("recursos/recta_derecha.png").resize((40, 40)))
         self.recta_izquierda = ImageTk.PhotoImage(Image.open("recursos/recta_izquierda.png").resize((40, 40)))
 
-        self.arbol = BinaryTree(5)
+        self.arbol = None
 
     def dibujar_matriz(self):
         # Definimos la cantidad de filas que tendrá el frame
@@ -37,8 +36,8 @@ class ArbolInterfaz(Frame):
         for i in range(self.filas):
             sub_matriz = []
             for j in range(self.columnas):
-                nodo_frame = Frame(self, width=40, height=40, bg='#141E27',
-                                   highlightbackground="black", highlightthickness=1)
+                nodo_frame = Frame(self, width=40, height=40, bg='white',
+                                   highlightbackground="black")
                 nodo_frame.pack_propagate(False)
                 sub_matriz.append(nodo_frame)
 
@@ -51,14 +50,6 @@ class ArbolInterfaz(Frame):
 
         self.dibujar_matriz()
 
-        # Agregamos nodos ficticios
-        self.arbol.insert_left(3, 5)
-        self.arbol.insert_right(7, 5)
-        self.arbol.insert_left(2, 7)
-        self.arbol.insert_right(6, 7)
-        self.arbol.insert_right(15, 6)
-        self.arbol.insert_left(15, 3)
-
         self.arbol.complete_tree()
 
         contador = 2
@@ -67,12 +58,14 @@ class ArbolInterfaz(Frame):
             
             nodos_nivel = self.arbol.level_nodes(nivel)
 
+            profundidad_y = nivel + contador
+
             if nivel == 0:
                 self.dibujar_raiz(nivel, nodos_nivel)
 
             if nivel >= 1:
                 # Para los primeros hijos
-                self.dibujar_nivel(nivel + contador, nivel + contador, nodos_nivel)
+                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel)
                 contador += 1
             
     # Función para insertar el nodo raíz
@@ -105,6 +98,7 @@ class ArbolInterfaz(Frame):
             sep_izquierdo = punto_medio - separacion_x + auxiliar
             sep_derecho = punto_medio + separacion_x - auxiliar
 
+            # Si este nodo no fue uno de relleno
             if nodo_izquierdo.get_data() is not None:
 
                 self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo)
@@ -140,23 +134,23 @@ class ArbolInterfaz(Frame):
             nodos.pop(0)
     
     # Función para insertar UN NODO en la matriz
-    def dibujar_nodo(self, nodo, coordenada_y, coordenada_x):
+    def dibujar_nodo(self, nodo, coordenada_y, coordenada_x, color='#FFD93D'):
         frame_buscado = self.matriz_frames[coordenada_y][coordenada_x]
 
         # Cambiamos de color al frame
-        frame_buscado.config(bg='#FFC107')
+        frame_buscado.config(bg=color)
 
         # Datos del nodo
         nodo_dato = nodo.get_data()
         id_nodo = hex(id(nodo))
 
         # Label que contiene el dato del nodo
-        Label(frame_buscado, text=nodo_dato, bg='#FFC107').pack()
-        Label(frame_buscado, text=id_nodo, bg='#FFC107', font=("Helvetica", 7)).pack()
+        Label(frame_buscado, text=nodo_dato, bg=color).pack()
+        Label(frame_buscado, text=id_nodo, bg=color, font=("Helvetica", 7)).pack()
 
     def dibujar_flecha_derecha(self, coordenada_y: int, coordenada_x: int, imagen=None):
         frame_buscado = self.matriz_frames[coordenada_y + 1][coordenada_x + 1]
-        flecha = Label(frame_buscado, image=self.diagonal_derecha, bg="#141E27")
+        flecha = Label(frame_buscado, image=self.diagonal_derecha, bg="white")
 
         if imagen is not None:
             flecha.config(image=imagen)
@@ -165,7 +159,7 @@ class ArbolInterfaz(Frame):
 
     def dibujar_flecha_izquierda(self, coordenada_y: int, coordenada_x: int, imagen=None):
         frame_buscado = self.matriz_frames[coordenada_y + 1][coordenada_x - 1]
-        flecha = Label(frame_buscado, image=self.diagonal_izquierda, bg="#141E27")
+        flecha = Label(frame_buscado, image=self.diagonal_izquierda, bg="white")
 
         if imagen is not None:
             flecha.config(image=imagen)
