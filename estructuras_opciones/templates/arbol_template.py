@@ -7,7 +7,7 @@ class ArbolInterfaz(Frame):
         Frame.__init__(self, master)
 
         # Elementos del frame
-        self.config(width=1000, height=350, bg="#146356")
+        self.config(width=1000, height=350, bg="darkred")
 
         self.matriz_frames = []
         self.coordenadas = {}
@@ -23,6 +23,8 @@ class ArbolInterfaz(Frame):
         self.recta_izquierda = ImageTk.PhotoImage(Image.open("recursos/recta_izquierda.png").resize((40, 40)))
 
         self.arbol = None
+
+        self.inicializar_arbol()
 
     def dibujar_matriz(self):
         # Definimos la cantidad de filas que tendrá el frame
@@ -46,11 +48,13 @@ class ArbolInterfaz(Frame):
 
             self.matriz_frames.append(sub_matriz)
 
-    def dibujar_arbol(self):
-
+    def dibujar_arbol(self, elemento_buscado=""):
+        
+        self.destruir_frames()
+        self.arbol.complete_tree()
         self.dibujar_matriz()
 
-        self.arbol.complete_tree()
+        print("Lista de nodos: ", self.arbol.to_list())
 
         contador = 2
 
@@ -65,7 +69,7 @@ class ArbolInterfaz(Frame):
 
             if nivel >= 1:
                 # Para los primeros hijos
-                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel)
+                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel, elemento_buscado)
                 contador += 1
             
     # Función para insertar el nodo raíz
@@ -83,9 +87,10 @@ class ArbolInterfaz(Frame):
         self.dibujar_flecha_derecha(profundidad_y + 1, punto_medio_x + 1)
 
     # Función para insertar nodos
-    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list):
+    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list, elemento_buscado=""):
         punto_medio = int(round(self.columnas / 2))
 
+        
         # Por la cantidad de nodos que tiene el nivel
         for i in range(0, len(nodos), 2):
 
@@ -101,7 +106,16 @@ class ArbolInterfaz(Frame):
             # Si este nodo no fue uno de relleno
             if nodo_izquierdo.get_data() is not None:
 
-                self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo)
+                print("Elemento buscado: ", elemento_buscado)
+                print("Nodo izquierdo: ", nodo_izquierdo.get_data())
+                print(f"Igual {elemento_buscado} = {nodo_izquierdo.get_data()}: {elemento_buscado == nodo_izquierdo.get_data()}")
+                print()
+                
+                if elemento_buscado == nodo_izquierdo.get_data():
+                    self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo, '#54BAB9')
+
+                if not elemento_buscado == nodo_izquierdo.get_data():
+                    self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo)
 
                 # Comprobamos que el nodo tenga algún hijo
                 if not nodo_izquierdo.is_leaf():
@@ -116,7 +130,15 @@ class ArbolInterfaz(Frame):
 
             if nodo_derecho.get_data() is not None:
 
-                self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho)
+                print("Elemento buscado: ", elemento_buscado)
+                print("Nodo derecho: ", nodo_derecho.get_data())
+                print()
+
+                if elemento_buscado == nodo_derecho.get_data():
+                    self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho, '#54BAB9')
+                
+                if not elemento_buscado == nodo_derecho.get_data():
+                    self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho)
 
                 # Si este nodo no tiene ningún hijo
                 if not nodo_derecho.is_leaf():
@@ -165,3 +187,26 @@ class ArbolInterfaz(Frame):
             flecha.config(image=imagen)
         
         flecha.pack()
+
+    def buscar(self, elemento):
+        self.dibujar_arbol(str(elemento))
+
+    def eliminar(self, elemento):
+        self.arbol.remove_node(elemento)
+        self.dibujar_arbol()
+    
+    def insertar_raiz(self, raiz):
+        self.arbol.insert_root(raiz)
+        self.dibujar_matriz()
+        self.dibujar_arbol()
+
+    def inicializar_arbol(self):
+        self.dibujar_matriz()
+    
+    def destruir_frames(self):
+        # Recorremos todos los frames y les ponemos el fondo blanco
+        for i in range(0, self.filas):
+            for j in range(0, self.columnas):
+                self.matriz_frames[i][j].destroy()
+        
+        self.matriz_frames.clear()
