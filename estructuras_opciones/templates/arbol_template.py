@@ -55,8 +55,6 @@ class ArbolInterfaz(Frame):
         self.arbol.complete_tree()
         self.dibujar_matriz()
 
-        print("Lista de nodos: ", self.arbol.to_list())
-
         contador = 2
 
         for nivel in range(self.arbol.max_depth()):
