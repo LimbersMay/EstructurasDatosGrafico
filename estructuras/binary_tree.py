@@ -269,3 +269,67 @@ class BinaryTree:
 
         else:
             raise Exception('The root already exists')
+    
+    # Method that remove a node from a full binary tree
+    def remove_node(self, data: T) -> None:
+        
+        node = self.__search(data)
+
+        # Remove if the node is the root
+        if node == self.__root:
+            self.__root = None
+
+        # Remove if the node is a leaf
+        elif node.is_leaf():
+            father = self.search_father(child=node)
+
+            if father.left == node:
+                father.left = None
+
+            else:
+                father.right = None
+        
+        # Remove if the node has only one child
+        elif node.left is None or node.right is None:
+            father = self.search_father(child=node)
+
+            if father.left == node:
+                if node.left is None:
+                    father.left = node.right
+
+                else:
+                    father.left = node.left
+
+            else:
+                if node.left is None:
+                    father.right = node.right
+
+                else:
+                    father.right = node.left
+        
+        # Remove if the node has two children
+        else:
+            father = self.search_father(child=node)
+
+            if father.left == node:
+                father.left = node.left
+
+            else:
+                father.right = node.left
+
+            node.left = None
+
+
+    # Method that returns the minimum node of a tree
+    def min_node(self, *args) -> Node:
+        node = self.__root if len(args) == 0 else args[0]
+
+        if node is not None:
+            if node.left is None:
+                return node
+
+            else:
+                return self.min_node(node.left)
+
+        else:
+            return None
