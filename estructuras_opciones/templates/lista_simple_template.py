@@ -5,11 +5,10 @@ from tkinter import *
 
 class ListaInterfaz(Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, estructura):
         Frame.__init__(self, master)
 
-        self.lista = None  # Nosotros definimos qué tipo de lista usaremos cuando heredemos de esta clase y
-        # sobreescribamos este atributo
+        self.lista = estructura  # Nosotros definimos qué tipo de estructura usaremos
         self.lista_frames = []
 
         # Configuraciones de la ventana
