@@ -163,3 +163,6 @@ class BinarySearchTree:
             return result_values[level]
         
         return result_references[level]
+    
+    def get_root(self):
+        return self.__root.data

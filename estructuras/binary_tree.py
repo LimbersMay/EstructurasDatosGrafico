@@ -297,10 +297,6 @@ class BinaryTree:
         else:
             raise Exception('The node does not exist')
 
-
-
-
-
     # Method that returns the minimum node of a tree
     def min_node(self, *args) -> Node:
         node = self.__root if len(args) == 0 else args[0]
@@ -314,3 +310,14 @@ class BinaryTree:
 
         else:
             return None
+    
+    def get_root(self) -> Node:
+        return self.__root.data
+    
+    # Method that returns the return the total number of nodes in the tree
+    def count_nodes(self,) -> int:
+        
+        matrix_nodes = self.to_list()
+        list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
+
+        return len(list_nodes)
