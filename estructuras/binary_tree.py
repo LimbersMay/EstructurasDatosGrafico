@@ -36,7 +36,7 @@ class BinaryTree:
         if node is not None:
             new_node = Node(data)
 
-            if node.left is None:
+            if node.left is None or node.left.get_data() is None:
                 node.left = new_node
 
             else:
@@ -51,7 +51,7 @@ class BinaryTree:
         if node is not None:
             new_node = Node(data)
 
-            if node.right is None:
+            if node.right is None or node.right.get_data() is None:
                 node.right = new_node
 
             else:
@@ -264,7 +264,7 @@ class BinaryTree:
     
     # Method that insert the root of the tree
     def insert_root(self, data: T) -> None:
-        if self.__root is None:
+        if self.__root is None or self.__root.get_data() is None:
             self.__root = Node(data)
 
         else:
@@ -274,50 +274,31 @@ class BinaryTree:
     def remove_node(self, data: T) -> None:
         
         node = self.__search(data)
+        min_node = self.min_node()
 
-        # Remove if the node is the root
-        if node == self.__root:
+        # if the node has only one child
+        if node.left is None and node.right is not None:
+            node.data = node.right.data
+            node.right = None
+
+        elif node.left is not None and node.right is None:
+            node.data = node.left.data
+            node.left = None
+
+        # if the node has two children
+        elif node.left is not None and node.right is not None:
+            node.data = min_node.data
+            self.remove_node(min_node.data)
+
+        # if the node is the root
+        elif node.left is None and node.right is None:
             self.__root = None
 
-        # Remove if the node is a leaf
-        elif node.is_leaf():
-            father = self.search_father(child=node)
-
-            if father.left == node:
-                father.left = None
-
-            else:
-                father.right = None
-        
-        # Remove if the node has only one child
-        elif node.left is None or node.right is None:
-            father = self.search_father(child=node)
-
-            if father.left == node:
-                if node.left is None:
-                    father.left = node.right
-
-                else:
-                    father.left = node.left
-
-            else:
-                if node.left is None:
-                    father.right = node.right
-
-                else:
-                    father.right = node.left
-        
-        # Remove if the node has two children
         else:
-            father = self.search_father(child=node)
+            raise Exception('The node does not exist')
 
-            if father.left == node:
-                father.left = node.left
 
-            else:
-                father.right = node.left
 
-            node.left = None
 
 
     # Method that returns the minimum node of a tree
