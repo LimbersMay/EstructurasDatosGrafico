@@ -5,10 +5,11 @@ from tkinter import *
 
 class ListaInterfaz(Frame):
 
-    def __init__(self, master, estructura):
+    def __init__(self, master, estructura, estructura_informacion):
         Frame.__init__(self, master)
 
         self.lista = estructura  # Nosotros definimos qué tipo de estructura usaremos
+        self.estructura_informacion =  estructura_informacion
         self.lista_frames = []
 
         # Configuraciones de la ventana
@@ -16,6 +17,12 @@ class ListaInterfaz(Frame):
         self.grid_propagate(False)
 
         self.rowconfigure(0, weight=1)
+    
+    # Metodo para actualizar la información de la estructura en el frame
+    def actualizar_informacion(self):
+        self.estructura_informacion.set_tamanio(self.lista._size)
+        self.estructura_informacion.set_tope(self.lista.get_head())
+        self.estructura_informacion.set_fondo(self.lista.get_tail())
 
     def dibujar_lista(self, valor_buscado=None):
         # Eliminamos los frames de la lista

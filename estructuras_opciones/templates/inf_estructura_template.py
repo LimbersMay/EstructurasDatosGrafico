@@ -3,7 +3,7 @@
 from tkinter import *
 
 
-class InformacionEstructura(Frame):
+class EstructuraInformacion(Frame):
     def __init__(self, master, estructura):
         Frame.__init__(self, master)
 
