@@ -1,5 +1,6 @@
 from tkinter import *
 from estructuras.double_linked_list import DoubleLinkedList
+from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.lista_simple_template import ListaInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
@@ -11,36 +12,55 @@ class ListaDobEnOpciones(Frame):
 
         master.title("Lista Doble Enlazada")
 
+        # Estructura
+        self.lista = DoubleLinkedList()
+
         # Elementos del frame
         self.titulo = Label(self, text="Lista Doble Enlazada")
-        self.lista_interfaz = ListaDobEnlazadaInterfaz(self)
-        self.botones_inferiores = BotonesInferiores(self, self.lista_interfaz)
+        self.lista_dob_informacion = ListaDobInformacion(self, self.lista)
+        self.lista_dob_interfaz = ListaDobEnlazadaInterfaz(self, self.lista, self.lista_dob_informacion)
+        self.botones_inferiores = BotonesDobEnlazada(self, self.lista_dob_interfaz)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
-        self.lista_interfaz.grid(row=1, column=0)
+        self.lista_dob_interfaz.grid(row=1, column=0)
+        self.lista_dob_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
+
+# Clase que mostrará toda la información de la lista del lado derecho de la pantalla dentro de un frame
+class ListaDobInformacion(EstructuraInformacion):
+    def __init__(self, master, lista_dob_enlazada):
+        super().__init__(master, lista_dob_enlazada)
+
+        # Posicionamos todos los elementos
+        self.titulo.grid(row=0, column=0)
+
+        self.tamanio.grid(row=1, column=0, sticky=W)
+        self.tope.grid(row=2, column=0, sticky=W)
+        self.fondo.grid(row=3, column=0, sticky=W)
 
 
 class ListaDobEnlazadaInterfaz(ListaInterfaz):
 
-    def __init__(self, master):
-        super().__init__(master)
-
-        self.lista = DoubleLinkedList()
+    def __init__(self, master, lista_dob_enlazada, lista_dob_informacion):
+        super().__init__(master, lista_dob_enlazada, lista_dob_informacion)
 
     def insertar_posicion(self, data, posicion):
         self.lista.append_in_position(data, posicion)
 
+        # Actualizamos la lista y el frame de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
     def eliminar_por_posicion(self, posicion):
         self.lista.remove_node_position(posicion)
 
+        # Actualizamos la lista y el frame de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
 
-class BotonesInferiores(BotonesLista):
+class BotonesDobEnlazada(BotonesLista):
 
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)
