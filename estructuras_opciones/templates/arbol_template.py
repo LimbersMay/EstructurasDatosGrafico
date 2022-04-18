@@ -7,7 +7,7 @@ class ArbolInterfaz(Frame):
         Frame.__init__(self, master)
 
         # Elementos del frame
-        self.config(width=1000, height=350, bg="darkred")
+        self.config(width=1000, height=350)
 
         self.matriz_frames = []
         self.coordenadas = {}
