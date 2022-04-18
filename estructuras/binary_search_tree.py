@@ -166,3 +166,11 @@ class BinarySearchTree:
     
     def get_root(self):
         return self.__root.data
+    
+    # Method that returns the return the total number of nodes in the tree
+    def count_nodes(self,) -> int:
+        
+        matrix_nodes = self.to_list()
+        list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
+
+        return len(list_nodes)
