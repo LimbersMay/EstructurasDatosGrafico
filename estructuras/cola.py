@@ -95,3 +95,15 @@ class Cola:
 
     def __str__(self):
         return f"Tamaño: {self._size}\nMax: {self.max}\nFrente: {self.frente}\nFondo: {self.fondo}"
+    
+    def get_size(self):
+        return self._size
+    
+    def get_max(self):
+        return self.max
+
+    def get_head(self):
+        return self.frente
+    
+    def get_tail(self):
+        return self.fondo

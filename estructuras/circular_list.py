@@ -185,3 +185,12 @@ class CircularList:
             aux = aux.next
         result += str(self._tail.data)
         return result
+
+    def get_size(self):
+        return self._size
+
+    def get_head(self):
+        return self._head
+
+    def get_tail(self):
+        return self._tail

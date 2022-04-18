@@ -79,3 +79,25 @@ class Pila:
         for i in range(index):
             aux = aux.siguiente
         return aux
+    
+    def get_size(self):
+        return self._size
+    
+    def get_max(self):
+        return self.max
+    
+    def get_head(self):
+        return self.tope
+    
+    # Method that return the tail of the stack
+    def get_tail(self):
+        if self.tope == None:
+            return None
+        else:
+            aux = self.tope
+            while True:
+                if aux.siguiente == None:
+                    return aux
+                else:
+                    aux = aux.siguiente
+        

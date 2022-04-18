@@ -172,3 +172,12 @@ class LinkedList(Generic[T]):
 
         self._size -= 1
         return aux
+
+    def get_size(self):
+        return self._size
+    
+    def get_head(self):
+        return self._head.data
+
+    def get_tail(self):
+        return self._tail.data

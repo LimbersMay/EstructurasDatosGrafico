@@ -260,3 +260,12 @@ class DoubleLinkedList:
     # Other methods
     def is_empty(self) -> bool:
         return self._head is None and self._tail is None
+
+    def get_head(self) -> Node:
+        return self._head.data
+    
+    def get_tail(self) -> Node:
+        return self._tail.data
+    
+    def get_size(self) -> int:
+        return self._size
