@@ -3,7 +3,7 @@ from PIL import ImageTk, Image
 
 
 class ArbolInterfaz(Frame):
-    def __init__(self, master):
+    def __init__(self, master, arbol, arbol_informacion):
         Frame.__init__(self, master)
 
         # Elementos del frame
@@ -22,7 +22,8 @@ class ArbolInterfaz(Frame):
         self.recta_derecha = ImageTk.PhotoImage(Image.open("recursos/recta_derecha.png").resize((40, 40)))
         self.recta_izquierda = ImageTk.PhotoImage(Image.open("recursos/recta_izquierda.png").resize((40, 40)))
 
-        self.arbol = None
+        self.arbol = arbol
+        self.arbol_informacion = arbol_informacion
 
         self.inicializar_arbol()
 
@@ -105,11 +106,6 @@ class ArbolInterfaz(Frame):
 
             # Si este nodo no fue uno de relleno
             if nodo_izquierdo.get_data() is not None:
-
-                print("Elemento buscado: ", elemento_buscado)
-                print("Nodo izquierdo: ", nodo_izquierdo.get_data())
-                print(f"Igual {elemento_buscado} = {nodo_izquierdo.get_data()}: {elemento_buscado == nodo_izquierdo.get_data()}")
-                print()
                 
                 if elemento_buscado == nodo_izquierdo.get_data():
                     self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo, '#54BAB9')
@@ -129,10 +125,6 @@ class ArbolInterfaz(Frame):
                         self.dibujar_flecha_derecha(profundidad_y, sep_izquierdo)
 
             if nodo_derecho.get_data() is not None:
-
-                print("Elemento buscado: ", elemento_buscado)
-                print("Nodo derecho: ", nodo_derecho.get_data())
-                print()
 
                 if elemento_buscado == nodo_derecho.get_data():
                     self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho, '#54BAB9')
@@ -188,15 +180,24 @@ class ArbolInterfaz(Frame):
         
         flecha.pack()
 
+    def actualizar_informacion_frame(self):
+        self.arbol_informacion.set_raiz(self.arbol.get_root())
+        self.arbol_informacion.set_profundidad(self.arbol.max_depth())
+        self.arbol_informacion.set_tamanio(self.arbol.count_nodes())
+
     def buscar(self, elemento):
         self.dibujar_arbol(str(elemento))
 
     def eliminar(self, elemento):
         self.arbol.remove_node(elemento)
+
+        # Dibujamos el árbol y actualizamos la información del frame
+        self.actualizar_informacion_frame()
         self.dibujar_arbol()
     
     def insertar_raiz(self, raiz):
         self.arbol.insert_root(raiz)
+        self.actualizar_informacion_frame()
         self.dibujar_matriz()
         self.dibujar_arbol()
 
