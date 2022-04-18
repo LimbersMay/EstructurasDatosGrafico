@@ -1,5 +1,6 @@
 from tkinter import *
 from estructuras.circular_list import CircularList
+from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.lista_simple_template import ListaInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
@@ -11,37 +12,56 @@ class ListaCircularOpciones(Frame):
 
         master.title("Lista Circular")
 
+        # Estrucuta
+        self.lista = CircularList()
+
         # Elementos del frame
         self.titulo = Label(self, text="Lista Circular")
-        self.lista_interfaz = ListaCircularInterfaz(self)
-        self.botones_inferiores = BotonesInferiores(self, self.lista_interfaz)
+        self.informacion_lista = ListaCircularInformacion(self, self.lista)
+        self.lista_interfaz = ListaCircularInterfaz(self, self.lista, self.informacion_lista)
+        self.botones_inferiores = BotonesCircular(self, self.lista_interfaz)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
         self.lista_interfaz.grid(row=1, column=0)
+        self.informacion_lista.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
+
+# Clase que mostrará toda la información de la lista del lado derecho de la pantalla dentro de un frame
+class ListaCircularInformacion(EstructuraInformacion):
+    def __init__(self, master, lista_circular):
+        super().__init__(master, lista_circular)
+
+        # Posicionamos todos los elementos
+        self.titulo.grid(row=0, column=0)
+
+        self.tamanio.grid(row=1, column=0, sticky=W)
+        self.tope.grid(row=2, column=0, sticky=W)
+        self.fondo.grid(row=3, column=0, sticky=W)
 
 
 class ListaCircularInterfaz(ListaInterfaz):
 
-    def __init__(self, master):
-        super().__init__(master)
-
-        self.lista = CircularList()
+    def __init__(self, master, lista_circular, lista_informacion):
+        super().__init__(master, lista_circular, lista_informacion)
 
     # Métodos de la lista circular
     def rotar_izquierda(self):
         self.lista.move_left()
 
+        # Dibujamos la lista y actualizamos el frame de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
     def rotar_derecha(self):
         self.lista.move_right()
 
+        # Dibujamos la lista y actualizamos el frame de información
+        self.actualizar_informacion()
         self.dibujar_lista()
 
 
-class BotonesInferiores(BotonesLista):
+class BotonesCircular(BotonesLista):
     def __init__(self, master, lista_interfaz):
         super().__init__(master, lista_interfaz)
 
