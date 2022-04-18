@@ -1,5 +1,6 @@
 from tkinter import *
 from estructuras.linked_list import LinkedList
+from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.lista_simple_template import ListaInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
@@ -11,22 +12,38 @@ class ListaOpciones(Frame):
 
         master.title("Estructura de datos Lista")
 
+        # Estructura del frame
+        self.lista = LinkedList()
+
         # Elementos del frame
         self.titulo = Label(self, text="Lista simplemente enlazada")
-        self.lista_interfaz = ListaSimpleInterfaz(self)
+        self.lista_informacion = ListaInformacion(self, self.lista)
+        self.lista_interfaz = ListaSimpleInterfaz(self, self.lista, self.lista_informacion)
         self.botones_inferiores = BotonesInferiores(self, self.lista_interfaz)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
         self.lista_interfaz.grid(row=1, column=0)
+        self.lista_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
 
 
-class ListaSimpleInterfaz(ListaInterfaz):
-    def __init__(self, master):
-        super().__init__(master)
+# Clase que mostrará toda la información de la lista del lado derecho de la pantalla dentro de un frame
+class ListaInformacion(EstructuraInformacion):
+    def __init__(self, master, lista):
+        super().__init__(master, lista)
 
-        self.lista = LinkedList()
+        # Posicionamos todos los elementos
+        self.titulo.grid(row=0, column=0)
+
+        self.tamanio.grid(row=1, column=0, sticky=W)
+        self.tope.grid(row=2, column=0, sticky=W)
+        self.fondo.grid(row=3, column=0, sticky=W)
+
+
+class ListaSimpleInterfaz(ListaInterfaz):
+    def __init__(self, master, lista, lista_informacion):
+        super().__init__(master, lista, lista_informacion)
 
 
 class BotonesInferiores(BotonesLista):
