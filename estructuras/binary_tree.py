@@ -12,6 +12,11 @@ class Node:
         self.left: Optional[Node] = None
         self.right: Optional[Node] = None
 
+        self.buscado = False
+
+    def set_buscado(self, buscado: bool):
+        self.buscado = buscado
+
     def is_leaf(self):
         return self.left is None and self.right is None
 
