@@ -80,8 +80,7 @@ class ColaInformacion(EstructuraInformacion):
         self.fondo.grid(row=4, column=0, sticky=W)
 
         # Enviamos el maximo por defecto
-        self.maximo_variable.set(0)
-
+        self.maximo_variable.set('Máximo: 0')
     
     def actualizar(self):
         super().actualizar()
