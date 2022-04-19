@@ -8,6 +8,11 @@ class Node:
         self.data: T = data
         self.next: Optional[Node] = None
 
+        self.buscado = False
+
+    def set_buscado(self, buscado: bool) -> None:
+        self.buscado = buscado
+
 
 # Crea una lista que solo permita nodos de un tipo de dato (genérico)
 class LinkedList(Generic[T]):

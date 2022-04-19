@@ -2,13 +2,17 @@ from lib2to3.pytree import Node
 
 
 class Nodo:
-    def __init__(self,elemento):
+    def __init__(self, elemento):
 
         self.data = elemento
         self.siguiente = None
-    
+        # Variable para saber si estamos buscando este nodo
+        self.buscado = False
     def __str__(self):
-        return f"{self.elemento}"
+        return f"{self.data}"
+
+    def set_buscado(self, buscado):
+        self.buscado = buscado
 
 
 class Cola:

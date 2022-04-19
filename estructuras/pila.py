@@ -5,6 +5,11 @@ class Nodo:
         # Parte morada
         self.siguiente = None
 
+        self.buscado = False
+
+    def set_buscado(self, buscado: bool) -> None:
+        self.buscado = buscado
+
 
 class Pila:
     

@@ -8,8 +8,14 @@ class Node:
         self.data: T = data
         self.next: Optional[Node] = None
 
+        self.buscado = False
+
     def __str__(self):
         return self.data
+
+    def set_buscado(self, buscado: bool) -> None:
+        self.buscado = buscado
+
 
 
 class DoubleLinkedList:
