@@ -77,8 +77,8 @@ class ListaSimpleInterfaz(ListaInterfaz):
 
 
 class BotonesInferiores(BotonesLista):
-    def __init__(self, master, lista_interfaz):
-        super().__init__(master, lista_interfaz)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         self.dato_label.grid(row=0, column=0)
         self.dato_entry.grid(row=0, column=1)
