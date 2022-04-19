@@ -15,11 +15,18 @@ class ListaOpciones(Frame):
         # Estructura del frame
         self.lista = LinkedList()
 
+        # Manager de los widgets
+        self.manager = Manager(self.lista)
+
         # Elementos del frame
         self.titulo = Label(self, text="Lista simplemente enlazada")
-        self.lista_informacion = ListaInformacion(self, self.lista)
-        self.lista_interfaz = ListaSimpleInterfaz(self, self.lista, self.lista_informacion)
-        self.botones_inferiores = BotonesInferiores(self, self.lista_interfaz)
+        self.lista_informacion = ListaInformacion(self, self.manager)
+        self.lista_interfaz = ListaSimpleInterfaz(self, self.manager)
+        self.botones_inferiores = BotonesInferiores(self, self.manager)
+
+        # Le indicamos al manager que elementos manejará
+        self.manager.set_lista_interfaz(self.lista_interfaz)
+        self.manager.set_lista_informacion(self.lista_informacion)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -28,10 +35,33 @@ class ListaOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
+class Manager:
+    def __init__(self, lista, lista_interfaz=None, lista_informacion=None):
+        self.lista = lista
+        self.lista_interfaz = lista_interfaz
+        self.lista_informacion = lista_informacion
+    
+    # Método para obtener la estructura de datos
+    def get_estructura(self):
+        return self.lista
+
+    # Método para que cuando se haga alguna modificación a la lista, la dibujemos
+    # y además imprimamos su información
+    def actualizar(self):
+        self.lista_interfaz.actualizar()
+        self.lista_informacion.actualizar()
+
+    def set_lista_interfaz(self, lista_interfaz):
+        self.lista_interfaz = lista_interfaz
+
+    def set_lista_informacion(self, lista_informacion):
+        self.lista_informacion = lista_informacion
+
+
 # Clase que mostrará toda la información de la lista del lado derecho de la pantalla dentro de un frame
 class ListaInformacion(EstructuraInformacion):
-    def __init__(self, master, lista):
-        super().__init__(master, lista)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         # Posicionamos todos los elementos
         self.titulo.grid(row=0, column=0)
@@ -42,8 +72,8 @@ class ListaInformacion(EstructuraInformacion):
 
 
 class ListaSimpleInterfaz(ListaInterfaz):
-    def __init__(self, master, lista, lista_informacion):
-        super().__init__(master, lista, lista_informacion)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
 
 class BotonesInferiores(BotonesLista):
@@ -53,8 +83,8 @@ class BotonesInferiores(BotonesLista):
         self.dato_label.grid(row=0, column=0)
         self.dato_entry.grid(row=0, column=1)
 
-        self.insertar_final.grid(row=0, column=2)
-        self.insertar_inicio.grid(row=0, column=3)
+        self.insertar_inicio.grid(row=0, column=2)
+        self.insertar_final.grid(row=0, column=3)
 
         self.eliminar_final.grid(row=0, column=4)
         self.eliminar_inicio.grid(row=0, column=5)
