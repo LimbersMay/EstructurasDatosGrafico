@@ -4,11 +4,11 @@ from tkinter import *
 # Clase plantilla para los botones inferiores de todas los tipos de listas
 class BotonesLista(Frame):
 
-    def __init__(self, master, lista_interfaz):
+    def __init__(self, master, manager):
         Frame.__init__(self, master)
 
         # Atributos
-        self.lista_interfaz = lista_interfaz
+        self.manager = manager
 
         # Elementos del frame
         self.dato_label = Label(self, text="Valor: ")
@@ -23,26 +23,31 @@ class BotonesLista(Frame):
         self.buscar_button = Button(self, text="Buscar", command=self.buscar)
 
     def insertar_final(self):
-        self.lista_interfaz.insertar_final(self.dato_entry.get())
+        self.manager.get_estructura().append(self.dato_entry.get())
+        self.manager.actualizar()
 
     def insertar_inicio(self):
-        self.lista_interfaz.insertar_inicio(self.dato_entry.get())
+        self.manager.get_estructura().prepend(self.dato_entry.get())
+        self.manager.actualizar()
 
     def eliminar_final(self):
-        self.lista_interfaz.eliminar_final()
+        self.manager.get_estructura().remove_tail()
+        self.manager.actualizar()
 
     def eliminar_inicio(self):
-        self.lista_interfaz.eliminar_inicio()
+        self.manager.get_estructura().remove_head()
+        self.manager.actualizar()
 
     def buscar(self):
-        self.lista_interfaz.buscar(self.dato_entry.get())
+        self.manager.get_estructura().search(self.dato_entry.get())
+        self.manager.actualizar()
 
 
 class BotonesBasicos(Frame):
-    def __init__(self, master, estructura_interfaz):
+    def __init__(self, master, manager):
         Frame.__init__(self, master)
 
-        self.estructura_interfaz = estructura_interfaz
+        self.manager = manager
 
         # Elementos del frame
         self.dato_label = Label(self, text="Valor: ")
@@ -54,10 +59,13 @@ class BotonesBasicos(Frame):
 
     # Métodos de la estructura (Pila o Cola)
     def insertar(self):
-        self.estructura_interfaz.insertar(self.dato_entry.get())
+        self.manager.get_estructura().insertar(self.dato_entry.get())
+        self.manager.actualizar()
 
     def eliminar(self):
-        self.estructura_interfaz.eliminar()
+        self.manager.get_estructura().eliminar()
+        self.manager.actualizar()
 
     def buscar(self):
-        self.estructura_interfaz.buscar(self.dato_entry.get())
+        self.get_estructura().search()
+        self.manager.actualizar()

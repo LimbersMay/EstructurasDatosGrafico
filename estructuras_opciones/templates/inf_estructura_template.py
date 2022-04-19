@@ -4,10 +4,10 @@ from tkinter import *
 
 
 class EstructuraInformacion(Frame):
-    def __init__(self, master, estructura):
+    def __init__(self, master, manager):
         Frame.__init__(self, master)
 
-        self.estructura = estructura
+        self.manager = manager
 
         # Variables cambiantes de los label
         self.tamanio_variable = StringVar(self)
@@ -25,16 +25,12 @@ class EstructuraInformacion(Frame):
         self.fondo = Label(self, textvariable=self.fondo_variable, bg="darkred", fg="white")
 
         # Enviamos valores por defecto
-        self.set_tamanio(0)
-        self.set_tope(None)
-        self.set_fondo(None)
+        self.tamanio_variable.set(f"Tamaño: 0")
+        self.tope_variable.set("Tope: Ninguno")
+        self.fondo_variable.set("Fondo: Ninguno")
 
-    # Métodos para enviar la información de la pila
-    def set_tamanio(self, tamanio):
-        self.tamanio_variable.set(f"Tamaño: {tamanio}")
-    
-    def set_tope(self, tope):
-        self.tope_variable.set(f"Tope: {tope}")
-    
-    def set_fondo(self, fondo):
-        self.fondo_variable.set(f"Fondo: {fondo}")
+    # Método para actualizar toda la información común de la estructura
+    def actualizar(self):
+        self.tamanio_variable.set(f"Tamaño: {self.manager.get_estructura().get_size()}")
+        self.tope_variable.set(f"Tope: {self.manager.get_estructura().get_head()}")
+        self.fondo_variable.set(f"Fondo: {self.manager.get_estructura().get_tail()}")

@@ -2,10 +2,10 @@ from tkinter import *
 
 
 class BotonesArbol(Frame):
-    def __init__(self, master, arbol_interfaz):
+    def __init__(self, master, manager):
         Frame.__init__(self, master)
 
-        self.arbol_interfaz = arbol_interfaz
+        self.manager = manager
 
         # Elementos del frame
         self.dato_label = Label(self, text="Valor: ")
@@ -17,10 +17,13 @@ class BotonesArbol(Frame):
         self.insertar_raiz = Button(self, text="Insertar raiz", command=self.insertar_raiz)
     
     def eliminar(self):
-        self.arbol_interfaz.eliminar(self.dato_entry.get())
-    
+        self.manager.get_estructura().remove_node(self.dato_entry.get())
+        self.manager.actualizar()
+        
     def buscar(self):
-        self.arbol_interfaz.buscar(self.dato_entry.get())
+        self.manager.get_estructura().search(self.dato_entry.get())
+        self.manager.actualizar()
 
     def insertar_raiz(self):
-        self.arbol_interfaz.insertar_raiz(self.dato_entry.get())
+        self.manager.get_estructura().insert_root(self.dato_entry.get())
+        self.manager.actualizar()

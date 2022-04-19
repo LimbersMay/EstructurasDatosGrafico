@@ -3,7 +3,7 @@ from PIL import ImageTk, Image
 
 
 class ArbolInterfaz(Frame):
-    def __init__(self, master, arbol, arbol_informacion):
+    def __init__(self, master, manager):
         Frame.__init__(self, master)
 
         # Elementos del frame
@@ -22,10 +22,12 @@ class ArbolInterfaz(Frame):
         self.recta_derecha = ImageTk.PhotoImage(Image.open("recursos/recta_derecha.png").resize((40, 40)))
         self.recta_izquierda = ImageTk.PhotoImage(Image.open("recursos/recta_izquierda.png").resize((40, 40)))
 
-        self.arbol = arbol
-        self.arbol_informacion = arbol_informacion
+        self.arbol = manager.get_estructura()
 
         self.inicializar_arbol()
+    
+    def actualizar(self):
+        self.dibujar_arbol()
 
     def dibujar_matriz(self):
         # Definimos la cantidad de filas que tendrá el frame
@@ -177,27 +179,6 @@ class ArbolInterfaz(Frame):
             flecha.config(image=imagen)
         
         flecha.pack()
-
-    def actualizar_informacion_frame(self):
-        self.arbol_informacion.set_raiz(self.arbol.get_root())
-        self.arbol_informacion.set_profundidad(self.arbol.max_depth())
-        self.arbol_informacion.set_tamanio(self.arbol.count_nodes())
-
-    def buscar(self, elemento):
-        self.dibujar_arbol(str(elemento))
-
-    def eliminar(self, elemento):
-        self.arbol.remove_node(elemento)
-
-        # Dibujamos el árbol y actualizamos la información del frame
-        self.actualizar_informacion_frame()
-        self.dibujar_arbol()
-    
-    def insertar_raiz(self, raiz):
-        self.arbol.insert_root(raiz)
-        self.actualizar_informacion_frame()
-        self.dibujar_matriz()
-        self.dibujar_arbol()
 
     def inicializar_arbol(self):
         self.dibujar_matriz()
