@@ -51,7 +51,7 @@ class ArbolInterfaz(Frame):
 
             self.matriz_frames.append(sub_matriz)
 
-    def dibujar_arbol(self, elemento_buscado=""):
+    def dibujar_arbol(self):
         
         self.destruir_frames()
         self.arbol.complete_tree()
@@ -70,7 +70,7 @@ class ArbolInterfaz(Frame):
 
             if nivel >= 1:
                 # Para los primeros hijos
-                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel, elemento_buscado)
+                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel)
                 contador += 1
             
     # Función para insertar el nodo raíz
@@ -88,7 +88,7 @@ class ArbolInterfaz(Frame):
         self.dibujar_flecha_derecha(profundidad_y + 1, punto_medio_x + 1)
 
     # Función para insertar nodos
-    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list, elemento_buscado=""):
+    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list):
         punto_medio = int(round(self.columnas / 2))
 
         
@@ -107,10 +107,14 @@ class ArbolInterfaz(Frame):
             # Si este nodo no fue uno de relleno
             if nodo_izquierdo.get_data() is not None:
                 
-                if elemento_buscado == nodo_izquierdo.get_data():
+                if nodo_izquierdo.buscado:
                     self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo, '#54BAB9')
 
-                if not elemento_buscado == nodo_izquierdo.get_data():
+                    print("Encontré el nodo: " + str(nodo_izquierdo.get_data()))
+
+                    nodo_izquierdo.set_buscado(False)
+
+                elif not nodo_izquierdo.buscado:
                     self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo)
 
                 # Comprobamos que el nodo tenga algún hijo
@@ -126,10 +130,12 @@ class ArbolInterfaz(Frame):
 
             if nodo_derecho.get_data() is not None:
 
-                if elemento_buscado == nodo_derecho.get_data():
+                if nodo_derecho.buscado:
                     self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho, '#54BAB9')
+
+                    nodo_derecho.set_buscado(False)
                 
-                if not elemento_buscado == nodo_derecho.get_data():
+                elif not nodo_derecho.buscado:
                     self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho)
 
                 # Si este nodo no tiene ningún hijo
