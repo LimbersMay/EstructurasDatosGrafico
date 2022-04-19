@@ -58,7 +58,7 @@ class Manager:
     def set_cola_interfaz(self, cola_interfaz):
         self.cola_interfaz = cola_interfaz
 
-# Clase que contiene toda la información de la cola
+# Responsabilidad: Manejar los elementos de la interfaz, proporcionandoles acceso a la estructura
 class ColaInformacion(EstructuraInformacion):
     
     def __init__(self, master, manager):
@@ -87,14 +87,14 @@ class ColaInformacion(EstructuraInformacion):
         self.maximo_variable.set(f"Máximo: {self.manager.get_estructura().get_max()}")
 
 
-# Clase que contiene la interfaz de la cola
+# Responsabilidad: Mostrar la cola en una interfaz gráfica
 class ColaInterfaz(ListaInterfaz):
 
     def __init__(self, master, manager):
         super().__init__(master, manager)
 
 
-# Clase que contiene los botones inferiores de la cola
+# Responsabilidad: Manejar los botones para manipular la cola
 class BotonesCola(BotonesBasicos):
     def __init__(self, master, manager):
         super().__init__(master, manager)
