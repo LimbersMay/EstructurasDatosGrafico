@@ -15,11 +15,18 @@ class ColaOpciones(Frame):
         # Estructura de dato que se utilizará en el programa
         self.cola = Cola()
 
+        # Manager que se encargará de controlar la interfaz
+        self.manager = Manager(self.cola)
+
         # Atributos
         self.titulo = Label(self, text="Estructura de dato Cola")
-        self.cola_informacion = ColaInformacion(self, self.cola)
-        self.cola_interfaz = ColaInterfaz(self, self.cola, self.cola_informacion)
-        self.botones_inferiores = BotonesCola(self, self.cola_interfaz)
+        self.cola_informacion = ColaInformacion(self, self.manager)
+        self.cola_interfaz = ColaInterfaz(self, self.manager)
+        self.botones_inferiores = BotonesCola(self, self.manager)
+
+        # Le enviamos al manager los widgets que se encargarán de actualizar
+        self.manager.set_cola_informacion(self.cola_informacion)
+        self.manager.set_cola_interfaz(self.cola_interfaz)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -28,13 +35,36 @@ class ColaOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
+class Manager:
+    def __init__(self, cola, cola_informacion=None, cola_interfaz=None):
+        
+        self.cola_informacion = cola_informacion
+        self.cola_interfaz = cola_interfaz
+        self.cola = cola
+
+    # Método para obtener la estructura de datos
+    def get_estructura(self):
+        return self.cola
+    
+    # Método para indicarle al manager que ha sido modificada la estructura de datos, así que 
+    # Debemos dibujarla y actualizar el frame de información
+    def actualizar(self):
+        self.cola_informacion.actualizar()
+        self.cola_interfaz.actualizar()
+
+    def set_cola_informacion(self, cola_informacion):
+        self.cola_informacion = cola_informacion
+    
+    def set_cola_interfaz(self, cola_interfaz):
+        self.cola_interfaz = cola_interfaz
+
 # Clase que contiene toda la información de la cola
 class ColaInformacion(EstructuraInformacion):
     
-    def __init__(self, master, estructura: Cola):
-        super().__init__(master, estructura)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
-        self.estructura = estructura
+        self.manager = manager
 
         self.maximo_variable = StringVar(self)
 
@@ -50,36 +80,25 @@ class ColaInformacion(EstructuraInformacion):
         self.fondo.grid(row=4, column=0, sticky=W)
 
         # Enviamos el maximo por defecto
-        self.set_maximo(0)
+        self.maximo_variable.set(0)
+
     
-    # Método para actualizar el máximo de elementos de la cola
-    def set_maximo(self, maximo):
-        self.maximo_variable.set(f"Máximo: {maximo}")
+    def actualizar(self):
+        super().actualizar()
+        self.maximo_variable.set(f"Máximo: {self.manager.get_estructura().get_max()}")
 
 
 # Clase que contiene la interfaz de la cola
 class ColaInterfaz(ListaInterfaz):
 
-    def __init__(self, master, estructura, estructura_informacion):
-        super().__init__(master, estructura, estructura_informacion)
-
-    def insertar(self, elemento):
-        self.lista.insertar(elemento)
-
-        self.actualizar_informacion()
-        self.dibujar_lista()
-
-    def eliminar(self):
-        self.lista.eliminar()
-        
-        self.actualizar_informacion()
-        self.dibujar_lista()
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
 
 # Clase que contiene los botones inferiores de la cola
 class BotonesCola(BotonesBasicos):
-    def __init__(self, master, cola_interfaz: ColaInterfaz):
-        super().__init__(master, cola_interfaz)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         # Posicionamiento de los elementos del frame
         self.dato_label.grid(row=0, column=0)
