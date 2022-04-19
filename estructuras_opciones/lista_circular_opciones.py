@@ -5,6 +5,7 @@ from .templates.lista_simple_template import ListaInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
 
+# Responsabilidad: Mostrar todos los elementos de la interfaz
 class ListaCircularOpciones(Frame):
 
     def __init__(self, master):
@@ -15,11 +16,18 @@ class ListaCircularOpciones(Frame):
         # Estrucuta
         self.lista = CircularList()
 
+        # Manager de los widgets
+        self.manager = Manager(self.lista)
+
         # Elementos del frame
         self.titulo = Label(self, text="Lista Circular")
-        self.informacion_lista = ListaCircularInformacion(self, self.lista)
-        self.lista_interfaz = ListaCircularInterfaz(self, self.lista, self.informacion_lista)
-        self.botones_inferiores = BotonesCircular(self, self.lista_interfaz)
+        self.informacion_lista = ListaCircularInformacion(self, self.manager)
+        self.lista_interfaz = ListaCircularInterfaz(self, self.manager)
+        self.botones_inferiores = BotonesCircular(self, self.manager)
+
+        # Le indicamos al manager que elementos manejará
+        self.manager.set_lista_interfaz(self.lista_interfaz)
+        self.manager.set_lista_informacion(self.informacion_lista)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -27,10 +35,35 @@ class ListaCircularOpciones(Frame):
         self.informacion_lista.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
 
-# Clase que mostrará toda la información de la lista del lado derecho de la pantalla dentro de un frame
+
+# Responsabilidad: Manejar los elementos de la interfaz proporcionandoles acceso a la estructura
+class Manager:
+    def __init__(self, lista, lista_interfaz=None, lista_informacion=None):
+        self.lista = lista
+        self.lista_interfaz = lista_interfaz
+        self.lista_informacion = lista_informacion
+
+    # Método para obtener la estructura de datos
+    def get_estructura(self):
+        return self.lista
+
+    # Método para que cuando se haga alguna modificación a la lista, la dibujemos
+    # y además imprimamos su información
+    def actualizar(self):
+        self.lista_interfaz.actualizar()
+        self.lista_informacion.actualizar()
+
+    def set_lista_interfaz(self, lista_interfaz):
+        self.lista_interfaz = lista_interfaz
+
+    def set_lista_informacion(self, lista_informacion):
+        self.lista_informacion = lista_informacion
+
+
+# Responsabilidad: Mostrar la información de la lista circular
 class ListaCircularInformacion(EstructuraInformacion):
-    def __init__(self, master, lista_circular):
-        super().__init__(master, lista_circular)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         # Posicionamos todos los elementos
         self.titulo.grid(row=0, column=0)
@@ -40,30 +73,17 @@ class ListaCircularInformacion(EstructuraInformacion):
         self.fondo.grid(row=3, column=0, sticky=W)
 
 
+# Responsabilidad: Mostrar la lista circular en una interfaz gráfica
 class ListaCircularInterfaz(ListaInterfaz):
 
-    def __init__(self, master, lista_circular, lista_informacion):
-        super().__init__(master, lista_circular, lista_informacion)
-
-    # Métodos de la lista circular
-    def rotar_izquierda(self):
-        self.lista.move_left()
-
-        # Dibujamos la lista y actualizamos el frame de información
-        self.actualizar_informacion()
-        self.dibujar_lista()
-
-    def rotar_derecha(self):
-        self.lista.move_right()
-
-        # Dibujamos la lista y actualizamos el frame de información
-        self.actualizar_informacion()
-        self.dibujar_lista()
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
 
+# Responsabilidad: Manejar los botones inferiores para manipular la lista circular
 class BotonesCircular(BotonesLista):
-    def __init__(self, master, lista_interfaz):
-        super().__init__(master, lista_interfaz)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         # Elementos del frame
         self.rotar_izquierda_button = Button(self, text="Rotar Izquierda", command=self.rotar_izquierda)
@@ -86,7 +106,9 @@ class BotonesCircular(BotonesLista):
 
     # Métodos de la lista
     def rotar_izquierda(self):
-        self.lista_interfaz.rotar_izquierda()
+        self.manager.get_estructura().move_left()
+        self.manager.actualizar()
 
     def rotar_derecha(self):
-        self.lista_interfaz.rotar_derecha()
+        self.manager.get_estructura().move_right()
+        self.manager.actualizar()
