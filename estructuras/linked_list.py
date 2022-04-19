@@ -90,17 +90,16 @@ class LinkedList(Generic[T]):
 
         raise Exception('Posicion inexistente')
 
-    def search(self, data) -> Node:
-        aux = self._head
+    # Method that search a node by data
+    def search(self, data):
+        current = self._head
+        while current is not None:
+            if current.data == data:
+                current.set_buscado(True)
+                return current.data
+            current = current.next
 
-        while aux is not None:
-            if aux.data is data:
-                return aux
-
-            else:
-                aux = aux.next
-
-        raise Exception('Inexistent element')
+        return None
 
     # Method to insert a new node at the beginning of the list
     def prepend(self, data: T) -> None:

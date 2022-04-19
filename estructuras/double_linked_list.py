@@ -2,6 +2,7 @@ from typing import Optional, TypeVar
 
 T = TypeVar('T')
 
+
 class Node:
     def __init__(self, data) -> None:
         self.prev: Optional[Node] = None
@@ -15,7 +16,6 @@ class Node:
 
     def set_buscado(self, buscado: bool) -> None:
         self.buscado = buscado
-
 
 
 class DoubleLinkedList:
@@ -61,7 +61,7 @@ class DoubleLinkedList:
             self._head = new
             self._tail = new
 
-            self._head. next = self._tail
+            self._head.next = self._tail
             self._tail.prev = self._head
 
         else:
@@ -145,7 +145,7 @@ class DoubleLinkedList:
 
         else:
             position = self.get_position(data)
-            prev = self.position_search(position-1)
+            prev = self.position_search(position - 1)
 
             prev.next = aux.next
             aux.next.prev = prev
@@ -154,7 +154,7 @@ class DoubleLinkedList:
 
             self._size -= 1
             return aux
-    
+
     # Method that remove a node by position
     def remove_node_position(self, position: int) -> Node:
         aux = self.position_search(position)
@@ -166,7 +166,7 @@ class DoubleLinkedList:
             self.remove_tail()
 
         else:
-            prev = self.position_search(position-1)
+            prev = self.position_search(position - 1)
             prev.next = aux.next
             aux.next.prev = prev
             aux.next = None
@@ -248,7 +248,7 @@ class DoubleLinkedList:
         while aux is not self._tail:
             output += str(aux.data) + ' -> '
             aux = aux.next
-            
+
         output += str(self._tail.data)
         return output
 
@@ -263,15 +263,32 @@ class DoubleLinkedList:
         output += str(self._head.data)
         return output
 
+    # Method that search a value in the list
+    def search(self, data: T) -> bool:
+        aux = self._head
+
+        while aux is not self._tail:
+            if aux.data == data:
+                return True
+
+            else:
+                aux = aux.next
+
+        if aux == self._tail:
+            return False
+
+        else:
+            raise Exception('No item found')
+
     # Other methods
     def is_empty(self) -> bool:
         return self._head is None and self._tail is None
 
     def get_head(self) -> Node:
         return self._head.data
-    
+
     def get_tail(self) -> Node:
         return self._tail.data
-    
+
     def get_size(self) -> int:
         return self._size

@@ -49,14 +49,14 @@ class Pila:
             self._size -= 1
             return aux
     
-    def buscar(self, elemento):
+    def search(self, elemento):
         aux = self.tope
         while True:
             if aux == None:
                 break
             else:
                 if aux.data == elemento:
-                    return True
+                    return aux
                 else:
                     aux = aux.siguiente
         return False

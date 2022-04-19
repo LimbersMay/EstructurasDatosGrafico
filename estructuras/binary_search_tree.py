@@ -11,7 +11,7 @@ class Node:
         self.right: Optional[Node] = None
 
         self.buscado = False
-        
+
     def set_buscado(self, buscado):
         self.buscado = buscado
 

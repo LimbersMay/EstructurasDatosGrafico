@@ -3,11 +3,11 @@ from lib2to3.pytree import Node
 
 class Nodo:
     def __init__(self, elemento):
-
         self.data = elemento
         self.siguiente = None
         # Variable para saber si estamos buscando este nodo
         self.buscado = False
+
     def __str__(self):
         return f"{self.data}"
 
@@ -16,13 +16,13 @@ class Nodo:
 
 
 class Cola:
-    def __init__(self,max = -1):
+    def __init__(self, max=-1):
         self._size = 0
         self.frente = None
         self.fondo = None
         self.max = max
 
-    def insertar(self,elemento):
+    def insertar(self, elemento):
         # 1. - construir el nodo
         nuevo = Nodo(elemento)
 
@@ -33,13 +33,13 @@ class Cola:
             self.frente = nuevo
             self.fondo = nuevo
 
-        elif self._size == self.max :
+        elif self._size == self.max:
             raise Exception('No hay espacio, DESBORDAMIENTO DE PILA')
-       
+
         else:
-            self.fondo.siguiente =nuevo
+            self.fondo.siguiente = nuevo
             self.fondo = nuevo
-            #4 - actualizar datos
+            # 4 - actualizar datos
         self._size += 1
 
     def recorrer(self):
@@ -52,20 +52,20 @@ class Cola:
             aux = aux.siguiente
 
         return resultado
-    def buscar(self,elemento) -> Node:
+
+    def search(self, elemento) -> Node:
         aux = self.frente
         vistos = 0
         while vistos < self._size:
-            if elemento == aux.elemento:
+            if elemento == aux.data:
                 return aux
             else:
                 aux = aux.siguiente
             vistos += 1
-        
 
         if vistos == self._size:
-            raise Exception ('Error, el elemento no existe')
-    
+            raise Exception('Error, el elemento no existe')
+
     # Method that return the node in an index
     def search_position_node(self, index):
         if index < 0 or index >= self._size:
@@ -78,7 +78,7 @@ class Cola:
     def eliminar(self):
         # 1- crear el auxiliar (señalar al frente)
         aux = self.frente
-        
+
         if self._size == 0:
             raise Exception('SUBDESBORDAMIENTO DE COLA')
         elif self._size == 1:
@@ -90,7 +90,7 @@ class Cola:
 
             # 3- quitar enlaces
             aux.siguiente = None
-        
+
         # 4- disminuir tamaño
         self._size -= 1
 
@@ -99,15 +99,15 @@ class Cola:
 
     def __str__(self):
         return f"Tamaño: {self._size}\nMax: {self.max}\nFrente: {self.frente}\nFondo: {self.fondo}"
-    
+
     def get_size(self):
         return self._size
-    
+
     def get_max(self):
         return self.max
 
     def get_head(self):
         return self.frente.data
-    
+
     def get_tail(self):
         return self.fondo.data

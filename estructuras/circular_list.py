@@ -2,15 +2,13 @@ from typing import Optional, TypeVar
 
 T = TypeVar('T')
 
+
 class Node:
     def __init__(self, data):
         self.data: T = data
         self.next: Optional[Node] = None
 
         self.buscado = False
-
-    def __str__(self):
-        return str(self.data)
 
     def set_buscado(self, buscado):
         self.buscado = buscado
@@ -21,7 +19,7 @@ class CircularList:
         self._head: Optional[Node] = None
         self._tail: Optional[Node] = None
         self._size: int = 0
-        
+
     def move_left(self) -> Node:
         if self.is_empty():
             raise Exception('Empty List')
@@ -42,7 +40,6 @@ class CircularList:
             self._head = self._tail
             anterior = self.search_position_node(self._size - 1)
             self._tail = anterior
-
 
     def remove_head(self) -> Node:
         if self.is_empty():
@@ -93,7 +90,7 @@ class CircularList:
 
         else:
             position = self._search_positon(aux.data)
-            precedent = self.search_position_node(position-1)
+            precedent = self.search_position_node(position - 1)
 
             precedent.next = aux.next
             aux.next = None
@@ -133,21 +130,13 @@ class CircularList:
         else:
             raise Exception('Invalid search')
 
+    # Method that search a node in the list
     def _search(self, data: T) -> Node:
-        aux = self._head
+        position = self._search_positon(data)
+        return self.search_position_node(position)
 
-        while aux is not self._tail:
-            if aux.data == data:
-                return aux
-
-            else:
-                aux = aux.next
-
-        if aux.data == self._tail.data:
-            return aux
-
-        else:
-            raise Exception('Invalid search')
+    def search(self, data: T) -> Node:
+        return self._search(data)
 
     def is_empty(self) -> bool:
         return self._head is None and self._tail is None and self._size == 0
