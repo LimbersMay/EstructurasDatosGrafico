@@ -12,13 +12,22 @@ class PilaOpciones(Frame):
 
         master.title("Estructura de datos Pila")
 
+        # Atributos
+        # Estructura de la clase
         self.pila = Pila()
+
+        # Manager de la clase
+        self.manager = Manager(self.pila)
 
         # Elementos del frame
         self.label_titulo = Label(self, text="Pila")
-        self.pila_informacion = PilaInformacion(self, self.pila)
-        self.pila_interfaz = PilaInterfaz(self, self.pila, self.pila_informacion)
-        self.botones_inferiores = BotonesPila(self, self.pila_interfaz)
+        self.pila_informacion = PilaInformacion(self, self.manager)
+        self.pila_interfaz = PilaInterfaz(self, self.manager)
+        self.botones_inferiores = BotonesPila(self, self.manager)
+
+        # Le indicamos al manager los elementos que tiene que manejar
+        self.manager.set_pila_interfaz(self.pila_interfaz)
+        self.manager.set_pila_informacion(self.pila_informacion)
 
         # Posicionamiento de los elementos
         self.label_titulo.grid(row=0, column=0)
@@ -27,9 +36,32 @@ class PilaOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
+class Manager:
+    def __init__(self, pila, pila_interfaz=None, pila_informacion=None):
+        self.pila = pila
+        self.pila_interfaz = pila_interfaz
+        self.pila_informacion = pila_informacion
+    
+    # Método para obtener la estructura de datos
+    def get_estructura(self):
+        return self.pila
+    
+    # Método para que cuando se haga alguna modificación a la pila, la dibujemos 
+    # y además imprimamos su información
+    def actualizar(self):
+        self.pila_interfaz.actualizar()
+        self.pila_informacion.actualizar()
+
+    def set_pila_interfaz(self, pila_interfaz):
+        self.pila_interfaz = pila_interfaz
+
+    def set_pila_informacion(self, pila_informacion):
+        self.pila_informacion = pila_informacion
+
+
 class PilaInformacion(EstructuraInformacion):
-    def __init__(self, master, estructura):
-        super().__init__(master, estructura)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         self.maximo_variable = StringVar(self)
 
@@ -45,36 +77,23 @@ class PilaInformacion(EstructuraInformacion):
         self.fondo.grid(row=4, column=0, sticky=W)
 
         # Enviamos el maximo por defecto
-        self.set_maximo(0)
+        self.maximo_variable.set(f"Máximo: 0")
 
     # Método para actualizar el máximo de elementos de la pila
-    def set_maximo(self, maximo):
-        self.maximo_variable.set(f"Máximo: {maximo}")
+    def actualizar(self):
+        super().actualizar()
+
+        self.maximo_variable.set(f"Máximo: {self.manager.get_estructura().get_max()}")
 
 class PilaInterfaz(ListaInterfaz):
 
-    def __init__(self, master, estructura, estructura_informacion):
-        super().__init__(master, estructura, estructura_informacion)
-
-    def insertar(self, valor):
-        self.lista.insertar(valor)
-
-        self.actualizar_informacion()
-        self.dibujar_lista()
-
-    def eliminar(self):
-        self.lista.eliminar()
-
-        self.actualizar_informacion()
-        self.dibujar_lista()
-
-    def buscar(self, valor):
-        self.dibujar_lista(valor)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
 
 class BotonesPila(BotonesBasicos):
-    def __init__(self, master, pila_interfaz):
-        super().__init__(master, pila_interfaz)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         # Posicionamiento de los elementos del frame
         self.dato_label.grid(row=0, column=0)
