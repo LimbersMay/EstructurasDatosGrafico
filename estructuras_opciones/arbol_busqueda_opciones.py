@@ -12,11 +12,18 @@ class ArbolBusquedaOpciones(Frame):
         # Estructura de dato que usaremos
         self.arbol = BinarySearchTree()
 
+        # Manager encargado de actualizar los frames
+        self.manager = Manager(self.arbol)
+
         # Elementos del frame
         self.titulo = Label(self, text="Árbol de búsqueda")
-        self.arbol_informacion = ArbolBusquedaInformacion(self, self.arbol)
-        self.arbol_interfaz = ArbolBusquedaInterfaz(self, self.arbol, self.arbol_informacion)
-        self.botones_arbol = BotonesArbolBusqueda(self, self.arbol_interfaz)
+        self.arbol_informacion = ArbolBusquedaInformacion(self, self.manager)
+        self.arbol_interfaz = ArbolBusquedaInterfaz(self, self.manager)
+        self.botones_arbol = BotonesArbolBusqueda(self, self.manager)
+
+        # Le indicamos al manager de qué elementos de la interfaz se encargará
+        self.manager.set_arbol_interfaz(self.arbol_interfaz)
+        self.manager.set_arbol_informacion(self.arbol_informacion)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -25,10 +32,32 @@ class ArbolBusquedaOpciones(Frame):
         self.botones_arbol.grid(row=2, column=0)
 
 
+class Manager:
+    def __init__(self, arbol, arbol_interfaz=None, arbol_informacion=None):
+        self.arbol = arbol
+        self.arbol_interfaz = arbol_interfaz
+        self.arbol_informacion = arbol_informacion
+
+    # Método para indicarle al manager que ha sido modificada la estructura de datos, así que
+    # Debemos dibujarla y actualizar el frame de información
+    def actualizar(self):
+        self.arbol_informacion.actualizar()
+        self.arbol_interfaz.actualizar()
+
+    def get_estructura(self):
+        return self.arbol
+
+    def set_arbol_interfaz(self, arbol_interfaz):
+        self.arbol_interfaz = arbol_interfaz
+
+    def set_arbol_informacion(self, arbol_informacion):
+        self.arbol_informacion = arbol_informacion
+
+
 # Clase que mostrará toda la información del árbol binario
 class ArbolBusquedaInformacion(ArbolInformacion):
-    def __init__(self, master, arbol_busqueda):
-        super().__init__(master, arbol_busqueda)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         # Posicionamos los elementos
         self.titulo.grid(row=0, column=0, columnspan=2, sticky=W)
@@ -38,20 +67,13 @@ class ArbolBusquedaInformacion(ArbolInformacion):
 
 
 class ArbolBusquedaInterfaz(ArbolInterfaz):
-    def __init__(self, master, arbol_busqueda, arbol_informacion):
-        super().__init__(master, arbol_busqueda, arbol_informacion)
-    
-    def insertar(self, elemento):
-        self.arbol.insert(elemento)
-
-        # Dibujamos el árbol y actualizamos la información del frame
-        self.actualizar_informacion_frame()
-        self.dibujar_arbol()
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
 
 class BotonesArbolBusqueda(BotonesArbol):
-    def __init__(self, master, arbol_interfaz):
-        super().__init__(master, arbol_interfaz)
+    def __init__(self, master, manager):
+        super().__init__(master, manager)
 
         self.insertar = Button(self, text='Insertar', command=self.insertar)
 
@@ -68,4 +90,5 @@ class BotonesArbolBusqueda(BotonesArbol):
         self.buscar.grid(row=0, column=5)
 
     def insertar(self):
-        self.arbol_interfaz.insertar(self.dato_entry.get())
+        self.manager.get_estructura().insert(self.dato_entry.get())
+        self.manager.actualizar()
