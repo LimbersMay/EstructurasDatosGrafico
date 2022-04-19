@@ -48,7 +48,7 @@ class Cola:
             aux = aux.siguiente
 
         return resultado
-    def buscar_nodo(self,elemento) -> Node:
+    def buscar(self,elemento) -> Node:
         aux = self.frente
         vistos = 0
         while vistos < self._size:
