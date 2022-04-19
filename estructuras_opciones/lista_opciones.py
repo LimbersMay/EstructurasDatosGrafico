@@ -5,6 +5,7 @@ from .templates.lista_simple_template import ListaInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
 
+# Responsabilidad: Mostrar todos los elementos de la interfaz
 class ListaOpciones(Frame):
 
     def __init__(self, master):
@@ -35,6 +36,7 @@ class ListaOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
+# Responsabilidad: Manejar los elementos de la interfaz proporcionandoles acceso a la estructura
 class Manager:
     def __init__(self, lista, lista_interfaz=None, lista_informacion=None):
         self.lista = lista
@@ -58,7 +60,7 @@ class Manager:
         self.lista_informacion = lista_informacion
 
 
-# Clase que mostrará toda la información de la lista del lado derecho de la pantalla dentro de un frame
+# Responsabilidad: Mostrar toda la información de la lista
 class ListaInformacion(EstructuraInformacion):
     def __init__(self, master, manager):
         super().__init__(master, manager)
@@ -71,11 +73,13 @@ class ListaInformacion(EstructuraInformacion):
         self.fondo.grid(row=3, column=0, sticky=W)
 
 
+# Responsabilidad: Mostrar la lista en una interfaz gráfica
 class ListaSimpleInterfaz(ListaInterfaz):
     def __init__(self, master, manager):
         super().__init__(master, manager)
 
 
+# Responsabilidad: Manejar los botones para manipular la lista
 class BotonesInferiores(BotonesLista):
     def __init__(self, master, manager):
         super().__init__(master, manager)

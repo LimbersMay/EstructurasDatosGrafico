@@ -5,6 +5,7 @@ from .templates.lista_simple_template import ListaInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
 
+# Responsabilidad: Mostrar todos los elementos de la interfaz
 class ListaDobEnOpciones(Frame):
 
     def __init__(self, master):
@@ -35,7 +36,7 @@ class ListaDobEnOpciones(Frame):
         self.botones_inferiores.grid(row=2, column=0)
 
 
-# Responsabilidad: Manejar los elementos de la interfaz
+# Responsabilidad: Manejar los elementos de la interfaz proporcionandoles acceso a la estructura
 class Manager:
     def __init__(self, estructura, lista_dob_interfaz=None, lista_dob_informacion=None):
         self.estructura = estructura
