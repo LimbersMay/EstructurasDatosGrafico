@@ -25,5 +25,5 @@ class BotonesArbol(Frame):
         self.manager.actualizar()
 
     def insertar_raiz(self):
-        self.manager.get_estructura().insert_root(self.dato_entry.get())
+        self.manager.get_estructura().insert_root(self.dato_entry.get()).set_buscado(True)
         self.manager.actualizar()

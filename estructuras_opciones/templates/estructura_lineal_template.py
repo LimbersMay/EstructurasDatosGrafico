@@ -3,7 +3,7 @@
 from tkinter import *
 
 
-class ListaInterfaz(Frame):
+class EstructuraInterfaz(Frame):
 
     def __init__(self, master, manager):
         Frame.__init__(self, master)
@@ -28,11 +28,8 @@ class ListaInterfaz(Frame):
         # Limpiamos la lista de frames
         self.lista_frames.clear()
 
-        # Bandera para comprobar que ya hemos buscado el elemento 
-        buscado = False
-
         # Por cada nodo de la lista, se crea un frame
-        for i in range(self.lista._size):
+        for i in range(self.lista.get_size()):
 
             nuevo_frame = Frame(self, width=50, height=50, bg='#141E27', highlightbackground="black",
                                 highlightthickness=1)
@@ -52,18 +49,18 @@ class ListaInterfaz(Frame):
                 referencia.config(bg='#003638')
 
             # Comprobamos si estamos en el último nodo
-            if i == self.lista._size - 1:
+            if i == self.lista.get_size() - 1:
                 nuevo_frame.config(bg='#006778')
                 texto.config(bg='#006778')
                 referencia.config(bg='#006778')
 
-            # Comprobamos si el valor buscado es el nodo actual
-            if self.lista.search_position_node(i).data == valor_buscado and not buscado:
+            # Comprobamos si el nodo es el que estamos buscando
+            if self.lista.search_position_node(i).buscado:
                 nuevo_frame.config(bg='#541212')
                 texto.config(bg='#541212')
                 referencia.config(bg='#541212')
 
-                buscado = True
+                self.lista.search_position_node(i).set_buscado(False)
 
             # Los empaquetamos
             texto.grid(row=0, column=0)
@@ -72,6 +69,3 @@ class ListaInterfaz(Frame):
         # Posicionamos los frames en el medio de la ventana, uno a la derecha del otro
         for i in range(len(self.lista_frames)):
             self.lista_frames[i].grid(row=0, column=i, sticky=W)
-
-    def buscar(self, valor):
-        self.dibujar_lista(valor)

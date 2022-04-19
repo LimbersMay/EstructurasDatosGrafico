@@ -1,7 +1,7 @@
 from tkinter import *
 from estructuras.circular_list import CircularList
 from .templates.inf_estructura_template import EstructuraInformacion
-from .templates.lista_simple_template import ListaInterfaz
+from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
 
@@ -22,7 +22,7 @@ class ListaCircularOpciones(Frame):
         # Elementos del frame
         self.titulo = Label(self, text="Lista Circular")
         self.informacion_lista = ListaCircularInformacion(self, self.manager)
-        self.lista_interfaz = ListaCircularInterfaz(self, self.manager)
+        self.lista_interfaz = EstructuraCircularInterfaz(self, self.manager)
         self.botones_inferiores = BotonesCircular(self, self.manager)
 
         # Le indicamos al manager que elementos manejará
@@ -74,7 +74,7 @@ class ListaCircularInformacion(EstructuraInformacion):
 
 
 # Responsabilidad: Mostrar la lista circular en una interfaz gráfica
-class ListaCircularInterfaz(ListaInterfaz):
+class EstructuraCircularInterfaz(EstructuraInterfaz):
 
     def __init__(self, master, manager):
         super().__init__(master, manager)

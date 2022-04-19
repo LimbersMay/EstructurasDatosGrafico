@@ -1,7 +1,7 @@
 from tkinter import *
 from estructuras.double_linked_list import DoubleLinkedList
 from .templates.inf_estructura_template import EstructuraInformacion
-from .templates.lista_simple_template import ListaInterfaz
+from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesLista
 
 
@@ -22,7 +22,7 @@ class ListaDobEnOpciones(Frame):
         # Elementos del frame
         self.titulo = Label(self, text="Lista Doble Enlazada")
         self.lista_dob_informacion = ListaDobInformacion(self, self.manager)
-        self.lista_dob_interfaz = ListaDobEnlazadaInterfaz(self, self.manager)
+        self.lista_dob_interfaz = EstructuraDobEnlazadaInterfaz(self, self.manager)
         self.botones_inferiores = BotonesDobEnlazada(self, self.manager)
 
         # Le indicamos al manager que elementos manejará
@@ -74,7 +74,7 @@ class ListaDobInformacion(EstructuraInformacion):
 
 
 # Responsabilidad: Mostrar la lista enlazada en una interfaz gráfica
-class ListaDobEnlazadaInterfaz(ListaInterfaz):
+class EstructuraDobEnlazadaInterfaz(EstructuraInterfaz):
 
     def __init__(self, master, manager):
         super().__init__(master, manager)

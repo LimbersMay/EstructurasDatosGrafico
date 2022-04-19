@@ -1,7 +1,7 @@
 from tkinter import *
 from estructuras.pila import Pila
 from .templates.inf_estructura_template import EstructuraInformacion
-from .templates.lista_simple_template import ListaInterfaz
+from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesBasicos
 
 
@@ -90,7 +90,7 @@ class PilaInformacion(EstructuraInformacion):
 
 
 # Responsabilidad: Mostrar la pila en una interfaz gráfica
-class PilaInterfaz(ListaInterfaz):
+class PilaInterfaz(EstructuraInterfaz):
 
     def __init__(self, master, manager):
         super().__init__(master, manager)

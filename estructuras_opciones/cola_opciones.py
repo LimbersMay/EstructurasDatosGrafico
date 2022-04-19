@@ -1,7 +1,7 @@
 from tkinter import *
 from estructuras.cola import Cola
 from .templates.inf_estructura_template import EstructuraInformacion
-from .templates.lista_simple_template import ListaInterfaz
+from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesBasicos
 
 
@@ -39,7 +39,6 @@ class ColaOpciones(Frame):
 # Responsabilidad: Actualizar los frames de información
 class Manager:
     def __init__(self, cola, cola_informacion=None, cola_interfaz=None):
-        
         self.cola_informacion = cola_informacion
         self.cola_interfaz = cola_interfaz
         self.cola = cola
@@ -47,7 +46,7 @@ class Manager:
     # Método para obtener la estructura de datos
     def get_estructura(self):
         return self.cola
-    
+
     # Método para indicarle al manager que ha sido modificada la estructura de datos, así que 
     # Debemos dibujarla y actualizar el frame de información
     def actualizar(self):
@@ -56,13 +55,14 @@ class Manager:
 
     def set_cola_informacion(self, cola_informacion):
         self.cola_informacion = cola_informacion
-    
+
     def set_cola_interfaz(self, cola_interfaz):
         self.cola_interfaz = cola_interfaz
 
+
 # Responsabilidad: Mostrar toda la información de la estructura de datos
 class ColaInformacion(EstructuraInformacion):
-    
+
     def __init__(self, master, manager):
         super().__init__(master, manager)
 
@@ -83,14 +83,14 @@ class ColaInformacion(EstructuraInformacion):
 
         # Enviamos el maximo por defecto
         self.maximo_variable.set('Máximo: 0')
-    
+
     def actualizar(self):
         super().actualizar()
         self.maximo_variable.set(f"Máximo: {self.manager.get_estructura().get_max()}")
 
 
 # Responsabilidad: Mostrar la cola en una interfaz gráfica
-class ColaInterfaz(ListaInterfaz):
+class ColaInterfaz(EstructuraInterfaz):
 
     def __init__(self, master, manager):
         super().__init__(master, manager)

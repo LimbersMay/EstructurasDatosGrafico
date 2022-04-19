@@ -39,7 +39,7 @@ class BotonesLista(Frame):
         self.manager.actualizar()
 
     def buscar(self):
-        self.manager.get_estructura().search(self.dato_entry.get())
+        self.manager.get_estructura().search(self.dato_entry.get()).set_buscado(True)
         self.manager.actualizar()
 
 
@@ -67,5 +67,5 @@ class BotonesBasicos(Frame):
         self.manager.actualizar()
 
     def buscar(self):
-        self.manager.get_estructura().search()
+        self.manager.get_estructura().search(self.dato_entry.get()).set_buscado(True)
         self.manager.actualizar()
