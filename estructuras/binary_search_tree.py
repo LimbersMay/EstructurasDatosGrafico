@@ -174,3 +174,27 @@ class BinarySearchTree:
         list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
 
         return len(list_nodes)
+    
+    def __search(self, data: T, *args) -> Optional[Node]:
+        node = self.__root if len(args) == 0 else args[0]
+
+        if node is not None:
+            if node.data == data:
+                return node
+
+            else:
+                result = self.__search(data, node.left)
+
+                if result is None:
+                    result = self.__search(data, node.right)
+
+                    return result
+
+                else:
+                    return result
+
+        else:
+            return None
+    
+    def search(self, data: T) -> Optional[Node]:
+        return self.__search(data)
