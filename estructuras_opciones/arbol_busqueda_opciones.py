@@ -4,6 +4,8 @@ from .templates.inf_arbol_template import ArbolInformacion
 from .templates.botones_arbol_template import BotonesArbol
 from .templates.arbol_template import ArbolInterfaz
 
+
+# Funcionalidad: Mostrar y posicionar todos los elementos de la interfaz
 class ArbolBusquedaOpciones(Frame):
 
     def __init__(self, master):
@@ -32,6 +34,7 @@ class ArbolBusquedaOpciones(Frame):
         self.botones_arbol.grid(row=2, column=0)
 
 
+# Responsabilidad: Darle funcionalidad los frames de la interfaz
 class Manager:
     def __init__(self, arbol, arbol_interfaz=None, arbol_informacion=None):
         self.arbol = arbol
@@ -54,7 +57,7 @@ class Manager:
         self.arbol_informacion = arbol_informacion
 
 
-# Clase que mostrará toda la información del árbol binario
+# Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBusquedaInformacion(ArbolInformacion):
     def __init__(self, master, manager):
         super().__init__(master, manager)
@@ -66,11 +69,13 @@ class ArbolBusquedaInformacion(ArbolInformacion):
         self.profundidad.grid(row=3, column=0, sticky=W)
 
 
+# Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBusquedaInterfaz(ArbolInterfaz):
     def __init__(self, master, manager):
         super().__init__(master, manager)
 
 
+# Responsabilidad: Manejar los botones para manipular el árbol
 class BotonesArbolBusqueda(BotonesArbol):
     def __init__(self, master, manager):
         super().__init__(master, manager)
