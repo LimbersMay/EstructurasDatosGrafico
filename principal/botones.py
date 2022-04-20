@@ -1,12 +1,12 @@
 from tkinter import *
 
-from estructuras_opciones.arbol_binario_opciones import ArbolBinarioOpciones
-from estructuras_opciones.arbol_busqueda_opciones import ArbolBusquedaOpciones
-from estructuras_opciones.cola_opciones import ColaOpciones
-from estructuras_opciones.lista_circular_opciones import ListaCircularOpciones
-from estructuras_opciones.lista_dob_enlazada_opciones import ListaDobEnOpciones
-from estructuras_opciones.lista_opciones import ListaOpciones
-from estructuras_opciones.pila_opciones import PilaOpciones
+from views.arbol_binario_view import ArbolBinarioOpciones
+from views.arbol_busqueda_view import ArbolBusquedaOpciones
+from views.cola_view import ColaOpciones
+from views.lista_circular_view import ListaCircularOpciones
+from views.lista_dob_enlazada_view import ListaDobEnOpciones
+from views.lista_view import ListaOpciones
+from views.pila_view import PilaOpciones
 
 
 class Botones(Frame):
