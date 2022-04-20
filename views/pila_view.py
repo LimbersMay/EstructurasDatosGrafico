@@ -1,6 +1,6 @@
 from tkinter import *
 from estructuras.pila import Pila
-from controllers.controllers import StackController
+from controllers.stack_controller import StackController
 from models.models import StackModel
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
