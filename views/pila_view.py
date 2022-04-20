@@ -38,8 +38,6 @@ class PilaOpciones(Frame):
     # Método de la view para actualizar todos los frames de la interfaz
     def actualizar(self, args):
 
-        print(args[2] if len(args) == 3 else "Nada")
-
         nodos_informacion = args[0]
         pila_informacion = args[1]
         nodo_buscado = args[2] if len(args) == 3 else None
