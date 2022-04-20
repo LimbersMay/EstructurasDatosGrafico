@@ -1,4 +1,6 @@
 from typing import Optional, TypeVar, Generic
+from .node_information import NodeInformation
+from .lineal_structure_information import LinealStructureInformation
 
 T = TypeVar('T')
 
@@ -7,11 +9,6 @@ class Node:
     def __init__(self, data: T):
         self.data: T = data
         self.next: Optional[Node] = None
-
-        self.buscado = False
-
-    def set_buscado(self, buscado: bool) -> None:
-        self.buscado = buscado
 
 
 # Crea una lista que solo permita nodos de un tipo de dato (genérico)
@@ -95,7 +92,6 @@ class LinkedList(Generic[T]):
         current = self._head
         while current is not None:
             if current.data == data:
-                current.set_buscado(True)
                 return current.data
             current = current.next
 
@@ -185,3 +181,17 @@ class LinkedList(Generic[T]):
 
     def get_tail(self):
         return self._tail.data
+
+    def get_nodes_information(self):
+        nodes_information = []
+
+        for i in range(self._size):
+            actual_node = self.search_position_node(i)
+            nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
+
+        return nodes_information
+
+    def get_list_information(self):
+        list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
+
+        return list_information

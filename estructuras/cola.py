@@ -1,5 +1,6 @@
 from lib2to3.pytree import Node
-
+from .node_information import NodeInformation
+from .lineal_structure_information import LinealStructureInformation
 
 class Nodo:
     def __init__(self, elemento):
@@ -22,7 +23,7 @@ class Cola:
         self.fondo = None
         self.max = max
 
-    def insertar(self, elemento):
+    def enqueue(self, elemento):
         # 1. - construir el nodo
         nuevo = Nodo(elemento)
 
@@ -45,7 +46,7 @@ class Cola:
     def recorrer(self):
         resultado = ''
         aux = self.frente
-        while aux != None:
+        while aux is not None:
             # 2 - visitar el nodo
             resultado = resultado + str(aux) + '\n'
             # 3- mover el auxiliar
@@ -53,12 +54,12 @@ class Cola:
 
         return resultado
 
-    def search(self, elemento) -> Node:
+    def search(self, elemento) -> NodeInformation:
         aux = self.frente
         vistos = 0
         while vistos < self._size:
             if elemento == aux.data:
-                return aux
+                return aux.data
             else:
                 aux = aux.siguiente
             vistos += 1
@@ -75,7 +76,7 @@ class Cola:
             aux = aux.siguiente
         return aux
 
-    def eliminar(self):
+    def dequeue(self):
         # 1- crear el auxiliar (señalar al frente)
         aux = self.frente
 
@@ -111,3 +112,18 @@ class Cola:
 
     def get_tail(self):
         return self.fondo.data
+
+    def get_nodes_information(self):
+        nodes_information = []
+
+        for i in range(self._size):
+            actual_node = self.search_position_node(i)
+            nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
+
+        return nodes_information
+
+    def get_queue_information(self):
+        queue_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size(),
+                                                       self.get_max())
+
+        return queue_information

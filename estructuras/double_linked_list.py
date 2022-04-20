@@ -1,4 +1,6 @@
 from typing import Optional, TypeVar
+from .node_information import NodeInformation
+from .lineal_structure_information import LinealStructureInformation
 
 T = TypeVar('T')
 
@@ -156,7 +158,7 @@ class DoubleLinkedList:
             return aux
 
     # Method that remove a node by position
-    def remove_node_position(self, position: int) -> Node:
+    def remove_in_position(self, position: int) -> Node:
         aux = self.position_search(position)
 
         if aux is self._head:
@@ -269,7 +271,7 @@ class DoubleLinkedList:
 
         while aux is not self._tail:
             if aux.data == data:
-                return True
+                return aux.data
 
             else:
                 aux = aux.next
@@ -292,3 +294,18 @@ class DoubleLinkedList:
 
     def get_size(self) -> int:
         return self._size
+
+    def get_nodes_information(self) -> list[NodeInformation]:
+        output = []
+
+        for i in range(self._size):
+            actual_node = self.search_position_node(i)
+
+            output.append(NodeInformation(actual_node.data, id(actual_node)))
+
+        return output
+
+    def get_list_information(self):
+        list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
+
+        return list_information

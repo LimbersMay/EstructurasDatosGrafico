@@ -1,4 +1,6 @@
 from typing import Optional, TypeVar
+from .node_information import NodeInformation
+from .lineal_structure_information import LinealStructureInformation
 
 T = TypeVar('T')
 
@@ -20,7 +22,7 @@ class CircularList:
         self._tail: Optional[Node] = None
         self._size: int = 0
 
-    def move_left(self) -> Node:
+    def rotate_left(self) -> Node:
         if self.is_empty():
             raise Exception('Empty List')
 
@@ -32,7 +34,7 @@ class CircularList:
             return aux
 
     # Method that rotate the list to the right
-    def move_right(self):
+    def rotate_right(self):
         if self.is_empty():
             raise Exception('Empty List')
 
@@ -136,7 +138,7 @@ class CircularList:
         return self.search_position_node(position)
 
     def search(self, data: T) -> Node:
-        return self._search(data)
+        return self._search(data).data
 
     def is_empty(self) -> bool:
         return self._head is None and self._tail is None and self._size == 0
@@ -188,3 +190,18 @@ class CircularList:
 
     def get_tail(self):
         return self._tail.data
+
+    def get_nodes_information(self):
+        nodes_information = []
+
+        for i in range(self._size):
+            actual_node = self.search_position_node(i)
+
+            nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
+
+        return nodes_information
+
+    def get_list_information(self):
+        circular_list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
+
+        return circular_list_information
