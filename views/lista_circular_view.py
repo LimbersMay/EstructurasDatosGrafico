@@ -1,6 +1,6 @@
 from tkinter import *
 from estructuras.circular_list import CircularList
-from models.models import CircularListModel
+from models.list_models import CircularListModel
 from controllers.list_controllers import CircularListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz

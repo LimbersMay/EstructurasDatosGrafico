@@ -1,6 +1,6 @@
 from tkinter import *
 from estructuras.linked_list import LinkedList
-from models.models import SimpleListModel
+from models.list_models import SimpleListModel
 from controllers.list_controllers import SimpleListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz

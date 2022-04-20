@@ -1,6 +1,6 @@
 from tkinter import *
 from estructuras.double_linked_list import DoubleLinkedList
-from models.models import DoubleLinkedListModel
+from models.list_models import DoubleLinkedListModel
 from controllers.list_controllers import DoublyLinkedListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz

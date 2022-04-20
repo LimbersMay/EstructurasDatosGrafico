@@ -1,6 +1,6 @@
 from tkinter import *
 from estructuras.cola import Cola
-from models.models import QueueModel
+from models.queue_model import QueueModel
 from controllers.queue_controller import QueueController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
