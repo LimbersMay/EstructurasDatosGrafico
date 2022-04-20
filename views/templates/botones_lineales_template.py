@@ -4,11 +4,11 @@ from tkinter import *
 # Clase plantilla para los botones inferiores de todas los tipos de listas
 class BotonesLista(Frame):
 
-    def __init__(self, master, manager):
+    def __init__(self, master, controlador):
         Frame.__init__(self, master)
 
         # Atributos
-        self.manager = manager
+        self.controlador = controlador
 
         # Elementos del frame
         self.dato_label = Label(self, text="Valor: ")
@@ -23,31 +23,26 @@ class BotonesLista(Frame):
         self.buscar_button = Button(self, text="Buscar", command=self.buscar)
 
     def insertar_final(self):
-        self.manager.get_estructura().append(self.dato_entry.get())
-        self.manager.actualizar()
+        self.controlador.insertar_final(self.dato_entry.get())
 
     def insertar_inicio(self):
-        self.manager.get_estructura().prepend(self.dato_entry.get())
-        self.manager.actualizar()
+        self.controlador.insertar_inicio(self.dato_entry.get())
 
     def eliminar_final(self):
-        self.manager.get_estructura().remove_tail()
-        self.manager.actualizar()
+        self.controlador.eliminar_final()
 
     def eliminar_inicio(self):
-        self.manager.get_estructura().remove_head()
-        self.manager.actualizar()
+        self.controlador.eliminar_inicio()
 
     def buscar(self):
-        self.manager.get_estructura().search(self.dato_entry.get()).set_buscado(True)
-        self.manager.actualizar()
+        self.controlador.buscar(self.dato_entry.get())
 
 
 class BotonesBasicos(Frame):
-    def __init__(self, master, manager):
+    def __init__(self, master, controlador):
         Frame.__init__(self, master)
 
-        self.manager = manager
+        self.controlador = controlador
 
         # Elementos del frame
         self.dato_label = Label(self, text="Valor: ")
@@ -59,13 +54,10 @@ class BotonesBasicos(Frame):
 
     # Métodos de la estructura (Pila o Cola)
     def insertar(self):
-        self.manager.get_estructura().insertar(self.dato_entry.get())
-        self.manager.actualizar()
+        self.controlador.insert(self.dato_entry.get())
 
     def eliminar(self):
-        self.manager.get_estructura().eliminar()
-        self.manager.actualizar()
+        self.controlador.remove()
 
     def buscar(self):
-        self.manager.get_estructura().search(self.dato_entry.get()).set_buscado(True)
-        self.manager.actualizar()
+        self.controlador.search(self.dato_entry.get())

@@ -5,10 +5,8 @@ from tkinter import *
 
 class EstructuraInterfaz(Frame):
 
-    def __init__(self, master, manager):
+    def __init__(self, master):
         Frame.__init__(self, master)
-
-        self.lista = manager.get_estructura()  # Nosotros definimos qué tipo de estructura usaremos
         self.lista_frames = []
 
         # Configuraciones de la ventana
@@ -17,10 +15,10 @@ class EstructuraInterfaz(Frame):
 
         self.rowconfigure(0, weight=1)
     
-    def actualizar(self):
-        self.dibujar_lista()
+    def actualizar(self, nodos_informacion, valor_buscado):
+        self.dibujar_lista(nodos_informacion, valor_buscado)
 
-    def dibujar_lista(self, valor_buscado=None):
+    def dibujar_lista(self, nodos_informacion, valor_buscado):
         # Eliminamos los frames de la lista
         for frame in self.lista_frames:
             frame.destroy()
@@ -28,8 +26,11 @@ class EstructuraInterfaz(Frame):
         # Limpiamos la lista de frames
         self.lista_frames.clear()
 
+        # Bandera para saber si se encontró el nodo buscado
+        buscado = False
+
         # Por cada nodo de la lista, se crea un frame
-        for i in range(self.lista.get_size()):
+        for i in range(len(nodos_informacion)):
 
             nuevo_frame = Frame(self, width=50, height=50, bg='#141E27', highlightbackground="black",
                                 highlightthickness=1)
@@ -37,9 +38,9 @@ class EstructuraInterfaz(Frame):
             self.lista_frames.append(nuevo_frame)
 
             # Se agrega el texto y la referencia del nodo al frame
-            texto = Label(nuevo_frame, text=self.lista.search_position_node(i).data, bg='#141E27', fg='white',
+            texto = Label(nuevo_frame, text=nodos_informacion[i].get_data(), bg='#141E27', fg='white',
                           font=('Arial', 20))
-            referencia = Label(nuevo_frame, text=id(self.lista.search_position_node(i)), bg='#141E27', fg='white',
+            referencia = Label(nuevo_frame, text=nodos_informacion[i].get_id(), bg='#141E27', fg='white',
                                font=('Arial', 10))
 
             # Comprobamos si estamos en el primer nodo
@@ -49,18 +50,18 @@ class EstructuraInterfaz(Frame):
                 referencia.config(bg='#003638')
 
             # Comprobamos si estamos en el último nodo
-            if i == self.lista.get_size() - 1:
+            if i == len(nodos_informacion) - 1:
                 nuevo_frame.config(bg='#006778')
                 texto.config(bg='#006778')
                 referencia.config(bg='#006778')
 
             # Comprobamos si el nodo es el que estamos buscando
-            if self.lista.search_position_node(i).buscado:
+            if nodos_informacion[i].get_data() == valor_buscado and not buscado:
                 nuevo_frame.config(bg='#541212')
                 texto.config(bg='#541212')
                 referencia.config(bg='#541212')
 
-                self.lista.search_position_node(i).set_buscado(False)
+                buscado = True
 
             # Los empaquetamos
             texto.grid(row=0, column=0)

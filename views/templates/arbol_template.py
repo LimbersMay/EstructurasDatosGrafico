@@ -16,11 +16,11 @@ class ArbolInterfaz(Frame):
         self.columnas = 17
 
         # Imagenes de las flechas
-        self.diagonal_derecha = ImageTk.PhotoImage(Image.open("recursos/derecha.png").resize((40, 40)))
-        self.diagonal_izquierda = ImageTk.PhotoImage(Image.open("recursos/izquierda.png").resize((40, 40)))
+        self.diagonal_derecha = ImageTk.PhotoImage(Image.open("resources/derecha.png").resize((40, 40)))
+        self.diagonal_izquierda = ImageTk.PhotoImage(Image.open("resources/izquierda.png").resize((40, 40)))
 
-        self.recta_derecha = ImageTk.PhotoImage(Image.open("recursos/recta_derecha.png").resize((40, 40)))
-        self.recta_izquierda = ImageTk.PhotoImage(Image.open("recursos/recta_izquierda.png").resize((40, 40)))
+        self.recta_derecha = ImageTk.PhotoImage(Image.open("resources/recta_derecha.png").resize((40, 40)))
+        self.recta_izquierda = ImageTk.PhotoImage(Image.open("resources/recta_izquierda.png").resize((40, 40)))
 
         self.arbol = manager.get_estructura()
 

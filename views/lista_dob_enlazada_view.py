@@ -1,5 +1,7 @@
 from tkinter import *
 from estructuras.double_linked_list import DoubleLinkedList
+from models.models import DoubleLinkedListModel
+from controllers.controllers import DoublyLinkedListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesLista
@@ -16,18 +18,17 @@ class ListaDobEnOpciones(Frame):
         # Estructura
         self.lista = DoubleLinkedList()
 
-        # Manager encargada de controlar los elementos de la interfaz
-        self.manager = Manager(self.lista)
+        # Definimos el modelo de datos
+        self.modelo = DoubleLinkedListModel(self.lista)
+
+        # Definimos el controlador de la lista
+        self.controlador = DoublyLinkedListController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista Doble Enlazada")
-        self.lista_dob_informacion = ListaDobInformacion(self, self.manager)
-        self.lista_dob_interfaz = EstructuraDobEnlazadaInterfaz(self, self.manager)
-        self.botones_inferiores = BotonesDobEnlazada(self, self.manager)
-
-        # Le indicamos al manager que elementos manejará
-        self.manager.set_lista_dob_interfaz(self.lista_dob_interfaz)
-        self.manager.set_lista_dob_informacion(self.lista_dob_informacion)
+        self.lista_dob_informacion = ListaDobInformacion(self)
+        self.lista_dob_interfaz = ListaDobEnlazadaInterfaz(self)
+        self.botones_inferiores = BotonesDobEnlazada(self, self.controlador)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -35,35 +36,20 @@ class ListaDobEnOpciones(Frame):
         self.lista_dob_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
 
+    # Método para actualizar toda la interfaz
+    def actualizar(self, args):
+        nodos_informacion = args[0]
+        lista_informacion = args[1]
+        nodo_buscado = args[2] if len(args) == 3 else None
 
-# Responsabilidad: Manejar los elementos de la interfaz proporcionandoles acceso a la estructura
-class Manager:
-    def __init__(self, estructura, lista_dob_interfaz=None, lista_dob_informacion=None):
-        self.estructura = estructura
-        self.lista_dob_interfaz = lista_dob_interfaz
-        self.lista_dob_informacion = lista_dob_informacion
-    
-    # Método para obtener la estructura de datos
-    def get_estructura(self):
-        return self.estructura
-
-    # Método para que cuando se haga alguna modificación a la lista, la dibujemos
-    # y además imprimamos su información
-    def actualizar(self):
-        self.lista_dob_interfaz.actualizar()
-        self.lista_dob_informacion.actualizar()
-
-    def set_lista_dob_interfaz(self, lista_dob_interfaz):
-        self.lista_dob_interfaz = lista_dob_interfaz
-
-    def set_lista_dob_informacion(self, lista_dob_informacion):
-        self.lista_dob_informacion = lista_dob_informacion
+        self.lista_dob_informacion.actualizar(lista_informacion)
+        self.lista_dob_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
 
 # Responsabilidad: Mostrar toda la información de la lista
 class ListaDobInformacion(EstructuraInformacion):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
         # Posicionamos todos los elementos
         self.titulo.grid(row=0, column=0)
@@ -74,17 +60,17 @@ class ListaDobInformacion(EstructuraInformacion):
 
 
 # Responsabilidad: Mostrar la lista enlazada en una interfaz gráfica
-class EstructuraDobEnlazadaInterfaz(EstructuraInterfaz):
+class ListaDobEnlazadaInterfaz(EstructuraInterfaz):
 
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
 
 # Responsabilidad: Manejar los botones de la lista para manipularla
 class BotonesDobEnlazada(BotonesLista):
 
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
         # Elementos del frame
         self.indice_label = Label(self, text="Indice: ")
@@ -116,11 +102,9 @@ class BotonesDobEnlazada(BotonesLista):
         dato = self.dato_entry.get()
         indice = int(self.indice_entry.get())
 
-        self.manager.get_estructura().append_in_position(dato, indice)
-        self.manager.actualizar()
+        self.controlador.insertar_por_indice(dato, indice)
 
     def eliminar_posicion(self):
         indice = int(self.indice_entry.get())
 
-        self.manager.get_estructura().remove_in_position(indice)
-        self.manager.actualizar()
+        self.controlador.eliminar_por_indice(indice)

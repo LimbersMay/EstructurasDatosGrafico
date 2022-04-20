@@ -1,5 +1,7 @@
 from tkinter import *
 from estructuras.linked_list import LinkedList
+from models.models import SimpleListModel
+from controllers.controllers import SimpleListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesLista
@@ -16,18 +18,17 @@ class ListaOpciones(Frame):
         # Estructura del frame
         self.lista = LinkedList()
 
-        # Manager de los widgets
-        self.manager = Manager(self.lista)
+        # Definimos el modelo de datos de la lista
+        self.modelo = SimpleListModel(self.lista)
+
+        # Definimos el controlador de la lista
+        self.controlador = SimpleListController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista simplemente enlazada")
-        self.lista_informacion = ListaInformacion(self, self.manager)
-        self.lista_interfaz = EstructuraSimpleInterfaz(self, self.manager)
-        self.botones_inferiores = BotonesInferiores(self, self.manager)
-
-        # Le indicamos al manager que elementos manejará
-        self.manager.set_lista_interfaz(self.lista_interfaz)
-        self.manager.set_lista_informacion(self.lista_informacion)
+        self.lista_informacion = ListaInformacion(self)
+        self.lista_interfaz = EstructuraSimpleInterfaz(self)
+        self.botones_inferiores = BotonesInferiores(self, self.controlador)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -35,35 +36,20 @@ class ListaOpciones(Frame):
         self.lista_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
 
+    # Método para actualizar toda la interfaz
+    def actualizar(self, args):
+        nodos_informacion = args[0]
+        pila_informacion = args[1]
+        nodo_buscado = args[2] if len(args) == 3 else None
 
-# Responsabilidad: Manejar los elementos de la interfaz proporcionandoles acceso a la estructura
-class Manager:
-    def __init__(self, lista, lista_interfaz=None, lista_informacion=None):
-        self.lista = lista
-        self.lista_interfaz = lista_interfaz
-        self.lista_informacion = lista_informacion
-    
-    # Método para obtener la estructura de datos
-    def get_estructura(self):
-        return self.lista
-
-    # Método para que cuando se haga alguna modificación a la lista, la dibujemos
-    # y además imprimamos su información
-    def actualizar(self):
-        self.lista_interfaz.actualizar()
-        self.lista_informacion.actualizar()
-
-    def set_lista_interfaz(self, lista_interfaz):
-        self.lista_interfaz = lista_interfaz
-
-    def set_lista_informacion(self, lista_informacion):
-        self.lista_informacion = lista_informacion
+        self.lista_informacion.actualizar(pila_informacion)
+        self.lista_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
 
 # Responsabilidad: Mostrar toda la información de la lista
 class ListaInformacion(EstructuraInformacion):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
         # Posicionamos todos los elementos
         self.titulo.grid(row=0, column=0)
@@ -75,14 +61,14 @@ class ListaInformacion(EstructuraInformacion):
 
 # Responsabilidad: Mostrar la lista en una interfaz gráfica
 class EstructuraSimpleInterfaz(EstructuraInterfaz):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
 
 # Responsabilidad: Manejar los botones para manipular la lista
 class BotonesInferiores(BotonesLista):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
         self.dato_label.grid(row=0, column=0)
         self.dato_entry.grid(row=0, column=1)
