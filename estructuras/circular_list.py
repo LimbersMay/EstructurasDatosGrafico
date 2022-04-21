@@ -159,15 +159,21 @@ class CircularList:
         self._size += 1
         return new
 
-        # Method that return a list with all the data of the nodes
-
+    # Method that return a list of nodes
     def to_list(self):
-        current = self._head
-        result = []
-        while current is not None:
-            result.append(current.data)
-            current = current.next
-        return result
+        if self.is_empty():
+            return []
+
+        else:
+            aux = self._head
+            list_data = []
+
+            while aux is not self._tail:
+                list_data.append(aux.data)
+                aux = aux.next
+
+            list_data.append(self._tail.data)
+            return list_data
 
     def prepend(self, data):
         if self.is_empty():

@@ -282,15 +282,21 @@ class DoubleLinkedList:
         else:
             raise Exception('No item found')
 
-        # Method that return a list with all the data of the nodes
-
+    # Method that return a list with all the data of the nodes
     def to_list(self):
-        current = self._head
-        result = []
-        while current is not None:
-            result.append(current.data)
-            current = current.next
-        return result
+        if self.is_empty():
+            return []
+
+        else:
+            aux = self._head
+            list_data = []
+
+            while aux is not self._tail:
+                list_data.append(aux.data)
+                aux = aux.next
+
+            list_data.append(self._tail.data)
+            return list_data
 
     # Other methods
     def is_empty(self) -> bool:
