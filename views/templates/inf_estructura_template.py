@@ -4,8 +4,10 @@ from tkinter import ttk
 
 
 class EstructuraInformacion(Frame):
-    def __init__(self, master):
+    def __init__(self, master, controlador):
         Frame.__init__(self, master)
+
+        self.controlador = controlador
 
         # Variables cambiantes de los label
         self.tamanio_variable = StringVar(self)
@@ -32,9 +34,9 @@ class EstructuraInformacion(Frame):
         # Contenedor de los botones
         self.contenedor_botones = Frame(self, bg="darkred")
 
-        self.cargar_btn = Button(self.contenedor_botones, text="Cargar")
-        self.guardar_btn = Button(self.contenedor_botones, text="Guardar")
-        self.eliminar_btn = Button(self.contenedor_botones, text="Eliminar")
+        self.cargar_btn = Button(self.contenedor_botones, text="Cargar", command=self.cargar)
+        self.guardar_btn = Button(self.contenedor_botones, text="Guardar", command=self.guardar)
+        self.eliminar_btn = Button(self.contenedor_botones, text="Eliminar", command=self.eliminar)
 
         # Posicionamiento de los botones en el contenedor
         self.cargar_btn.grid(row=0, column=0)
@@ -60,6 +62,16 @@ class EstructuraInformacion(Frame):
         self.tamanio_variable.set(f"Tamaño: 0")
         self.tope_variable.set("Tope: Ninguno")
         self.fondo_variable.set("Fondo: Ninguno")
+
+    # Método para guardar la estructura
+    def guardar(self):
+        self.controlador.guardar()
+
+    def cargar(self):
+        self.controlador.cargar()
+
+    def eliminar(self):
+        self.controlador.eliminar()
 
     # Método para aplicar estilo a todos los elementos
     def aplicar_estilo(self, elemento):

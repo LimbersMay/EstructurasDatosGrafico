@@ -25,7 +25,7 @@ class PilaOpciones(Frame):
 
         # Elementos del frame
         self.label_titulo = Label(self, text="Pila")
-        self.pila_informacion = PilaInformacion(self)
+        self.pila_informacion = PilaInformacion(self, self.controlador)
         self.pila_interfaz = PilaInterfaz(self)
         self.botones_inferiores = BotonesPila(self, self.controlador)
 
@@ -48,8 +48,8 @@ class PilaOpciones(Frame):
 
 # Responsabilidad: Mostrar toda la información de la pila
 class PilaInformacion(EstructuraInformacion):
-    def __init__(self, master):
-        super().__init__(master)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
         self.maximo_variable = StringVar(self)
 
