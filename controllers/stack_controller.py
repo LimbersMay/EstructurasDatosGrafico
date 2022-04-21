@@ -12,7 +12,7 @@ class StackController:
             self.view.actualizar(informacion_pila)
 
         except Exception as e:
-            print(e)
+            print("Error: ", e)
 
     def remove(self):
         try:
@@ -21,7 +21,7 @@ class StackController:
             self.view.actualizar(informacion_pila)
 
         except Exception as e:
-            print(e)
+            print("Error: ", e)
 
     def search(self, valor):
         try:
@@ -30,4 +30,33 @@ class StackController:
             self.view.actualizar(informacion_pila)
 
         except Exception as e:
-            print(e)
+            print("Error: ", e)
+
+    # Operaciones que se realizarán con el Json
+    def guardar(self):
+        try:
+            # Intentamos llevar a cabo la operación
+            informacion_pila = self.model.guardar()
+            self.view.actualizar(informacion_pila)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def cargar(self):
+        try:
+            # Intentamos llevar a cabo la operación
+            informacion_pila = self.model.cargar()
+            self.view.actualizar(informacion_pila)
+
+        except Exception as e:
+            # En caso de una excepción, la imprimimos
+            print("Error: ", e)
+
+    def eliminar(self):
+        try:
+            # Intentamos llevar a cabo la operación
+            informacion_pila = self.model.eliminar()
+            self.view.actualizar(informacion_pila)
+
+        except Exception as e:
+            print("Error: ", e)

@@ -43,10 +43,38 @@ class ListController:
         except Exception as e:
             print("Error: ", e)
 
+    # Operaciones que se realizarán con el Json
     def buscar(self, valor):
         try:
             # Intentamos mostrar la información
             informacion_lista = self.model.buscar(valor)
+            self.view.actualizar(informacion_lista)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def guardar(self):
+        try:
+            # Intentamos mostrar la información
+            informacion_lista = self.model.guardar()
+            self.view.actualizar(informacion_lista)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def cargar(self):
+        try:
+            # Intentamos mostrar la información
+            informacion_lista = self.model.cargar()
+            self.view.actualizar(informacion_lista)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def eliminar(self):
+        try:
+            # Intentamos mostrar la información
+            informacion_lista = self.model.guardar()
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
