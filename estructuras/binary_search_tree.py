@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Optional, TypeVar
+from .binary_tree import NodeInformation
 
 T = TypeVar('T')
 
@@ -17,7 +18,7 @@ class Node:
 
     def is_leaf(self):
         return self.left is None and self.right is None
-    
+
     def get_left(self):
         return self.left
 
@@ -35,7 +36,6 @@ class BinarySearchTree:
     def insert(self, data, *args):
         subtree = self.__root if len(args) == 0 else args[0]
 
-        
         if subtree.data is None:
             subtree.data = data
             return
@@ -88,7 +88,7 @@ class BinarySearchTree:
     def insert_root(self, data):
         if self.__root.get_data() is None:
             self.__root = Node(data)
-    
+
     # Method that return the maximum depth of the tree
     def max_depth(self, *args) -> int:
         node = self.__root if len(args) == 0 else args[0]
@@ -107,7 +107,6 @@ class BinarySearchTree:
         else:
             return -1
 
-    
     # Convert the binary tree to a list using Eytzi's algorithm
     def to_list(self) -> list:
         result = []
@@ -125,12 +124,12 @@ class BinarySearchTree:
         to_list(self.__root, 0)
 
         return result
-    
+
     # Complete the binary tree puting all the missing nodes in the left side
     def complete_tree(self, *args) -> None:
         node = self.__root if len(args) == 0 else args[0]
         current_level = args[1] if len(args) >= 1 else 1
-        
+
         if node is not None:
             if node.is_leaf() and current_level == self.max_depth():
                 return
@@ -145,19 +144,37 @@ class BinarySearchTree:
                 self.complete_tree(node.left, current_level + 1)
                 self.complete_tree(node.right, current_level + 1)
 
-    # Method that returns the nodes of a level
+        # Method that returns the nodes of a level
+        # Method that returns the nodes of a level
+
     def level_nodes(self, level: int, values=False) -> list:
+        self.complete_tree()
         result_references = []
         result_values = []
+        nodes_information = []
 
         def level_nodes(node: Node, level: int) -> None:
+            tiene_derecho = False
+            tiene_izquierdo = False
+
             if node is not None:
                 if level == len(result_references):
                     result_references.append([])
                     result_values.append([])
+                    nodes_information.append([])
 
                 result_references[level].append(node)
                 result_values[level].append(node.data)
+
+                # Comprobaciones para ver si tiene un hijo derecho o no
+                if node.right is not None:
+                    tiene_derecho = True if node.right.data is not None else False
+
+                if node.left is not None:
+                    tiene_izquierdo = True if node.left.data is not None else False
+
+                nodes_information[level].append(
+                    NodeInformation(node.data, id(node), tiene_izquierdo, tiene_derecho))
 
                 level_nodes(node.left, level + 1)
                 level_nodes(node.right, level + 1)
@@ -166,20 +183,20 @@ class BinarySearchTree:
 
         if values:
             return result_values[level]
-        
-        return result_references[level]
-    
+
+        return nodes_information[level]
+
     def get_root(self):
         return self.__root.data
-    
+
     # Method that returns the return the total number of nodes in the tree
-    def count_nodes(self,) -> int:
-        
+    def count_nodes(self, ) -> int:
+
         matrix_nodes = self.to_list()
         list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
 
         return len(list_nodes)
-    
+
     def __search(self, data: T, *args) -> Optional[Node]:
         node = self.__root if len(args) == 0 else args[0]
 
@@ -200,6 +217,8 @@ class BinarySearchTree:
 
         else:
             return None
-    
+
     def search(self, data: T) -> Optional[Node]:
         return self.__search(data)
+
+    # Method

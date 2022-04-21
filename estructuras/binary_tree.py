@@ -1,9 +1,32 @@
 from __future__ import annotations
-from ast import arg
 from typing import Optional, TypeVar
 
 
 T = TypeVar('T')
+
+
+class NodeInformation:
+    def __init__(self, data, id, left_child, right_child):
+        self.data = data
+        self.id = id
+
+        self.left_child = left_child
+        self.right_child = right_child
+
+    def get_data(self):
+        return self.data
+
+    def get_id(self):
+        return self.id
+
+    def have_left_child(self):
+        return self.left_child
+
+    def have_right_child(self):
+        return self.right_child
+
+    def is_leaf(self):
+        return not self.have_left_child() and not self.have_right_child()
 
 
 class Node:
@@ -36,6 +59,7 @@ class BinaryTree:
 
     # Method that insert a node in the left side with a reference
     def insert_left(self, data: T, ref: T):
+        print("Ref received: ", ref)
         node = self.__search(ref)
 
         if node is not None:
@@ -245,17 +269,32 @@ class BinaryTree:
     
     # Method that returns the nodes of a level
     def level_nodes(self, level: int, values=False) -> list:
+        self.complete_tree()
         result_references = []
         result_values = []
+        nodes_information = []
 
         def level_nodes(node: Node, level: int) -> None:
+            tiene_derecho = False
+            tiene_izquierdo = False
+
             if node is not None:
                 if level == len(result_references):
                     result_references.append([])
                     result_values.append([])
+                    nodes_information.append([])
 
                 result_references[level].append(node)
                 result_values[level].append(node.data)
+
+                # Comprobaciones para ver si tiene un hijo derecho o no
+                if node.right is not None:
+                    tiene_derecho = True if node.right.data is not None else False
+
+                if node.left is not None:
+                    tiene_izquierdo = True if node.left.data is not None else False
+
+                nodes_information[level].append(NodeInformation(node.data, id(node), tiene_izquierdo, tiene_derecho))
 
                 level_nodes(node.left, level + 1)
                 level_nodes(node.right, level + 1)
@@ -265,7 +304,7 @@ class BinaryTree:
         if values:
             return result_values[level]
         
-        return result_references[level]
+        return nodes_information[level]
     
     # Method that insert the root of the tree
     def insert_root(self, data: T) -> None:
