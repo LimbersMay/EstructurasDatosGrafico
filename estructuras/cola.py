@@ -2,6 +2,7 @@ from lib2to3.pytree import Node
 from .node_information import NodeInformation
 from .lineal_structure_information import LinealStructureInformation
 
+
 class Nodo:
     def __init__(self, elemento):
         self.data = elemento
@@ -43,16 +44,26 @@ class Cola:
             # 4 - actualizar datos
         self._size += 1
 
-    def recorrer(self):
-        resultado = ''
+    def to_list(self):
         aux = self.frente
-        while aux is not None:
-            # 2 - visitar el nodo
-            resultado = resultado + str(aux) + '\n'
-            # 3- mover el auxiliar
-            aux = aux.siguiente
+        elementos = []
+        while True:
+            if aux is None:
+                break
+            else:
+                if type(aux.data) == str:
+                    if aux.data.isdigit():
+                        elementos.append(int(aux.data))
 
-        return resultado
+                    if not aux.data.isdigit():
+                        elementos.append(aux.data)
+
+                if not type(aux.data) == str:
+                    elementos.append(aux.data)
+
+                aux = aux.siguiente
+
+        return elementos
 
     def search(self, elemento) -> NodeInformation:
         aux = self.frente
@@ -127,3 +138,9 @@ class Cola:
                                                        self.get_max())
 
         return queue_information
+
+    # Method that clear the stack
+    def clear(self):
+        self.frente = None
+        self._size = 0
+        self.max = -1

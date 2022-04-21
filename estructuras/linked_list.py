@@ -22,7 +22,7 @@ class LinkedList(Generic[T]):
     def __len__(self) -> int:
         return self._size
 
-    # Atributo de lectura para acceder a la data del primer nodo
+    # Atributo de lectura para acceder a la datos del primer nodo
     # Si no hay elementos lanza una excepción
     @property
     def first(self) -> T:
@@ -31,7 +31,7 @@ class LinkedList(Generic[T]):
         else:
             return self._head.data
 
-    # Atributo de lectura para acceder a la data del último nodo
+    # Atributo de lectura para acceder a la datos del último nodo
     # Si no hay elementos lanza una excepción
     @property
     def last(self) -> T:
@@ -44,7 +44,7 @@ class LinkedList(Generic[T]):
     def is_empty(self):
         return self._head is None and self._tail is None
 
-    # Método para recorrer todos los nodos de una lista, devuelve una cadena con toda la data
+    # Método para recorrer todos los nodos de una lista, devuelve una cadena con toda la datos
     def traversal(self) -> str:
         result: str = ''
         current: Optional[Node] = self._head
@@ -87,7 +87,7 @@ class LinkedList(Generic[T]):
 
         raise Exception('Posicion inexistente')
 
-    # Method that search a node by data
+    # Method that search a node by datos
     def search(self, data):
         current = self._head
         while current is not None:
@@ -96,6 +96,15 @@ class LinkedList(Generic[T]):
             current = current.next
 
         return None
+
+    # Method that return a list with all the data of the nodes
+    def to_list(self):
+        current = self._head
+        result = []
+        while current is not None:
+            result.append(current.data)
+            current = current.next
+        return result
 
     # Method to insert a new node at the beginning of the list
     def prepend(self, data: T) -> None:
@@ -195,3 +204,9 @@ class LinkedList(Generic[T]):
         list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
 
         return list_information
+
+    # Method that clear the list
+    def clear(self):
+        self._head = None
+        self._tail = None
+        self._size = 0

@@ -1,6 +1,7 @@
 from .node_information import NodeInformation
 from .lineal_structure_information import LinealStructureInformation
 
+
 class Nodo:
     def __init__(self, elemento):
         # Parte amarilla
@@ -30,14 +31,23 @@ class Pila:
         else:
             raise Exception('Desbordamiento de pila')
 
-    def recorrer(self):
+    def to_list(self):
         aux = self.tope
         elementos = []
         while True:
             if aux is None:
                 break
             else:
-                elementos.append(aux.data)
+                if type(aux.data) == str:
+                    if aux.data.isdigit():
+                        elementos.append(int(aux.data))
+
+                    if not aux.data.isdigit():
+                        elementos.append(aux.data)
+
+                if not type(aux.data) == str:
+                    elementos.append(aux.data)
+
                 aux = aux.siguiente
 
         return elementos
@@ -123,3 +133,9 @@ class Pila:
                                                        self.get_max())
 
         return stack_information
+
+    # Method that clear the stack
+    def clear(self):
+        self.tope = None
+        self._size = 0
+        self.max = -1

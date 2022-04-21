@@ -159,6 +159,16 @@ class CircularList:
         self._size += 1
         return new
 
+        # Method that return a list with all the data of the nodes
+
+    def to_list(self):
+        current = self._head
+        result = []
+        while current is not None:
+            result.append(current.data)
+            current = current.next
+        return result
+
     def prepend(self, data):
         if self.is_empty():
             new_node = Node(data)
@@ -205,3 +215,9 @@ class CircularList:
         circular_list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
 
         return circular_list_information
+
+
+    def clear(self):
+        self._head = None
+        self._tail = None
+        self._size = 0

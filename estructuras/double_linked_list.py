@@ -282,6 +282,16 @@ class DoubleLinkedList:
         else:
             raise Exception('No item found')
 
+        # Method that return a list with all the data of the nodes
+
+    def to_list(self):
+        current = self._head
+        result = []
+        while current is not None:
+            result.append(current.data)
+            current = current.next
+        return result
+
     # Other methods
     def is_empty(self) -> bool:
         return self._head is None and self._tail is None
@@ -309,3 +319,8 @@ class DoubleLinkedList:
         list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
 
         return list_information
+    
+    def clear(self):
+        self._head = None
+        self._tail = None
+        self._size = 0
