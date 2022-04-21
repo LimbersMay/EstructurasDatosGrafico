@@ -1,9 +1,10 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from models.binary_tree_models import InformacionArbolBinario
 
 
 class ArbolInterfaz(Frame):
-    def __init__(self, master, manager):
+    def __init__(self, master):
         Frame.__init__(self, master)
 
         # Elementos del frame
@@ -22,12 +23,10 @@ class ArbolInterfaz(Frame):
         self.recta_derecha = ImageTk.PhotoImage(Image.open("resources/recta_derecha.png").resize((40, 40)))
         self.recta_izquierda = ImageTk.PhotoImage(Image.open("resources/recta_izquierda.png").resize((40, 40)))
 
-        self.arbol = manager.get_estructura()
-
         self.inicializar_arbol()
     
-    def actualizar(self):
-        self.dibujar_arbol()
+    def actualizar(self, informacion_arbol):
+        self.dibujar_arbol(informacion_arbol)
 
     def dibujar_matriz(self):
         # Definimos la cantidad de filas que tendrá el frame
@@ -51,18 +50,23 @@ class ArbolInterfaz(Frame):
 
             self.matriz_frames.append(sub_matriz)
 
-    def dibujar_arbol(self):
+    def dibujar_arbol(self, informacion_arbol: InformacionArbolBinario):
         
         self.destruir_frames()
-        self.arbol.complete_tree()
         self.dibujar_matriz()
 
         contador = 2
 
-        for nivel in range(self.arbol.max_depth()):
-            
-            nodos_nivel = self.arbol.level_nodes(nivel)
+        nodo_buscado = informacion_arbol.get_seleccionado()
 
+        # Datos necesarios
+        # Profundidad del árbol
+        # Nodos en un nivel determinado
+        # Lista de nodos
+
+        for nivel in range(informacion_arbol.get_profundidad()):
+            
+            nodos_nivel = informacion_arbol.get_nodos_nivel()[nivel]
             profundidad_y = nivel + contador
 
             if nivel == 0:
@@ -70,7 +74,7 @@ class ArbolInterfaz(Frame):
 
             if nivel >= 1:
                 # Para los primeros hijos
-                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel)
+                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel, nodo_buscado)
                 contador += 1
             
     # Función para insertar el nodo raíz
@@ -88,11 +92,11 @@ class ArbolInterfaz(Frame):
         self.dibujar_flecha_derecha(profundidad_y + 1, punto_medio_x + 1)
 
     # Función para insertar nodos
-    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list):
+    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list, valor_buscado=None):
         punto_medio = int(round(self.columnas / 2))
 
-        
         # Por la cantidad de nodos que tiene el nivel
+        encontrado = False
         for i in range(0, len(nodos), 2):
 
             auxiliar = i * 2
@@ -106,49 +110,49 @@ class ArbolInterfaz(Frame):
 
             # Si este nodo no fue uno de relleno
             if nodo_izquierdo.get_data() is not None:
-                
-                if nodo_izquierdo.buscado:
+
+                # Comprobamos si el nodo izquierdo es el nodo buscado
+                if nodo_izquierdo.get_data() == valor_buscado and not encontrado:
                     self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo, '#54BAB9')
 
-                    print("Encontré el nodo: " + str(nodo_izquierdo.get_data()))
+                    encontrado = True
 
-                    nodo_izquierdo.set_buscado(False)
-
-                elif not nodo_izquierdo.buscado:
+                elif not nodo_izquierdo == valor_buscado:
                     self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo)
 
                 # Comprobamos que el nodo tenga algún hijo
                 if not nodo_izquierdo.is_leaf():
 
                     # Comprobamos que el nodo izquierdo tenga hijos
-                    if nodo_izquierdo.get_left().get_data() is not None:
+                    if nodo_izquierdo.have_left_child():
                         self.dibujar_flecha_izquierda(profundidad_y, sep_izquierdo)
                     
                     # Comprobamos que el nodo derecho tenga hijos
-                    if nodo_izquierdo.get_right().get_data() is not None:
+                    if nodo_izquierdo.have_right_child():
                         self.dibujar_flecha_derecha(profundidad_y, sep_izquierdo)
 
             if nodo_derecho.get_data() is not None:
 
-                if nodo_derecho.buscado:
+                # Comprobamos si el nodo es el que estamos buscando
+                if nodo_derecho.get_data() == valor_buscado and not encontrado:
                     self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho, '#54BAB9')
 
-                    nodo_derecho.set_buscado(False)
+                    encontrado = True
                 
-                elif not nodo_derecho.buscado:
+                elif not nodo_derecho.get_data() == valor_buscado:
                     self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho)
 
                 # Si este nodo no tiene ningún hijo
                 if not nodo_derecho.is_leaf():
 
                     # Comprobamos si tiene un hijo derecho
-                    if nodo_derecho.get_right().get_data() is not None:
+                    if nodo_derecho.have_right_child():
                         self.dibujar_flecha_derecha(profundidad_y, sep_derecho)
     
                     # Comprobamos si tiene un hijo izquierdo
-                    if nodo_derecho.get_left().get_data() is not None:
+                    if nodo_derecho.have_left_child():
                         self.dibujar_flecha_izquierda(profundidad_y, sep_derecho)
-            
+
             # Eliminamos los nodos
             nodos.pop()
             nodos.pop(0)
@@ -162,7 +166,7 @@ class ArbolInterfaz(Frame):
 
         # Datos del nodo
         nodo_dato = nodo.get_data()
-        id_nodo = hex(id(nodo))
+        id_nodo = nodo.get_id()
 
         # Label que contiene el dato del nodo
         Label(frame_buscado, text=nodo_dato, bg=color).pack()

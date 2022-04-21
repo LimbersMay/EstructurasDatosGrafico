@@ -1,5 +1,9 @@
 from tkinter import *
 from estructuras.binary_tree import BinaryTree
+
+from models.binary_tree_models import BinaryTreeModel
+from controllers.binary_tree_controllers import BinaryTreeController
+
 from .templates.inf_arbol_template import ArbolInformacion
 from .templates.arbol_template import ArbolInterfaz
 from .templates.botones_arbol_template import BotonesArbol
@@ -11,22 +15,21 @@ class ArbolBinarioOpciones(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        # Estructura utilizada
-        self.arbol = BinaryTree()
-
-        # Manager de la interfaz del árbol
-        self.manager = Manager(self.arbol)
-
         master.title("Arbol binario")
 
-        self.titulo = Label(self, text="Arbol Binario simple")
-        self.arbol_informacion = ArbolBinarioInformacion(self, self.manager)
-        self.arbol_interfaz = ArbolBinarioInterfaz(self, self.manager)
-        self.botones_arbol = BotonesArbolBinario(self, self.manager)
+        # Estructura de dato que usaremos
+        self.arbol = BinaryTree()
 
-        # Le indicamos al manager de qué elementos de la interfaz se encargará
-        self.manager.set_arbol_interfaz(self.arbol_interfaz)
-        self.manager.set_arbol_informacion(self.arbol_informacion)
+        # Definimos el modelo de los datos
+        self.modelo = BinaryTreeModel(self.arbol)
+
+        # Definimos el controlador de los datos
+        self.controlador = BinaryTreeController(self.modelo, self)
+
+        self.titulo = Label(self, text="Arbol Binario simple")
+        self.arbol_informacion = ArbolBinarioInformacion(self)
+        self.arbol_interfaz = ArbolBinarioInterfaz(self)
+        self.botones_arbol = BotonesArbolBinario(self, self.controlador)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -34,34 +37,15 @@ class ArbolBinarioOpciones(Frame):
         self.arbol_informacion.grid(row=1, column=1)
         self.botones_arbol.grid(row=2, column=0)
 
-
-# Responsabilidad: Manejar los elementos de la interfaz proporcionandoles funcionalidad
-class Manager:
-    def __init__(self, arbol, arbol_interfaz=None, arbol_informacion=None):
-        self.arbol = arbol
-        self.arbol_interfaz = arbol_interfaz
-        self.arbol_informacion = arbol_informacion
-
-    # Método para indicarle al manager que ha sido modificada la estructura de datos, así que
-    # Debemos dibujarla y actualizar el frame de información
-    def actualizar(self):
-        self.arbol_informacion.actualizar()
-        self.arbol_interfaz.actualizar()
-
-    def get_estructura(self):
-        return self.arbol
-
-    def set_arbol_interfaz(self, arbol_interfaz):
-        self.arbol_interfaz = arbol_interfaz
-
-    def set_arbol_informacion(self, arbol_informacion):
-        self.arbol_informacion = arbol_informacion
+    def mostrar_arbol(self, args):
+        self.arbol_interfaz.actualizar(args)
+        self.arbol_informacion.actualizar(args)
 
 
 # Responsabilidad: Mostrar toda la información del árbol (tamaño, altura, profundidad)
 class ArbolBinarioInformacion(ArbolInformacion):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
         # Posicionamos los elementos
         self.titulo.grid(row=0, column=0, columnspan=2, sticky=W)
@@ -72,14 +56,14 @@ class ArbolBinarioInformacion(ArbolInformacion):
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBinarioInterfaz(ArbolInterfaz):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
 
 # Responsabilidad: Manejar los botones para manipular la información del árbol
 class BotonesArbolBinario(BotonesArbol):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
         self.insertar_derecha = Button(self, text="Insertar Derecha", command=self.insertar_derecha)
         self.insertar_izquierda = Button(self, text="Insertar Izquierda", command=self.insertar_izquierda)
@@ -105,12 +89,10 @@ class BotonesArbolBinario(BotonesArbol):
         dato = self.dato_entry.get()
         referencia = self.referencia_entry.get()
 
-        self.manager.get_estructura().insert_left(dato, referencia)
-        self.manager.actualizar()
+        self.controlador.insertar_izquierda(dato, referencia)
 
     def insertar_derecha(self):
         dato = self.dato_entry.get()
         referencia = self.referencia_entry.get()
 
-        self.manager.get_estructura().insert_right(dato, referencia)
-        self.manager.actualizar()
+        self.controlador.insertar_derecha(dato, referencia)

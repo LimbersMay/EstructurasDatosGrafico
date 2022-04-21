@@ -1,5 +1,7 @@
 from tkinter import *
 from estructuras.binary_search_tree import BinarySearchTree
+from models.binary_tree_models import SearchBinaryTreeModel
+from controllers.binary_tree_controllers import SearchBinaryTreeController
 from .templates.inf_arbol_template import ArbolInformacion
 from .templates.botones_arbol_template import BotonesArbol
 from .templates.arbol_template import ArbolInterfaz
@@ -14,18 +16,17 @@ class ArbolBusquedaOpciones(Frame):
         # Estructura de dato que usaremos
         self.arbol = BinarySearchTree()
 
-        # Manager encargado de actualizar los frames
-        self.manager = Manager(self.arbol)
+        # Definimos el modelo de los datos y el controlador
+        self.modelo = SearchBinaryTreeModel(self.arbol)
+
+        # Definimos el controlador de los datos y el modelo
+        self.controlador = SearchBinaryTreeController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Árbol de búsqueda")
-        self.arbol_informacion = ArbolBusquedaInformacion(self, self.manager)
-        self.arbol_interfaz = ArbolBusquedaInterfaz(self, self.manager)
-        self.botones_arbol = BotonesArbolBusqueda(self, self.manager)
-
-        # Le indicamos al manager de qué elementos de la interfaz se encargará
-        self.manager.set_arbol_interfaz(self.arbol_interfaz)
-        self.manager.set_arbol_informacion(self.arbol_informacion)
+        self.arbol_informacion = ArbolBusquedaInformacion(self)
+        self.arbol_interfaz = ArbolBusquedaInterfaz(self)
+        self.botones_arbol = BotonesArbolBusqueda(self, self.controlador)
 
         # Posicionamiento de los elementos
         self.titulo.grid(row=0, column=0)
@@ -33,34 +34,16 @@ class ArbolBusquedaOpciones(Frame):
         self.arbol_informacion.grid(row=1, column=1)
         self.botones_arbol.grid(row=2, column=0)
 
-
-# Responsabilidad: Darle funcionalidad los frames de la interfaz
-class Manager:
-    def __init__(self, arbol, arbol_interfaz=None, arbol_informacion=None):
-        self.arbol = arbol
-        self.arbol_interfaz = arbol_interfaz
-        self.arbol_informacion = arbol_informacion
-
-    # Método para indicarle al manager que ha sido modificada la estructura de datos, así que
-    # Debemos dibujarla y actualizar el frame de información
-    def actualizar(self):
-        self.arbol_informacion.actualizar()
-        self.arbol_interfaz.actualizar()
-
-    def get_estructura(self):
-        return self.arbol
-
-    def set_arbol_interfaz(self, arbol_interfaz):
-        self.arbol_interfaz = arbol_interfaz
-
-    def set_arbol_informacion(self, arbol_informacion):
-        self.arbol_informacion = arbol_informacion
+    # Funcionalidad: Actualizar la información del árbol
+    def mostrar_arbol(self, args):
+        self.arbol_interfaz.actualizar(args)
+        self.arbol_informacion.actualizar(args)
 
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBusquedaInformacion(ArbolInformacion):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
         # Posicionamos los elementos
         self.titulo.grid(row=0, column=0, columnspan=2, sticky=W)
@@ -71,14 +54,14 @@ class ArbolBusquedaInformacion(ArbolInformacion):
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBusquedaInterfaz(ArbolInterfaz):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master):
+        super().__init__(master)
 
 
 # Responsabilidad: Manejar los botones para manipular el árbol
 class BotonesArbolBusqueda(BotonesArbol):
-    def __init__(self, master, manager):
-        super().__init__(master, manager)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
         self.insertar = Button(self, text='Insertar', command=self.insertar)
 
@@ -95,5 +78,4 @@ class BotonesArbolBusqueda(BotonesArbol):
         self.buscar.grid(row=0, column=5)
 
     def insertar(self):
-        self.manager.get_estructura().insert(self.dato_entry.get())
-        self.manager.actualizar()
+        self.controlador.insertar(self.dato_entry.get())

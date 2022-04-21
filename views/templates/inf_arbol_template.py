@@ -1,15 +1,12 @@
 from tkinter import *
 
 class ArbolInformacion(Frame):
-    def __init__(self, master, manager):
+    def __init__(self, master):
         super().__init__(master)
 
         # Configuración del frame
         self.config(width=200, height=350, bg="darkred")
         self.grid_propagate(False)
-
-        # Variables de la clase
-        self.manager = manager
 
         # Variables camibiantes de los label
         self.raiz_variable = StringVar(self)
@@ -29,7 +26,7 @@ class ArbolInformacion(Frame):
         self.profundidad_variable.set("Profundidad: 0")
     
     # Método para actualizar toda la información del árbol
-    def actualizar(self):
-        self.raiz_variable.set(f"Raíz: {self.manager.get_estructura().get_root()}")
-        self.tamanio_variable.set(f"Tamaño: {self.manager.get_estructura().count_nodes()}")
-        self.profundidad_variable.set(f"Profundidad: {self.manager.get_estructura().max_depth()}")
+    def actualizar(self, arbol_info):
+        self.raiz_variable.set(f"Raíz: {arbol_info.get_root()}")
+        self.tamanio_variable.set(f"Tamaño: {arbol_info.get_cantidad_nodos()}")
+        self.profundidad_variable.set(f"Profundidad: {arbol_info.get_profundidad()}")
