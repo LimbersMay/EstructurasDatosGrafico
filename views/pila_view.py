@@ -35,7 +35,9 @@ class PilaOpciones(Frame):
         self.pila_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
 
-    # Método de la view para actualizar todos los frames de la interfaz
+        self.controlador.cargar_opciones()
+
+    # Método de la view para dibujar la estrucutura en pantall y actualizar los datos
     def actualizar(self, args):
 
         nodos_informacion = args[0]
@@ -45,6 +47,10 @@ class PilaOpciones(Frame):
         self.pila_informacion.actualizar(pila_informacion)
         self.pila_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
+    # Actualizamos la caja de opciones que el usuario tiene para guardar y elegir elementos
+    def actualizar_pila_opciones(self, lista_opciones):
+        self.pila_informacion.actualizar_caja_opciones(lista_opciones)
+
 
 # Responsabilidad: Mostrar toda la información de la pila
 class PilaInformacion(EstructuraInformacion):
@@ -53,27 +59,11 @@ class PilaInformacion(EstructuraInformacion):
 
         self.maximo_variable = StringVar(self)
 
-        # Máximo de elementos de la pila
+        # Elementos del frame
         self.maximo = Label(self, textvariable=self.maximo_variable, bg="darkred", fg="white")
 
-        # Posicionamos los elementos
-        self.titulo.grid(row=0, column=0, sticky=E)
-
+        # Posicionamiento de los elementos
         self.maximo.grid(row=1, column=0, sticky=W+E)
-        self.tamanio.grid(row=2, column=0, sticky=W+E)
-        self.tope.grid(row=3, column=0, sticky=W+E)
-        self.fondo.grid(row=4, column=0, sticky=W+E)
-
-        # Parte inferior de la información
-        self.separador.grid(row=5, column=0, sticky=W+E)
-
-        self.titulo_inferior.grid(row=6, column=0, sticky=W+E)
-        self.titulo_inferior2.grid(row=7, column=0, sticky=W+E)
-        self.lista_opciones.grid(row=8, column=0, sticky=E)
-        self.estructura_campo.grid(row=9, column=0, sticky=E)
-
-        # Botones
-        self.contenedor_botones.grid(row=10, column=0, sticky=E)
 
         # Enviamos el maximo por defecto
         self.maximo_variable.set(f"Máximo: 0")

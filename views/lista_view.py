@@ -4,7 +4,7 @@ from models.list_models import SimpleListModel
 from controllers.list_controllers import SimpleListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
-from .templates.botones_lineales_template import BotonesLista
+from .templates.botones_lineales_template import BotonesEstructura
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
@@ -26,7 +26,7 @@ class ListaOpciones(Frame):
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista simplemente enlazada")
-        self.lista_informacion = ListaInformacion(self)
+        self.lista_informacion = ListaInformacion(self, self.controlador)
         self.lista_interfaz = EstructuraSimpleInterfaz(self)
         self.botones_inferiores = BotonesInferiores(self, self.controlador)
 
@@ -35,6 +35,9 @@ class ListaOpciones(Frame):
         self.lista_interfaz.grid(row=1, column=0)
         self.lista_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
+
+        # Le indicamos al controlador que nos cargue todas las listas del modelo
+        self.controlador.cargar_opciones()
 
     # Método para actualizar toda la interfaz
     def actualizar(self, args):
@@ -45,18 +48,14 @@ class ListaOpciones(Frame):
         self.lista_informacion.actualizar(pila_informacion)
         self.lista_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
+    def actualizar_caja_opciones(self, opciones):
+        self.lista_informacion.actualizar_caja_opciones(opciones)
+
 
 # Responsabilidad: Mostrar toda la información de la lista
 class ListaInformacion(EstructuraInformacion):
-    def __init__(self, master):
-        super().__init__(master)
-
-        # Posicionamos todos los elementos
-        self.titulo.grid(row=0, column=0)
-
-        self.tamanio.grid(row=1, column=0, sticky=W)
-        self.tope.grid(row=2, column=0, sticky=W)
-        self.fondo.grid(row=3, column=0, sticky=W)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
 
 # Responsabilidad: Mostrar la lista en una interfaz gráfica
@@ -66,7 +65,7 @@ class EstructuraSimpleInterfaz(EstructuraInterfaz):
 
 
 # Responsabilidad: Manejar los botones para manipular la lista
-class BotonesInferiores(BotonesLista):
+class BotonesInferiores(BotonesEstructura):
     def __init__(self, master, controlador):
         super().__init__(master, controlador)
 

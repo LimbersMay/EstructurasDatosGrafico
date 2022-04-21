@@ -47,12 +47,6 @@ class ArbolBinarioInformacion(ArbolInformacion):
     def __init__(self, master):
         super().__init__(master)
 
-        # Posicionamos los elementos
-        self.titulo.grid(row=0, column=0, columnspan=2, sticky=W)
-        self.raiz.grid(row=1, column=0, sticky=W)
-        self.tamanio.grid(row=2, column=0, sticky=W)
-        self.profundidad.grid(row=3, column=0, sticky=W)
-
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBinarioInterfaz(ArbolInterfaz):

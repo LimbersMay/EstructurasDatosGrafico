@@ -2,7 +2,7 @@ from tkinter import *
 
 
 # Clase plantilla para los botones inferiores de todas los tipos de listas
-class BotonesLista(Frame):
+class BotonesEstructura(Frame):
 
     def __init__(self, master, controlador):
         Frame.__init__(self, master)

@@ -4,7 +4,7 @@ from models.list_models import CircularListModel
 from controllers.list_controllers import CircularListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
-from .templates.botones_lineales_template import BotonesLista
+from .templates.botones_lineales_template import BotonesEstructura
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
@@ -26,7 +26,7 @@ class ListaCircularOpciones(Frame):
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista Circular")
-        self.informacion_lista = ListaCircularInformacion(self)
+        self.informacion_lista = ListaCircularInformacion(self, self.controlador)
         self.lista_interfaz = EstructuraCircularInterfaz(self)
         self.botones_inferiores = BotonesCircular(self, self.controlador)
 
@@ -35,6 +35,8 @@ class ListaCircularOpciones(Frame):
         self.lista_interfaz.grid(row=1, column=0)
         self.informacion_lista.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
+
+        self.controlador.cargar_opciones()
 
     # Método para actualizar toda la interfaz
     def actualizar(self, args):
@@ -45,18 +47,14 @@ class ListaCircularOpciones(Frame):
         self.informacion_lista.actualizar(pila_informacion)
         self.lista_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
+    def actualizar_caja_opciones(self, opciones):
+        self.informacion_lista.actualizar_caja_opciones(opciones)
+
 
 # Responsabilidad: Mostrar la información de la lista circular
 class ListaCircularInformacion(EstructuraInformacion):
-    def __init__(self, master):
-        super().__init__(master)
-
-        # Posicionamos todos los elementos
-        self.titulo.grid(row=0, column=0)
-
-        self.tamanio.grid(row=1, column=0, sticky=W)
-        self.tope.grid(row=2, column=0, sticky=W)
-        self.fondo.grid(row=3, column=0, sticky=W)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
 
 # Responsabilidad: Mostrar la lista circular en una interfaz gráfica
@@ -67,7 +65,7 @@ class EstructuraCircularInterfaz(EstructuraInterfaz):
 
 
 # Responsabilidad: Manejar los botones inferiores para manipular la lista circular
-class BotonesCircular(BotonesLista):
+class BotonesCircular(BotonesEstructura):
     def __init__(self, master, controlador):
         super().__init__(master, controlador)
 

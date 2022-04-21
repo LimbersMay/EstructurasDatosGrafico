@@ -4,7 +4,7 @@ from models.list_models import DoubleLinkedListModel
 from controllers.list_controllers import DoublyLinkedListController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
-from .templates.botones_lineales_template import BotonesLista
+from .templates.botones_lineales_template import BotonesEstructura
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
@@ -26,7 +26,7 @@ class ListaDobEnOpciones(Frame):
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista Doble Enlazada")
-        self.lista_dob_informacion = ListaDobInformacion(self)
+        self.lista_dob_informacion = ListaDobInformacion(self, self.controlador)
         self.lista_dob_interfaz = ListaDobEnlazadaInterfaz(self)
         self.botones_inferiores = BotonesDobEnlazada(self, self.controlador)
 
@@ -35,6 +35,8 @@ class ListaDobEnOpciones(Frame):
         self.lista_dob_interfaz.grid(row=1, column=0)
         self.lista_dob_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
+
+        self.controlador.cargar_opciones()
 
     # Método para actualizar toda la interfaz
     def actualizar(self, args):
@@ -45,18 +47,14 @@ class ListaDobEnOpciones(Frame):
         self.lista_dob_informacion.actualizar(lista_informacion)
         self.lista_dob_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
+    def actualizar_caja_opciones(self, opciones):
+        self.lista_dob_informacion.actualizar_caja_opciones(opciones)
+
 
 # Responsabilidad: Mostrar toda la información de la lista
 class ListaDobInformacion(EstructuraInformacion):
-    def __init__(self, master):
-        super().__init__(master)
-
-        # Posicionamos todos los elementos
-        self.titulo.grid(row=0, column=0)
-
-        self.tamanio.grid(row=1, column=0, sticky=W)
-        self.tope.grid(row=2, column=0, sticky=W)
-        self.fondo.grid(row=3, column=0, sticky=W)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
 
 # Responsabilidad: Mostrar la lista enlazada en una interfaz gráfica
@@ -67,7 +65,7 @@ class ListaDobEnlazadaInterfaz(EstructuraInterfaz):
 
 
 # Responsabilidad: Manejar los botones de la lista para manipularla
-class BotonesDobEnlazada(BotonesLista):
+class BotonesDobEnlazada(BotonesEstructura):
 
     def __init__(self, master, controlador):
         super().__init__(master, controlador)

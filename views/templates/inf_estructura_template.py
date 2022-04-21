@@ -28,7 +28,7 @@ class EstructuraInformacion(Frame):
         self.separador = Label(self, text="", bg="darkred")
         self.titulo_inferior = Label(self, text="Opciones adicionales")
         self.titulo_inferior2 = Label(self, text="Seleccionar estructura")
-        self.lista_opciones = ttk.Combobox(self, values=["Lista", "Cola", "Pila", "Pila con cola"], state="readonly")
+        self.caja_opciones = ttk.Combobox(self, state="readonly")
         self.estructura_campo = Entry(self, width=23)
 
         # Contenedor de los botones
@@ -58,6 +58,23 @@ class EstructuraInformacion(Frame):
         self.titulo.config(font=("Arial", 10))
         self.titulo_inferior.config(font=("Arial", 10))
 
+        # Posicionamiento de los elementos en el frame
+        self.titulo.grid(row=0, column=0, sticky=E)
+        self.tamanio.grid(row=2, column=0, sticky=W + E)
+        self.tope.grid(row=3, column=0, sticky=W + E)
+        self.fondo.grid(row=4, column=0, sticky=W + E)
+
+        # Parte inferior de la información
+        self.separador.grid(row=5, column=0, sticky=W + E)
+
+        self.titulo_inferior.grid(row=6, column=0, sticky=W + E)
+        self.titulo_inferior2.grid(row=7, column=0, sticky=W + E)
+        self.caja_opciones.grid(row=8, column=0, sticky=E)
+        self.estructura_campo.grid(row=9, column=0, sticky=E)
+
+        # Botones
+        self.contenedor_botones.grid(row=10, column=0, sticky=E)
+
         # Enviamos valores por defecto
         self.tamanio_variable.set(f"Tamaño: 0")
         self.tope_variable.set("Tope: Ninguno")
@@ -65,13 +82,13 @@ class EstructuraInformacion(Frame):
 
     # Método para guardar la estructura
     def guardar(self):
-        self.controlador.guardar()
+        self.controlador.guardar(self.estructura_campo.get())
 
     def cargar(self):
-        self.controlador.cargar()
+        self.controlador.cargar(self.caja_opciones.get())
 
     def eliminar(self):
-        self.controlador.eliminar()
+        self.controlador.eliminar(self.caja_opciones.get())
 
     # Método para aplicar estilo a todos los elementos
     def aplicar_estilo(self, elemento):
@@ -82,3 +99,15 @@ class EstructuraInformacion(Frame):
         self.tamanio_variable.set(f"Tamaño: {estructura_informacion.get_size()}")
         self.tope_variable.set(f"Tope: {estructura_informacion.get_head()}")
         self.fondo_variable.set(f"Fondo: {estructura_informacion.get_tail()}")
+
+    # Método para actualizar la caja de opciones
+    def actualizar_caja_opciones(self, lista_opciones):
+        self.caja_opciones.config(values=lista_opciones)
+
+        # Comprobamos que la list no esté vacía
+        if lista_opciones:
+            self.caja_opciones.set(lista_opciones[0])
+
+        # En caso de estar vacía
+        if not lista_opciones:
+            self.caja_opciones.set('')

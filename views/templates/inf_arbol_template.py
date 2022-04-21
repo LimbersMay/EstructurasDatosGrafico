@@ -1,5 +1,6 @@
 from tkinter import *
 
+
 class ArbolInformacion(Frame):
     def __init__(self, master):
         super().__init__(master)
@@ -20,11 +21,17 @@ class ArbolInformacion(Frame):
         self.tamanio = Label(self, textvariable=self.tamanio_variable, bg="darkred", fg="white")
         self.profundidad = Label(self, textvariable=self.profundidad_variable, bg="darkred", fg="white")
 
+        # Posicionamiento de los labels
+        self.titulo.grid(row=0, column=0, columnspan=2, sticky=W)
+        self.raiz.grid(row=1, column=0, sticky=W)
+        self.tamanio.grid(row=2, column=0, sticky=W)
+        self.profundidad.grid(row=3, column=0, sticky=W)
+
         # Enviamos valores por defecto
         self.raiz_variable.set("Raíz: Ninguna")
         self.tamanio_variable.set("Tamaño: 0")
         self.profundidad_variable.set("Profundidad: 0")
-    
+
     # Método para actualizar toda la información del árbol
     def actualizar(self, arbol_info):
         self.raiz_variable.set(f"Raíz: {arbol_info.get_root()}")

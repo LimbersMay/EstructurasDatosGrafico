@@ -26,7 +26,7 @@ class ColaOpciones(Frame):
 
         # Atributos
         self.titulo = Label(self, text="Estructura de dato Cola")
-        self.cola_informacion = ColaInformacion(self)
+        self.cola_informacion = ColaInformacion(self, self.controlador)
         self.cola_interfaz = ColaInterfaz(self)
         self.botones_inferiores = BotonesCola(self, self.controlador)
 
@@ -35,6 +35,8 @@ class ColaOpciones(Frame):
         self.cola_interfaz.grid(row=1, column=0)
         self.cola_informacion.grid(row=1, column=1)
         self.botones_inferiores.grid(row=2, column=0)
+
+        self.controlador.cargar_opciones()
 
     # Método para actualizar toda la información de la vista
     def actualizar(self, args):
@@ -45,28 +47,24 @@ class ColaOpciones(Frame):
         self.cola_informacion.actualizar(pila_informacion)
         self.cola_interfaz.actualizar(nodos_informacion, nodo_buscado)
 
+    def actualizar_caja_opciones(self, opciones):
+        self.cola_informacion.actualizar_caja_opciones(opciones)
+
 
 # Responsabilidad: Mostrar toda la información de la estructura de datos
 class ColaInformacion(EstructuraInformacion):
 
-    def __init__(self, master):
-        super().__init__(master)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
         self.maximo_variable = StringVar(self)
 
-        # Máximo de elementos de la cola
+        # Máximo de elementos de la pila
         self.maximo = Label(self, textvariable=self.maximo_variable, bg="darkred", fg="white")
-
-        # Posicionamiento de los elementos
-        self.titulo.grid(row=0, column=0, sticky=W)
-
-        self.maximo.grid(row=1, column=0, sticky=W)
-        self.tamanio.grid(row=2, column=0, sticky=W)
-        self.tope.grid(row=3, column=0, sticky=W)
-        self.fondo.grid(row=4, column=0, sticky=W)
+        self.maximo.grid(row=1, column=0, sticky=W + E)
 
         # Enviamos el maximo por defecto
-        self.maximo_variable.set('Máximo: 0')
+        self.maximo_variable.set(f"Máximo: 0")
 
     def actualizar(self, pila_informacion):
         super().actualizar(pila_informacion)
