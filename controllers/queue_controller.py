@@ -10,6 +10,7 @@ class QueueController:
             informacion_cola = self.model.enqueue(valor)
             self.view.actualizar(informacion_cola)
 
+        # En caso de una excepción, la imprimimos
         except Exception as e:
             print(e)
 
@@ -32,29 +33,29 @@ class QueueController:
             print(e)
 
     # Operaciones que se realizarán con el Json
-    def guardar(self):
+    def guardar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_cola = self.model.guardar()
+            informacion_cola = self.model.guardar(nombre)
             self.view.actualizar(informacion_cola)
 
         except Exception as e:
-            print(e)
+            print("Error: ", e)
 
-    def cargar(self):
+    def cargar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_cola = self.model.cargar()
+            informacion_cola = self.model.cargar(nombre)
             self.view.actualizar(informacion_cola)
 
         except Exception as e:
-            print(e)
+            print("Error: ",  e)
 
-    def eliminar(self):
+    def eliminar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_cola = self.model.eliminar()
+            informacion_cola = self.model.eliminar(nombre)
             self.view.actualizar(informacion_cola)
 
         except Exception as e:
-            print(e)
+            print("Error: ", e)

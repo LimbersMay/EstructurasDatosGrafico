@@ -33,7 +33,7 @@ class StackController:
             print("Error: ", e)
 
     # Operaciones que se realizarán con el Json
-    def guardar(self):
+    def guardar(self, nombre):
         try:
             # Intentamos llevar a cabo la operación
             informacion_pila = self.model.guardar()
@@ -42,7 +42,7 @@ class StackController:
         except Exception as e:
             print("Error: ", e)
 
-    def cargar(self):
+    def cargar(self, nombre):
         try:
             # Intentamos llevar a cabo la operación
             informacion_pila = self.model.cargar()
@@ -52,7 +52,7 @@ class StackController:
             # En caso de una excepción, la imprimimos
             print("Error: ", e)
 
-    def eliminar(self):
+    def eliminar(self, nombre):
         try:
             # Intentamos llevar a cabo la operación
             informacion_pila = self.model.eliminar()

@@ -53,28 +53,28 @@ class ListController:
         except Exception as e:
             print("Error: ", e)
 
-    def guardar(self):
+    def guardar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_lista = self.model.guardar()
+            informacion_lista = self.model.guardar(nombre)
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
             print("Error: ", e)
 
-    def cargar(self):
+    def cargar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_lista = self.model.cargar()
+            informacion_lista = self.model.cargar(nombre)
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
             print("Error: ", e)
 
-    def eliminar(self):
+    def eliminar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_lista = self.model.guardar()
+            informacion_lista = self.model.guardar(nombre)
             self.view.actualizar(informacion_lista)
 
         except Exception as e:

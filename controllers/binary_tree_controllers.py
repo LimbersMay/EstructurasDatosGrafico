@@ -33,25 +33,25 @@ class SimpleTreeController:
             print("Error:", e)
 
     # Operaciones que se realizarán con el Json
-    def guardar(self):
+    def guardar(self, nombre):
         try:
-            informacion_arbol = self.model.guardar()
+            informacion_arbol = self.model.guardar(nombre)
             self.view.mostrar_arbol(informacion_arbol)
 
         except Exception as e:
             print("Error: ", e)
 
-    def cargar(self):
+    def cargar(self, nombre):
         try:
-            informacion_arbol = self.model.cargar()
+            informacion_arbol = self.model.cargar(nombre)
             self.view.mostrar_arbol(informacion_arbol)
 
         except Exception as e:
             print("Error: ", e)
 
-    def remover(self):
+    def remover(self, nombre):
         try:
-            informacion_arbol = self.model.remover()
+            informacion_arbol = self.model.remover(nombre)
             self.view.mostrar_arbol(informacion_arbol)
 
         except Exception as e:
