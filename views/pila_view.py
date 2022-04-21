@@ -57,12 +57,23 @@ class PilaInformacion(EstructuraInformacion):
         self.maximo = Label(self, textvariable=self.maximo_variable, bg="darkred", fg="white")
 
         # Posicionamos los elementos
-        self.titulo.grid(row=0, column=0, sticky=W)
+        self.titulo.grid(row=0, column=0, sticky=E)
 
-        self.maximo.grid(row=1, column=0, sticky=W)
-        self.tamanio.grid(row=2, column=0, sticky=W)
-        self.tope.grid(row=3, column=0, sticky=W)
-        self.fondo.grid(row=4, column=0, sticky=W)
+        self.maximo.grid(row=1, column=0, sticky=W+E)
+        self.tamanio.grid(row=2, column=0, sticky=W+E)
+        self.tope.grid(row=3, column=0, sticky=W+E)
+        self.fondo.grid(row=4, column=0, sticky=W+E)
+
+        # Parte inferior de la información
+        self.separador.grid(row=5, column=0, sticky=W+E)
+
+        self.titulo_inferior.grid(row=6, column=0, sticky=W+E)
+        self.titulo_inferior2.grid(row=7, column=0, sticky=W+E)
+        self.lista_opciones.grid(row=8, column=0, sticky=E)
+        self.estructura_campo.grid(row=9, column=0, sticky=E)
+
+        # Botones
+        self.contenedor_botones.grid(row=10, column=0, sticky=E)
 
         # Enviamos el maximo por defecto
         self.maximo_variable.set(f"Máximo: 0")
