@@ -319,7 +319,7 @@ class DoubleLinkedList:
         list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
 
         return list_information
-    
+
     def clear(self):
         self._head = None
         self._tail = None
