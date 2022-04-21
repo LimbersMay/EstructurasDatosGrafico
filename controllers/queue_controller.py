@@ -37,7 +37,7 @@ class QueueController:
         try:
             # Intentamos mostrar la información
             informacion_cola = self.model.guardar(nombre)
-            self.view.actualizar(informacion_cola)
+            self.view.actualizar_caja_opciones(informacion_cola)
 
         except Exception as e:
             print("Error: ", e)
@@ -49,13 +49,22 @@ class QueueController:
             self.view.actualizar(informacion_cola)
 
         except Exception as e:
-            print("Error: ",  e)
+            print("Error: ", e)
 
     def eliminar(self, nombre):
         try:
             # Intentamos mostrar la información
             informacion_cola = self.model.eliminar(nombre)
-            self.view.actualizar(informacion_cola)
+            self.view.actualizar_caja_opciones(informacion_cola)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def cargar_opciones(self):
+        try:
+            # Intentamos mostrar la información
+            informacion_cola = self.model.cargar_opciones()
+            self.view.actualizar_caja_opciones(informacion_cola)
 
         except Exception as e:
             print("Error: ", e)

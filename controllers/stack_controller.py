@@ -1,4 +1,7 @@
 # Controller for Stack
+import traceback
+
+
 class StackController:
     def __init__(self, model, view):
         self.model = model
@@ -36,16 +39,16 @@ class StackController:
     def guardar(self, nombre):
         try:
             # Intentamos llevar a cabo la operación
-            informacion_pila = self.model.guardar()
-            self.view.actualizar(informacion_pila)
+            informacion_pila = self.model.guardar(nombre)
+            self.view.actualizar_pila_opciones(informacion_pila)
 
         except Exception as e:
-            print("Error: ", e)
+            print("error: ", e)
 
     def cargar(self, nombre):
         try:
             # Intentamos llevar a cabo la operación
-            informacion_pila = self.model.cargar()
+            informacion_pila = self.model.cargar(nombre)
             self.view.actualizar(informacion_pila)
 
         except Exception as e:
@@ -55,8 +58,18 @@ class StackController:
     def eliminar(self, nombre):
         try:
             # Intentamos llevar a cabo la operación
-            informacion_pila = self.model.eliminar()
-            self.view.actualizar(informacion_pila)
+            informacion_pila = self.model.eliminar(nombre)
+            self.view.actualizar_pila_opciones(informacion_pila)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    # Método para recibir todas las estructuras de datos disponibles en el Json
+    def cargar_opciones(self):
+        try:
+            # Intentamos llevar a cabo la operación
+            informacion_pila = self.model.cargar_opciones()
+            self.view.actualizar_pila_opciones(informacion_pila)
 
         except Exception as e:
             print("Error: ", e)

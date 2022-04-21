@@ -1,3 +1,6 @@
+import traceback
+
+
 # Responsabiliddad: Informar al modelo de los cambios en los controles
 class ListController:
     def __init__(self, model, view):
@@ -57,10 +60,11 @@ class ListController:
         try:
             # Intentamos mostrar la información
             informacion_lista = self.model.guardar(nombre)
-            self.view.actualizar(informacion_lista)
+            self.view.actualizar_caja_opciones(informacion_lista)
 
         except Exception as e:
             print("Error: ", e)
+            traceback.print_exc()
 
     def cargar(self, nombre):
         try:
@@ -74,8 +78,17 @@ class ListController:
     def eliminar(self, nombre):
         try:
             # Intentamos mostrar la información
-            informacion_lista = self.model.guardar(nombre)
-            self.view.actualizar(informacion_lista)
+            informacion_lista = self.model.eliminar(nombre)
+            self.view.actualizar_caja_opciones(informacion_lista)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def cargar_opciones(self):
+        try:
+            # Intentamos mostrar la información
+            informacion_lista = self.model.cargar_opciones()
+            self.view.actualizar_caja_opciones(informacion_lista)
 
         except Exception as e:
             print("Error: ", e)
