@@ -108,7 +108,7 @@ class BinarySearchTree:
             return -1
 
     # Convert the binary tree to a list using Eytzi's algorithm
-    def to_list(self) -> list:
+    def to_matrix(self) -> list:
         result = []
 
         def to_list(node: Node, level: int) -> None:
@@ -125,7 +125,7 @@ class BinarySearchTree:
 
         return result
 
-    # Complete the binary tree puting all the missing nodes in the left side
+    # Complete the binary tree puting all the missing nodes on the left side
     def complete_tree(self, *args) -> None:
         node = self.__root if len(args) == 0 else args[0]
         current_level = args[1] if len(args) >= 1 else 1
@@ -192,7 +192,7 @@ class BinarySearchTree:
     # Method that returns the return the total number of nodes in the tree
     def count_nodes(self, ) -> int:
 
-        matrix_nodes = self.to_list()
+        matrix_nodes = self.to_matrix()
         list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
 
         return len(list_nodes)
@@ -221,4 +221,20 @@ class BinarySearchTree:
     def search(self, data: T) -> Optional[Node]:
         return self.__search(data)
 
-    # Method
+    def to_list(self) -> list:
+        matrix_nodes = self.to_matrix()
+        list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
+
+        return list_nodes
+
+    # Method that make Null all the nodes of the tree
+    def clear(self) -> None:
+
+        def clear_tree(node: Node) -> None:
+            if node is not None:
+                clear_tree(node.left)
+                clear_tree(node.right)
+                node.data = None
+
+        clear_tree(self.__root)
+

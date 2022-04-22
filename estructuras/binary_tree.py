@@ -1,7 +1,6 @@
 from __future__ import annotations
 from typing import Optional, TypeVar
 
-
 T = TypeVar('T')
 
 
@@ -59,7 +58,6 @@ class BinaryTree:
 
     # Method that insert a node in the left side with a reference
     def insert_left(self, data: T, ref: T):
-        print("Ref received: ", ref)
         node = self.__search(ref)
 
         if node is not None:
@@ -200,7 +198,6 @@ class BinaryTree:
         to_list(self.__root, 0)
 
         return result
-    
 
     # Search the father of a node
     def search_father(self, *args, child: Node) -> str:
@@ -211,7 +208,7 @@ class BinaryTree:
                 return str(node.data)
 
             else:
-                
+
                 if node.left == child or node.right == child:
                     return node
 
@@ -220,7 +217,7 @@ class BinaryTree:
 
                 if father_left is not None and not type(father_left) == str:
                     return father_left
-                
+
                 elif father_right is not None and not type(father_right) == str:
                     return father_right
 
@@ -234,7 +231,7 @@ class BinaryTree:
     def complete_tree(self, *args) -> None:
         node = self.__root if len(args) == 0 else args[0]
         current_level = args[1] if len(args) >= 1 else 1
-        
+
         if node is not None:
             if node.is_leaf() and current_level == self.max_depth():
                 return
@@ -248,7 +245,7 @@ class BinaryTree:
 
                 self.complete_tree(node.left, current_level + 1)
                 self.complete_tree(node.right, current_level + 1)
-    
+
     # Method that return the maximum depth of the tree
     def max_depth(self, *args) -> int:
         node = self.__root if len(args) == 0 else args[0]
@@ -266,9 +263,9 @@ class BinaryTree:
 
         else:
             return -1
-    
+
     # Method that returns the nodes of a level
-    def level_nodes(self, level: int, values=False) -> list:
+    def level_nodes(self, level: int, values=False, references=False) -> list:
         self.complete_tree()
         result_references = []
         result_values = []
@@ -303,9 +300,12 @@ class BinaryTree:
 
         if values:
             return result_values[level]
-        
+
+        if references:
+            return result_references[level]
+
         return nodes_information[level]
-    
+
     # Method that insert the root of the tree
     def insert_root(self, data: T) -> None:
         if self.__root is None or self.__root.get_data() is None:
@@ -313,10 +313,10 @@ class BinaryTree:
 
         else:
             raise Exception('The root already exists')
-    
+
     # Method that remove a node from a full binary tree
     def remove_node(self, data: T) -> None:
-        
+
         node = self.__search(data)
         min_node = self.min_node()
 
@@ -354,14 +354,34 @@ class BinaryTree:
 
         else:
             return None
-    
+
     def get_root(self) -> Node:
         return self.__root.data
-    
+
     # Method that returns the return the total number of nodes in the tree
-    def count_nodes(self,) -> int:
-        
+    def count_nodes(self, ) -> int:
+
         matrix_nodes = self.to_list()
         list_nodes = [element for sublist in matrix_nodes for element in sublist if element is not None]
 
         return len(list_nodes)
+
+    def insert_in_level(self, level, list_data):
+
+        if self.__root.data is None:
+            self.__root = Node(list_data.pop(0))
+            return
+
+        level_nodes = self.level_nodes(level - 1, references=True)
+
+        for i in range(len(level_nodes)):
+
+            if level_nodes[i].left is None:
+                self.insert_left(list_data.pop(0), level_nodes[i].data)
+
+            if level_nodes[i].right is None:
+                self.insert_right(list_data.pop(0), level_nodes[i].data)
+
+    # Method that clears the tree
+    def clear(self) -> None:
+        self.__root.data = None
