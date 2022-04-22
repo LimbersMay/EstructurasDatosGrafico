@@ -8,7 +8,7 @@ from .templates.botones_lineales_template import BotonesBasicos
 
 
 # Responsabilidad: Posicionar y mostrar todos los elementos de la interfaz
-class ColaOpciones(Frame):
+class ColaView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)

@@ -1,14 +1,16 @@
 from tkinter import *
 from estructuras.binary_search_tree import BinarySearchTree
-from models.binary_tree_models import SearchBinaryTreeModel
-from controllers.binary_tree_controllers import SearchBinaryTreeController
+
+from models.search_binary_tree_model import SearchBinaryTreeModel
+from controllers.search_binary_tree_controller import SearchBinaryTreeController
+
 from .templates.inf_arbol_template import ArbolInformacion
 from .templates.botones_arbol_template import BotonesArbol
 from .templates.arbol_template import ArbolInterfaz
 
 
 # Funcionalidad: Mostrar y posicionar todos los elementos de la interfaz
-class ArbolBusquedaOpciones(Frame):
+class ArbolBusquedaView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)

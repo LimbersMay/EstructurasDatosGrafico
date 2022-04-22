@@ -1,14 +1,16 @@
 from tkinter import *
 from estructuras.double_linked_list import DoubleLinkedList
-from models.list_models import DoubleLinkedListModel
-from controllers.list_controllers import DoublyLinkedListController
+
+from models.double_linked_list_model import DoubleLinkedListModel
+from controllers.double_list_controller import DoublyLinkedListController
+
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesEstructura
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
-class ListaDobEnOpciones(Frame):
+class ListaDobEnView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)

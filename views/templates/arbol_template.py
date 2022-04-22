@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from models.binary_tree_models import InformacionArbolBinario
+from models.templates.binary_tree_model_template import InformacionArbolBinario
 
 
 class ArbolInterfaz(Frame):

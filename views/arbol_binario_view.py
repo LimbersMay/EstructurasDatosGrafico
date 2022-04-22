@@ -1,8 +1,8 @@
 from tkinter import *
 from estructuras.binary_tree import BinaryTree
 
-from models.binary_tree_models import BinaryTreeModel
-from controllers.binary_tree_controllers import BinaryTreeController
+from models.binary_tree_model import BinaryTreeModel
+from controllers.binary_tree_controller import BinaryTreeController
 
 from .templates.inf_arbol_template import ArbolInformacion
 from .templates.arbol_template import ArbolInterfaz
@@ -10,7 +10,7 @@ from .templates.botones_arbol_template import BotonesArbol
 
 
 # Responsabilidad: Posicionar todos los elementos visibles en la ventana
-class ArbolBinarioOpciones(Frame):
+class ArbolBinarioView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)

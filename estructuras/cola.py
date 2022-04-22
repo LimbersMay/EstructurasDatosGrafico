@@ -25,12 +25,16 @@ class Cola:
         self.max = max
 
     def enqueue(self, elemento):
-        # 1. - construir el nodo
-        nuevo = Nodo(elemento)
+
+        if self.is_digit(elemento):
+            nuevo = Nodo(int(elemento))
+
+        else:
+            nuevo = Nodo(elemento)
 
         # 2 - visitar el nodo
         # 3 - consultar si la cola esta vacia
-        if self.frente == None and self.fondo == None:
+        if self.frente is None and self.fondo is None:
             # 3.1  Frente y fondo apuntan a nuevo
             self.frente = nuevo
             self.fondo = nuevo
@@ -109,6 +113,13 @@ class Cola:
         # 5- devolver el nodo eliminado
         return aux
 
+    def is_digit(self, value):
+        if type(value) == str:
+            if value.isdigit():
+                return True
+            else:
+                return False
+
     def __str__(self):
         return f"Tamaño: {self._size}\nMax: {self.max}\nFrente: {self.frente}\nFondo: {self.fondo}"
 
@@ -129,7 +140,9 @@ class Cola:
 
         for i in range(self._size):
             actual_node = self.search_position_node(i)
-            nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
+
+            if actual_node is not None:
+                nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
 
         return nodes_information
 
@@ -142,5 +155,6 @@ class Cola:
     # Method that clear the stack
     def clear(self):
         self.frente = None
+        self.fondo = None
         self._size = 0
         self.max = -1

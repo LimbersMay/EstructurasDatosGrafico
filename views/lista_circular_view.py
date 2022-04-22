@@ -1,14 +1,16 @@
 from tkinter import *
 from estructuras.circular_list import CircularList
-from models.list_models import CircularListModel
-from controllers.list_controllers import CircularListController
+
+from models.circular_list_model import CircularListModel
+from controllers.circular_list_controller import CircularListController
+
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesEstructura
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
-class ListaCircularOpciones(Frame):
+class ListaCircularView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)

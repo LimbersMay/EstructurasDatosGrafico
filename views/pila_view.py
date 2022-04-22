@@ -8,7 +8,7 @@ from .templates.botones_lineales_template import BotonesBasicos
 
 
 # Responsabilidad: Mostrar todos los elementos visibles
-class PilaOpciones(Frame):
+class PilaView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)

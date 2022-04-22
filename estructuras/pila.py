@@ -24,6 +24,10 @@ class Pila:
 
     def push(self, elemento):
         if self.max == -1 or self._size < self.max:
+
+            if self.is_digit(elemento):
+                elemento = int(elemento)
+
             nuevo_nodo = Nodo(elemento)
             nuevo_nodo.siguiente = self.tope
             self.tope = nuevo_nodo
@@ -87,6 +91,13 @@ class Pila:
                     aux = aux.siguiente
 
         return None
+
+    def is_digit(self, value):
+        if type(value) == str:
+            if value.isdigit():
+                return True
+            else:
+                return False
 
     # Method that find a node in an index
     def search_position_node(self, index):

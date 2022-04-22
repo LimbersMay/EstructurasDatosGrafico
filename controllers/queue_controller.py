@@ -1,3 +1,5 @@
+import traceback
+
 # Controller for Queue
 class QueueController:
     def __init__(self, model, view):
@@ -49,6 +51,7 @@ class QueueController:
             self.view.actualizar(informacion_cola)
 
         except Exception as e:
+            traceback.print_exc()
             print("Error: ", e)
 
     def eliminar(self, nombre):

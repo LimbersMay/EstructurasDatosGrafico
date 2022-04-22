@@ -27,7 +27,7 @@ class QueueModel:
 
     def guardar(self, nombre):
         # Obtenemos todos los elementos de la cola en una lista
-        lista_elementos = self.queue.to_matrix()
+        lista_elementos = self.queue.to_list()
         # Guardamos la información proporcionada en el Json con el siguiente formato
         # {
         # 'cola1': [1, 2, 3, 4, 5, 6, 7]
@@ -56,7 +56,10 @@ class QueueModel:
 
         # Añadimos los elementos
         for elemento in cola_elementos:
+            print("Elemento a encolar: ", elemento)
             self.queue.enqueue(elemento)
+
+        print("Despues de encolar: ", self.queue.to_list())
 
         return self.obtener_informacion()
 

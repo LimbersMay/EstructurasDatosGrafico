@@ -1,14 +1,16 @@
 from tkinter import *
 from estructuras.linked_list import LinkedList
-from models.list_models import SimpleListModel
-from controllers.list_controllers import SimpleListController
+from models.SimpleListModel import SimpleListModel
+
+from controllers.simple_list_controller import SimpleListController
 from .templates.inf_estructura_template import EstructuraInformacion
+
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesEstructura
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
-class ListaOpciones(Frame):
+class ListaView(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
