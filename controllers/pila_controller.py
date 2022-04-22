@@ -2,7 +2,7 @@
 import traceback
 
 
-class StackController:
+class PilaController:
     def __init__(self, model, view):
         self.model = model
         self.view = view

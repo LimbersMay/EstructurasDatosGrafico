@@ -1,6 +1,6 @@
-from controllers.templates.list_controller_template import ListControllerTemplate
+from controllers.templates.lista_controller_template import ListaControllerTemplate
 
 
-class SimpleListController(ListControllerTemplate):
+class ListaSimpleController(ListaControllerTemplate):
     def __init__(self, model, view):
         super().__init__(model, view)

@@ -1,8 +1,8 @@
 from tkinter import *
 from estructuras.binary_search_tree import BinarySearchTree
 
-from models.search_binary_tree_model import SearchBinaryTreeModel
-from controllers.search_binary_tree_controller import SearchBinaryTreeController
+from models.arbol_binario_busqueda_model import ArbolBinarioBusquedaModel
+from controllers.search_binary_tree_controller import ArbolBinarioBusquedaController
 
 from .templates.inf_arbol_template import ArbolInformacion
 from .templates.botones_arbol_template import BotonesArbol
@@ -19,10 +19,10 @@ class ArbolBusquedaView(Frame):
         self.arbol = BinarySearchTree()
 
         # Definimos el modelo de los datos y el controlador
-        self.modelo = SearchBinaryTreeModel(self.arbol)
+        self.modelo = ArbolBinarioBusquedaModel(self.arbol)
 
         # Definimos el controlador de los datos y el modelo
-        self.controlador = SearchBinaryTreeController(self.modelo, self)
+        self.controlador = ArbolBinarioBusquedaController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Árbol de búsqueda")

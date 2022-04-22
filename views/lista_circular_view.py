@@ -1,8 +1,8 @@
 from tkinter import *
 from estructuras.circular_list import CircularList
 
-from models.circular_list_model import CircularListModel
-from controllers.circular_list_controller import CircularListController
+from models.lista_circular_model import ListaCircularModel
+from controllers.lista_circular_controller import ListaCircualarController
 
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
@@ -21,10 +21,10 @@ class ListaCircularView(Frame):
         self.lista = CircularList()
 
         # Definimos el modelo de datos
-        self.modelo = CircularListModel(self.lista)
+        self.modelo = ListaCircularModel(self.lista)
 
         # Definimos el controlador de la lista
-        self.controlador = CircularListController(self.modelo, self)
+        self.controlador = ListaCircualarController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista Circular")

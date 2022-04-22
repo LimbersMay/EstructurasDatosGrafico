@@ -2,7 +2,7 @@ import traceback
 
 
 # Responsabiliddad: Informar al modelo de los cambios en los controles
-class ListControllerTemplate:
+class ListaControllerTemplate:
     def __init__(self, model, view):
         self.model = model
         self.view = view

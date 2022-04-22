@@ -1,6 +1,5 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from models.templates.binary_tree_model_template import InformacionArbolBinario
 
 
 class ArbolInterfaz(Frame):
@@ -50,7 +49,7 @@ class ArbolInterfaz(Frame):
 
             self.matriz_frames.append(sub_matriz)
 
-    def dibujar_arbol(self, informacion_arbol: InformacionArbolBinario):
+    def dibujar_arbol(self, informacion_arbol):
         
         self.destruir_frames()
         self.dibujar_matriz()

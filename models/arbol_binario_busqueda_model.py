@@ -1,8 +1,8 @@
 from .fichero import Fichero
-from .templates.binary_tree_model_template import BinaryTreeModelTemplate
+from .templates.binary_tree_model_template import ArbolBinarioModelTemplate
 
 
-class SearchBinaryTreeModel(BinaryTreeModelTemplate):
+class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
     def __init__(self, tree):
         super().__init__(tree)
 

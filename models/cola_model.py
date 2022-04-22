@@ -2,7 +2,7 @@ from .fichero import Fichero
 
 
 # Model for the queue
-class QueueModel:
+class ColaModel:
     def __init__(self, queue):
         self.queue = queue
         self.fichero = Fichero('recursos/datos/colas.json')

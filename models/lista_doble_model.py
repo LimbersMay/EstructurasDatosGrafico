@@ -1,8 +1,8 @@
-from .templates.list_model_template import ListModelTemplate
+from .templates.list_model_template import ListaModelTemplate
 from .fichero import Fichero
 
 
-class DoubleLinkedListModel(ListModelTemplate):
+class ListaDoblementeEnlazadaModel(ListaModelTemplate):
     def __init__(self, list_name):
         super().__init__(list_name)
 

@@ -1,7 +1,7 @@
-from controllers.templates.binary_tree_controller_template import BinaryTreeControllerTemplate
+from controllers.templates.arbol_controller_template import ArbolBinarioControllerTemplate
 
 
-class SearchBinaryTreeController(BinaryTreeControllerTemplate):
+class ArbolBinarioBusquedaController(ArbolBinarioControllerTemplate):
     def __init__(self, model, view):
         super().__init__(model, view)
         self.model = model

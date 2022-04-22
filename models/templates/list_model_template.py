@@ -3,7 +3,7 @@ from models.fichero import Fichero
 
 # Models for the lists
 # Responsabilidad: Interactuar directamente con la estructura y con el fichero de configuración
-class ListModelTemplate:
+class ListaModelTemplate:
     def __init__(self, list_name):
         self.list = list_name
         self.fichero = None

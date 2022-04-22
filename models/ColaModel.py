@@ -2,7 +2,7 @@ from .fichero import Fichero
 
 
 # Model for the Stack
-class StackModel:
+class ColaModel:
     def __init__(self, stack):
         self.stack = stack
         self.fichero = Fichero('recursos/datos/pilas.json')

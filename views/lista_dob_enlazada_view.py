@@ -1,8 +1,8 @@
 from tkinter import *
 from estructuras.double_linked_list import DoubleLinkedList
 
-from models.double_linked_list_model import DoubleLinkedListModel
-from controllers.double_list_controller import DoublyLinkedListController
+from models.lista_doble_model import ListaDoblementeEnlazadaModel
+from controllers.lista_doble_controller import ListaDobEnlazadaController
 
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
@@ -21,10 +21,10 @@ class ListaDobEnView(Frame):
         self.lista = DoubleLinkedList()
 
         # Definimos el modelo de datos
-        self.modelo = DoubleLinkedListModel(self.lista)
+        self.modelo = ListaDoblementeEnlazadaModel(self.lista)
 
         # Definimos el controlador de la lista
-        self.controlador = DoublyLinkedListController(self.modelo, self)
+        self.controlador = ListaDobEnlazadaController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista Doble Enlazada")

@@ -1,7 +1,7 @@
 from tkinter import *
 from estructuras.cola import Cola
-from models.queue_model import QueueModel
-from controllers.queue_controller import QueueController
+from models.cola_model import ColaModel
+from controllers.cola_controller import ColaController
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesBasicos
@@ -19,10 +19,10 @@ class ColaView(Frame):
         self.cola = Cola()
 
         # Definimos el modelo de datos
-        self.modelo = QueueModel(self.cola)
+        self.modelo = ColaModel(self.cola)
 
         # Definimos el controlador de datos
-        self.controlador = QueueController(self.modelo, self)
+        self.controlador = ColaController(self.modelo, self)
 
         # Atributos
         self.titulo = Label(self, text="Estructura de dato Cola")

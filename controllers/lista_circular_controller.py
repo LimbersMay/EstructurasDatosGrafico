@@ -1,7 +1,7 @@
-from .templates.list_controller_template import ListControllerTemplate
+from .templates.lista_controller_template import ListaControllerTemplate
 
 
-class CircularListController(ListControllerTemplate):
+class ListaCircualarController(ListaControllerTemplate):
     def __init__(self, model, view):
         super().__init__(model, view)
 

@@ -1,8 +1,8 @@
 from tkinter import *
 from estructuras.linked_list import LinkedList
-from models.SimpleListModel import SimpleListModel
+from models.lista_simple_model import ListaSimpleModel
 
-from controllers.simple_list_controller import SimpleListController
+from controllers.simple_list_controller import ListaSimpleController
 from .templates.inf_estructura_template import EstructuraInformacion
 
 from .templates.estructura_lineal_template import EstructuraInterfaz
@@ -21,10 +21,10 @@ class ListaView(Frame):
         self.lista = LinkedList()
 
         # Definimos el modelo de datos de la lista
-        self.modelo = SimpleListModel(self.lista)
+        self.modelo = ListaSimpleModel(self.lista)
 
         # Definimos el controlador de la lista
-        self.controlador = SimpleListController(self.modelo, self)
+        self.controlador = ListaSimpleController(self.modelo, self)
 
         # Elementos del frame
         self.titulo = Label(self, text="Lista simplemente enlazada")

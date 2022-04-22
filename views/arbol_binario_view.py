@@ -1,8 +1,8 @@
 from tkinter import *
 from estructuras.binary_tree import BinaryTree
 
-from models.binary_tree_model import BinaryTreeModel
-from controllers.binary_tree_controller import BinaryTreeController
+from models.arbol_binario_model import ArbolBinarioModel
+from controllers.arbol_binario_controller import ArbolBinarioController
 
 from .templates.inf_arbol_template import ArbolInformacion
 from .templates.arbol_template import ArbolInterfaz
@@ -21,10 +21,10 @@ class ArbolBinarioView(Frame):
         self.arbol = BinaryTree()
 
         # Definimos el modelo de los datos
-        self.modelo = BinaryTreeModel(self.arbol)
+        self.modelo = ArbolBinarioModel(self.arbol)
 
         # Definimos el controlador de los datos
-        self.controlador = BinaryTreeController(self.modelo, self)
+        self.controlador = ArbolBinarioController(self.modelo, self)
 
         self.titulo = Label(self, text="Arbol Binario simple")
         self.arbol_informacion = ArbolBinarioInformacion(self, self.controlador)
