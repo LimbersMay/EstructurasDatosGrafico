@@ -1,5 +1,4 @@
 from .node_information import NodeInformation
-from .lineal_structure_information import LinealStructureInformation
 
 
 class Nodo:

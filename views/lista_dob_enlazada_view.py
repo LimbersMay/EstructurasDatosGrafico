@@ -41,13 +41,9 @@ class ListaDobEnView(Frame):
         self.controlador.cargar_opciones()
 
     # Método para actualizar toda la interfaz
-    def actualizar(self, args):
-        nodos_informacion = args[0]
-        lista_informacion = args[1]
-        nodo_buscado = args[2] if len(args) == 3 else None
-
+    def actualizar(self, lista_informacion):
         self.lista_dob_informacion.actualizar(lista_informacion)
-        self.lista_dob_interfaz.actualizar(nodos_informacion, nodo_buscado)
+        self.lista_dob_interfaz.actualizar(lista_informacion)
 
     def actualizar_caja_opciones(self, opciones):
         self.lista_dob_informacion.actualizar_caja_opciones(opciones)

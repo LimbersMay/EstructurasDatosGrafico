@@ -1,6 +1,6 @@
 class ArbolBinarioInformacion:
-    def __init__(self, nodos_nivel, root, cant_nodes, profundidad, nodo_seleccionado=None):
-        self.nodos_nivel = nodos_nivel
+    def __init__(self, root, cant_nodes, profundidad, nodo_seleccionado=None):
+        self.nodos_nivel: [NodoInformacion] = []
         self.root = root
         self.cant_nodes = cant_nodes
         self.profundidad = profundidad
@@ -23,3 +23,27 @@ class ArbolBinarioInformacion:
 
     def get_seleccionado(self):
         return self.nodo_seleccionado
+
+
+class NodoInformacion:
+    def __init__(self, data, id, hijo_izquierdo, hijo_derecho):
+        self.data = data
+        self.id = id
+
+        self.hijo_izquierdo: bool = hijo_izquierdo
+        self.hijo_derecho: bool = hijo_derecho
+
+    def get_data(self):
+        return self.data
+
+    def get_id(self):
+        return self.id
+
+    def tiene_hijo_izquierdo(self):
+        return self.hijo_izquierdo
+
+    def tiene_hijo_derecho(self):
+        return self.hijo_derecho
+
+    def is_leaf(self):
+        return not self.tiene_hijo_izquierdo() and not self.tiene_hijo_derecho()

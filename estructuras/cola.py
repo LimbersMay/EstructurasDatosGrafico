@@ -1,6 +1,4 @@
-from lib2to3.pytree import Node
 from .node_information import NodeInformation
-from .lineal_structure_information import LinealStructureInformation
 
 
 class Nodo:

@@ -123,11 +123,11 @@ class ArbolInterfaz(Frame):
                 if not nodo_izquierdo.is_leaf():
 
                     # Comprobamos que el nodo izquierdo tenga hijos
-                    if nodo_izquierdo.have_left_child():
+                    if nodo_izquierdo.tiene_hijo_izquierdo():
                         self.dibujar_flecha_izquierda(profundidad_y, sep_izquierdo)
                     
                     # Comprobamos que el nodo derecho tenga hijos
-                    if nodo_izquierdo.have_right_child():
+                    if nodo_izquierdo.tiene_hijo_derecho():
                         self.dibujar_flecha_derecha(profundidad_y, sep_izquierdo)
 
             if nodo_derecho.get_data() is not None:
@@ -145,11 +145,11 @@ class ArbolInterfaz(Frame):
                 if not nodo_derecho.is_leaf():
 
                     # Comprobamos si tiene un hijo derecho
-                    if nodo_derecho.have_right_child():
+                    if nodo_derecho.tiene_hijo_derecho():
                         self.dibujar_flecha_derecha(profundidad_y, sep_derecho)
     
                     # Comprobamos si tiene un hijo izquierdo
-                    if nodo_derecho.have_left_child():
+                    if nodo_derecho.tiene_hijo_izquierdo():
                         self.dibujar_flecha_izquierda(profundidad_y, sep_derecho)
 
             # Eliminamos los nodos

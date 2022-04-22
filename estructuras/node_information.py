@@ -1,4 +1,3 @@
-
 class NodeInformation:
     def __init__(self, data, id_node):
         self.data = data

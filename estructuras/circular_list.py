@@ -1,6 +1,5 @@
 from typing import Optional, TypeVar
 from .node_information import NodeInformation
-from .lineal_structure_information import LinealStructureInformation
 
 T = TypeVar('T')
 
@@ -10,10 +9,8 @@ class Node:
         self.data: T = data
         self.next: Optional[Node] = None
 
-        self.buscado = False
-
-    def set_buscado(self, buscado):
-        self.buscado = buscado
+    def get_data(self) -> T:
+        return self.data
 
 
 class CircularList:
@@ -160,19 +157,26 @@ class CircularList:
         return new
 
     # Method that return a list of nodes
-    def to_list(self):
+    def to_list(self, references=False):
         if self.is_empty():
             return []
 
         else:
             aux = self._head
             list_data = []
+            list_references = []
 
             while aux is not self._tail:
                 list_data.append(aux.data)
+                list_references.append(aux)
                 aux = aux.next
 
             list_data.append(self._tail.data)
+            list_references.append(self._tail)
+
+            if references:
+                return list_references
+
             return list_data
 
     def prepend(self, data):

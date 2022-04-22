@@ -1,10 +1,10 @@
 from tkinter import *
 from estructuras.linked_list import LinkedList
+
 from models.lista_simple_model import ListaSimpleModel
-
 from controllers.simple_list_controller import ListaSimpleController
-from .templates.inf_estructura_template import EstructuraInformacion
 
+from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesEstructura
 
@@ -42,13 +42,10 @@ class ListaView(Frame):
         self.controlador.cargar_opciones()
 
     # Método para actualizar toda la interfaz
-    def actualizar(self, args):
-        nodos_informacion = args[0]
-        pila_informacion = args[1]
-        nodo_buscado = args[2] if len(args) == 3 else None
+    def actualizar(self, informacion):
 
-        self.lista_informacion.actualizar(pila_informacion)
-        self.lista_interfaz.actualizar(nodos_informacion, nodo_buscado)
+        self.lista_informacion.actualizar(informacion)
+        self.lista_interfaz.actualizar(informacion)
 
     def actualizar_caja_opciones(self, opciones):
         self.lista_informacion.actualizar_caja_opciones(opciones)

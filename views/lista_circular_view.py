@@ -41,13 +41,9 @@ class ListaCircularView(Frame):
         self.controlador.cargar_opciones()
 
     # Método para actualizar toda la interfaz
-    def actualizar(self, args):
-        nodos_informacion = args[0]
-        pila_informacion = args[1]
-        nodo_buscado = args[2] if len(args) == 3 else None
-
-        self.informacion_lista.actualizar(pila_informacion)
-        self.lista_interfaz.actualizar(nodos_informacion, nodo_buscado)
+    def actualizar(self, lista_circular_informacion):
+        self.lista_interfaz.actualizar(lista_circular_informacion)
+        self.informacion_lista.actualizar(lista_circular_informacion)
 
     def actualizar_caja_opciones(self, opciones):
         self.informacion_lista.actualizar_caja_opciones(opciones)

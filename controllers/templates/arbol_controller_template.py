@@ -1,3 +1,6 @@
+import traceback
+
+
 # Responsabiliddad: Informar al modelo de los cambios en los controles
 class ArbolBinarioControllerTemplate:
     def __init__(self, model, view):
@@ -10,6 +13,7 @@ class ArbolBinarioControllerTemplate:
             self.view.mostrar_arbol(informacion_arbol)
 
         except Exception as e:
+            traceback.print_exc()
             print("Error:", e)
 
     def buscar(self, dato):

@@ -1,6 +1,5 @@
 from typing import Optional, TypeVar, Generic
 from .node_information import NodeInformation
-from .lineal_structure_information import LinealStructureInformation
 
 T = TypeVar('T')
 
@@ -9,6 +8,9 @@ class Node:
     def __init__(self, data: T):
         self.data: T = data
         self.next: Optional[Node] = None
+
+    def get_data(self) -> T:
+        return self.data
 
 
 # Crea una lista que solo permita nodos de un tipo de dato (genérico)
@@ -98,12 +100,19 @@ class LinkedList(Generic[T]):
         return None
 
     # Method that return a list with all the data of the nodes
-    def to_list(self):
+    def to_list(self, references=False):
         current = self._head
         result = []
+        result_references = []
+
         while current is not None:
             result.append(current.data)
+            result_references.append(current)
             current = current.next
+
+        if references:
+            return result_references
+
         return result
 
     # Method to insert a new node at the beginning of the list

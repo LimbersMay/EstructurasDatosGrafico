@@ -147,44 +147,30 @@ class BinarySearchTree:
         # Method that returns the nodes of a level
         # Method that returns the nodes of a level
 
-    def level_nodes(self, level: int, values=False) -> list:
+    def level_nodes(self, level: int, values=False, references=False) -> list:
         self.complete_tree()
         result_references = []
         result_values = []
-        nodes_information = []
 
         def level_nodes(node: Node, level: int) -> None:
-            tiene_derecho = False
-            tiene_izquierdo = False
-
             if node is not None:
                 if level == len(result_references):
                     result_references.append([])
                     result_values.append([])
-                    nodes_information.append([])
 
                 result_references[level].append(node)
                 result_values[level].append(node.data)
-
-                # Comprobaciones para ver si tiene un hijo derecho o no
-                if node.right is not None:
-                    tiene_derecho = True if node.right.data is not None else False
-
-                if node.left is not None:
-                    tiene_izquierdo = True if node.left.data is not None else False
-
-                nodes_information[level].append(
-                    NodeInformation(node.data, id(node), tiene_izquierdo, tiene_derecho))
 
                 level_nodes(node.left, level + 1)
                 level_nodes(node.right, level + 1)
 
         level_nodes(self.__root, 0)
 
+        if references:
+            return result_references[level]
+
         if values:
             return result_values[level]
-
-        return nodes_information[level]
 
     def get_root(self):
         return self.__root.data

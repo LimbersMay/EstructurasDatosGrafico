@@ -15,10 +15,14 @@ class EstructuraInterfaz(Frame):
 
         self.rowconfigure(0, weight=1)
     
-    def actualizar(self, nodos_informacion, valor_buscado):
-        self.dibujar_lista(nodos_informacion, valor_buscado)
+    def actualizar(self, informacion_estructura):
+        self.dibujar_lista(informacion_estructura)
 
-    def dibujar_lista(self, nodos_informacion, valor_buscado):
+    def dibujar_lista(self, informacion_estructura):
+
+        lista_nodos = informacion_estructura.get_list_nodes()
+        nodo_buscado = informacion_estructura.get_selected_node()
+
         # Eliminamos los frames de la lista
         for frame in self.lista_frames:
             frame.destroy()
@@ -30,7 +34,7 @@ class EstructuraInterfaz(Frame):
         buscado = False
 
         # Por cada nodo de la lista, se crea un frame
-        for i in range(len(nodos_informacion)):
+        for i in range(len(lista_nodos)):
 
             nuevo_frame = Frame(self, width=50, height=50, bg='#141E27', highlightbackground="black",
                                 highlightthickness=1)
@@ -38,9 +42,9 @@ class EstructuraInterfaz(Frame):
             self.lista_frames.append(nuevo_frame)
 
             # Se agrega el texto y la referencia del nodo al frame
-            texto = Label(nuevo_frame, text=nodos_informacion[i].get_data(), bg='#141E27', fg='white',
+            texto = Label(nuevo_frame, text=lista_nodos[i].get_data(), bg='#141E27', fg='white',
                           font=('Arial', 20))
-            referencia = Label(nuevo_frame, text=nodos_informacion[i].get_id(), bg='#141E27', fg='white',
+            referencia = Label(nuevo_frame, text=lista_nodos[i].get_id(), bg='#141E27', fg='white',
                                font=('Arial', 10))
 
             # Comprobamos si estamos en el primer nodo
@@ -50,13 +54,13 @@ class EstructuraInterfaz(Frame):
                 referencia.config(bg='#003638')
 
             # Comprobamos si estamos en el último nodo
-            if i == len(nodos_informacion) - 1:
+            if i == len(lista_nodos) - 1:
                 nuevo_frame.config(bg='#006778')
                 texto.config(bg='#006778')
                 referencia.config(bg='#006778')
 
             # Comprobamos si el nodo es el que estamos buscando
-            if nodos_informacion[i].get_data() == valor_buscado and not buscado:
+            if lista_nodos[i].get_data() == nodo_buscado and not buscado:
                 nuevo_frame.config(bg='#541212')
                 texto.config(bg='#541212')
                 referencia.config(bg='#541212')
