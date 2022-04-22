@@ -1,7 +1,9 @@
 from tkinter import *
 from estructuras.pila import Pila
+
 from controllers.pila_controller import PilaController
-from models.ColaModel import ColaModel
+from models.pila_model import PilaModel
+
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
 from .templates.botones_lineales_template import BotonesBasicos
@@ -20,7 +22,7 @@ class PilaView(Frame):
         self.pila = Pila()
 
         # Definimos el modelo y el controlador de la clase
-        self.modelo = ColaModel(self.pila)
+        self.modelo = PilaModel(self.pila)
         self.controlador = PilaController(self.modelo, self)
 
         # Elementos del frame
