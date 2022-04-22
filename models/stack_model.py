@@ -27,7 +27,7 @@ class StackModel:
 
     def guardar(self, nombre):
         # Obtenemos la lista en forma de una lista para guardarlo en el Json
-        lista_pila = self.stack.to_list()
+        lista_pila = self.stack.to_matrix()
 
         # Guardamos la información proporcionada en el Json con el siguiente formato
         # {

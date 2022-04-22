@@ -38,7 +38,7 @@ class ListModel:
 
     def guardar(self, nombre):
         # Obtenemos todos los elementos de la lista actual
-        lista_elementos = self.list.to_list()
+        lista_elementos = self.list.to_matrix()
 
         # Guardamos en el Json la clave con su valor
         # Ejemolo: lista_elementos = {'nombre': 'lista_elementos'}
