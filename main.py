@@ -1,4 +1,3 @@
-from tkinter import *
 from ventana_principal import *
 
 
