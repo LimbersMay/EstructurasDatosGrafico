@@ -27,7 +27,7 @@ class ArbolBinarioOpciones(Frame):
         self.controlador = BinaryTreeController(self.modelo, self)
 
         self.titulo = Label(self, text="Arbol Binario simple")
-        self.arbol_informacion = ArbolBinarioInformacion(self)
+        self.arbol_informacion = ArbolBinarioInformacion(self, self.controlador)
         self.arbol_interfaz = ArbolBinarioInterfaz(self)
         self.botones_arbol = BotonesArbolBinario(self, self.controlador)
 
@@ -37,15 +37,20 @@ class ArbolBinarioOpciones(Frame):
         self.arbol_informacion.grid(row=1, column=1)
         self.botones_arbol.grid(row=2, column=0)
 
+        self.controlador.cargar_opciones()
+
     def mostrar_arbol(self, args):
         self.arbol_interfaz.actualizar(args)
         self.arbol_informacion.actualizar(args)
 
+    def actualizar_caja_opciones(self, opciones):
+        self.arbol_informacion.actualizar_caja_opciones(opciones)
+
 
 # Responsabilidad: Mostrar toda la información del árbol (tamaño, altura, profundidad)
 class ArbolBinarioInformacion(ArbolInformacion):
-    def __init__(self, master):
-        super().__init__(master)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica

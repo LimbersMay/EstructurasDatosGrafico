@@ -24,7 +24,7 @@ class ArbolBusquedaOpciones(Frame):
 
         # Elementos del frame
         self.titulo = Label(self, text="Árbol de búsqueda")
-        self.arbol_informacion = ArbolBusquedaInformacion(self)
+        self.arbol_informacion = ArbolBusquedaInformacion(self, self.controlador)
         self.arbol_interfaz = ArbolBusquedaInterfaz(self)
         self.botones_arbol = BotonesArbolBusqueda(self, self.controlador)
 
@@ -34,16 +34,21 @@ class ArbolBusquedaOpciones(Frame):
         self.arbol_informacion.grid(row=1, column=1)
         self.botones_arbol.grid(row=2, column=0)
 
+        self.controlador.cargar_opciones()
+
     # Funcionalidad: Actualizar la información del árbol
     def mostrar_arbol(self, args):
         self.arbol_interfaz.actualizar(args)
         self.arbol_informacion.actualizar(args)
 
+    def actualizar_caja_opciones(self, opciones):
+        self.arbol_informacion.actualizar_caja_opciones(opciones)
+
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica
 class ArbolBusquedaInformacion(ArbolInformacion):
-    def __init__(self, master):
-        super().__init__(master)
+    def __init__(self, master, controlador):
+        super().__init__(master, controlador)
 
 
 # Responsabilidad: Mostrar el árbol en una interfaz gráfica
@@ -58,9 +63,6 @@ class BotonesArbolBusqueda(BotonesArbol):
         super().__init__(master, controlador)
 
         self.insertar = Button(self, text='Insertar', command=self.insertar)
-
-        self.referencia_label = Label(self, text="Referencia: ")
-        self.referencia_entry = Entry(self)
 
         self.dato_label.grid(row=0, column=0)
         self.dato_entry.grid(row=0, column=1)
