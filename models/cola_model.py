@@ -1,4 +1,5 @@
 from .fichero import Fichero
+from .entities.estructura_lineal import *
 
 
 # Model for the queue
@@ -56,10 +57,7 @@ class ColaModel:
 
         # Añadimos los elementos
         for elemento in cola_elementos:
-            print("Elemento a encolar: ", elemento)
             self.queue.enqueue(elemento)
-
-        print("Despues de encolar: ", self.queue.to_list())
 
         return self.obtener_informacion()
 
@@ -84,4 +82,28 @@ class ColaModel:
         return lista_nombres
 
     def obtener_informacion(self):
-        return [self.queue.get_nodes_information(), self.queue.get_queue_information()]
+
+        # Obtenemos la siguiente información para la pila
+        # Tope
+        # Fondo
+        # Tamaño
+        # Tamaño máximo
+        # Nodos
+
+        estructura_informacion = EstructuraLinealInformacion(
+            self.queue.get_head(),
+            self.queue.get_tail(),
+            self.queue.get_size(),
+            self.queue.get_max()
+        )
+
+        # Ahora procesamos los nodos de la lista
+        lista_nodos = self.queue.to_list(references=True)
+
+        # Por cada nodo creamos un objeto de tipo NodoInformacion
+        for nodo in lista_nodos:
+            estructura_informacion.list_nodes.append(
+                NodoInformacion(nodo.get_data(), id(nodo))
+            )
+
+        return estructura_informacion

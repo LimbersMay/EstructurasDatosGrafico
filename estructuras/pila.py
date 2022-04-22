@@ -6,10 +6,8 @@ class Nodo:
         # Parte morada
         self.siguiente = None
 
-        self.buscado = False
-
-    def set_buscado(self, buscado: bool) -> None:
-        self.buscado = buscado
+    def get_data(self):
+        return self.data
 
 
 class Pila:
@@ -32,9 +30,10 @@ class Pila:
         else:
             raise Exception('Desbordamiento de pila')
 
-    def to_list(self):
+    def to_list(self, references=False):
         aux = self.tope
         elementos = []
+        elementos_references = []
         while True:
             if aux is None:
                 break
@@ -49,7 +48,13 @@ class Pila:
                 if not type(aux.data) == str:
                     elementos.append(aux.data)
 
+                if references:
+                    elementos_references.append(aux)
+
                 aux = aux.siguiente
+
+        if references:
+            return elementos_references
 
         return elementos
 

@@ -39,13 +39,10 @@ class ColaView(Frame):
         self.controlador.cargar_opciones()
 
     # Método para actualizar toda la información de la vista
-    def actualizar(self, args):
-        nodos_informacion = args[0]
-        pila_informacion = args[1]
-        nodo_buscado = args[2] if len(args) == 3 else None
+    def actualizar(self, cola_informacion):
 
-        self.cola_informacion.actualizar(pila_informacion)
-        self.cola_interfaz.actualizar(nodos_informacion, nodo_buscado)
+        self.cola_informacion.actualizar(cola_informacion)
+        self.cola_interfaz.actualizar(cola_informacion)
 
     def actualizar_caja_opciones(self, opciones):
         self.cola_informacion.actualizar_caja_opciones(opciones)

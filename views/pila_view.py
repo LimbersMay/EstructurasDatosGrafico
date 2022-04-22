@@ -40,14 +40,10 @@ class PilaView(Frame):
         self.controlador.cargar_opciones()
 
     # Método de la view para dibujar la estrucutura en pantall y actualizar los datos
-    def actualizar(self, args):
+    def actualizar(self, informacion_pila):
 
-        nodos_informacion = args[0]
-        pila_informacion = args[1]
-        nodo_buscado = args[2] if len(args) == 3 else None
-
-        self.pila_informacion.actualizar(pila_informacion)
-        self.pila_interfaz.actualizar(nodos_informacion, nodo_buscado)
+        self.pila_informacion.actualizar(informacion_pila)
+        self.pila_interfaz.actualizar(informacion_pila)
 
     # Actualizamos la caja de opciones que el usuario tiene para guardar y elegir elementos
     def actualizar_pila_opciones(self, lista_opciones):

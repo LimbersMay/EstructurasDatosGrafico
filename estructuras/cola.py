@@ -4,13 +4,12 @@ class Nodo:
         self.data = elemento
         self.siguiente = None
         # Variable para saber si estamos buscando este nodo
-        self.buscado = False
 
     def __str__(self):
         return f"{self.data}"
 
-    def set_buscado(self, buscado):
-        self.buscado = buscado
+    def get_data(self):
+        return self.data
 
 
 class Cola:
@@ -44,9 +43,10 @@ class Cola:
             # 4 - actualizar datos
         self._size += 1
 
-    def to_list(self):
+    def to_list(self, references=False):
         aux = self.frente
         elementos = []
+        elementos_ref = []
         while True:
             if aux is None:
                 break
@@ -61,7 +61,11 @@ class Cola:
                 if not type(aux.data) == str:
                     elementos.append(aux.data)
 
+                elementos_ref.append(aux)
                 aux = aux.siguiente
+
+        if elementos_ref:
+            return elementos_ref
 
         return elementos
 

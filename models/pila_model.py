@@ -1,5 +1,7 @@
 from .fichero import Fichero
 
+from .entities.estructura_lineal import *
+
 
 # Model for the Stack
 class PilaModel:
@@ -81,4 +83,28 @@ class PilaModel:
         return lista_nombres
 
     def obtener_informacion(self):
-        return [self.stack.get_nodes_information(), self.stack.get_stack_information()]
+
+        # Obtenemos la siguiente información para la pila
+        # Tope
+        # Fondo
+        # Tamaño
+        # Tamaño máximo
+        # Nodos
+
+        estructura_informacion = EstructuraLinealInformacion(
+            self.stack.get_head(),
+            self.stack.get_tail(),
+            self.stack.get_size(),
+            self.stack.get_max(),
+        )
+
+        # Ahora procesamos los nodos de la lista
+        lista_nodos = self.stack.to_list(references=True)
+
+        # Por cada nodo creamos un objeto de tipo NodoInformacion
+        for nodo in lista_nodos:
+            estructura_informacion.list_nodes.append(
+                NodoInformacion(nodo.get_data(), id(nodo))
+            )
+
+        return estructura_informacion
