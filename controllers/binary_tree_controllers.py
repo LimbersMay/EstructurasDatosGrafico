@@ -1,4 +1,3 @@
-import traceback
 
 
 # Responsabiliddad: Informar al modelo de los cambios en los controles
@@ -13,7 +12,6 @@ class SimpleTreeController:
             self.view.mostrar_arbol(informacion_arbol)
 
         except Exception as e:
-            traceback.print_exc()
             print("Error:", e)
 
     def buscar(self, dato):
@@ -32,11 +30,11 @@ class SimpleTreeController:
         except Exception as e:
             print("Error:", e)
 
-    # Operaciones que se realizarán con el Json
+    # ------- OPERACIONES CON EL FICHERO PARA ALMACENAR INFORMACIÓN DEL ÁRBOL -------
     def guardar(self, nombre):
         try:
-            informacion_arbol = self.model.guardar(nombre)
-            self.view.mostrar_arbol(informacion_arbol)
+            opciones = self.model.guardar(nombre)
+            self.view.actualizar_caja_opciones(opciones)
 
         except Exception as e:
             print("Error: ", e)
@@ -51,8 +49,16 @@ class SimpleTreeController:
 
     def remover(self, nombre):
         try:
-            informacion_arbol = self.model.remover(nombre)
-            self.view.mostrar_arbol(informacion_arbol)
+            opciones = self.model.remover(nombre)
+            self.view.actualizar_caja_opciones(opciones)
+
+        except Exception as e:
+            print("Error: ", e)
+
+    def cargar_opciones(self):
+        try:
+            opciones = self.model.cargar_opciones()
+            self.view.actualizar_caja_opciones(opciones)
 
         except Exception as e:
             print("Error: ", e)
