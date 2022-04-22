@@ -1,5 +1,3 @@
-from .node_information import NodeInformation
-
 
 class Nodo:
     def __init__(self, elemento):
@@ -67,7 +65,7 @@ class Cola:
 
         return elementos
 
-    def search(self, elemento) -> NodeInformation:
+    def search(self, elemento):
         aux = self.frente
         vistos = 0
         while vistos < self._size:
@@ -132,23 +130,6 @@ class Cola:
 
     def get_tail(self):
         return self.fondo.data
-
-    def get_nodes_information(self):
-        nodes_information = []
-
-        for i in range(self._size):
-            actual_node = self.search_position_node(i)
-
-            if actual_node is not None:
-                nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
-
-        return nodes_information
-
-    def get_queue_information(self):
-        queue_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size(),
-                                                       self.get_max())
-
-        return queue_information
 
     # Method that clear the stack
     def clear(self):

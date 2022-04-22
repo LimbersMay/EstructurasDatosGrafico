@@ -1,6 +1,4 @@
 from typing import Optional, TypeVar
-from .node_information import NodeInformation
-
 T = TypeVar('T')
 
 
@@ -210,22 +208,6 @@ class CircularList:
 
     def get_tail(self):
         return self._tail.data
-
-    def get_nodes_information(self):
-        nodes_information = []
-
-        for i in range(self._size):
-            actual_node = self.search_position_node(i)
-
-            nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
-
-        return nodes_information
-
-    def get_list_information(self):
-        circular_list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
-
-        return circular_list_information
-
 
     def clear(self):
         self._head = None

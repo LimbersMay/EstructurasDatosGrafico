@@ -1,5 +1,4 @@
 from typing import Optional, TypeVar
-from .node_information import NodeInformation
 
 T = TypeVar('T')
 
@@ -314,21 +313,6 @@ class DoubleLinkedList:
 
     def get_size(self) -> int:
         return self._size
-
-    def get_nodes_information(self) -> list[NodeInformation]:
-        output = []
-
-        for i in range(self._size):
-            actual_node = self.search_position_node(i)
-
-            output.append(NodeInformation(actual_node.data, id(actual_node)))
-
-        return output
-
-    def get_list_information(self):
-        list_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size())
-
-        return list_information
 
     def clear(self):
         self._head = None

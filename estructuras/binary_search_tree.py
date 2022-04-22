@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import Optional, TypeVar
-from .binary_tree import NodeInformation
 
 T = TypeVar('T')
 

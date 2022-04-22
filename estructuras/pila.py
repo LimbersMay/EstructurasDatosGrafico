@@ -1,5 +1,3 @@
-from .node_information import NodeInformation
-
 
 class Nodo:
     def __init__(self, elemento):
@@ -127,22 +125,6 @@ class Pila:
                     return aux.data
                 else:
                     aux = aux.siguiente
-
-    # Return all the nodes in the stack in a list of NodeInformation
-    def get_nodes_information(self):
-        nodes_information = []
-
-        for i in range(self._size):
-            actual_node = self.search_position_node(i)
-            nodes_information.append(NodeInformation(actual_node.data, id(actual_node)))
-
-        return nodes_information
-
-    def get_stack_information(self):
-        stack_information = LinealStructureInformation(self.get_head(), self.get_tail(), self.get_size(),
-                                                       self.get_max())
-
-        return stack_information
 
     # Method that clear the stack
     def clear(self):

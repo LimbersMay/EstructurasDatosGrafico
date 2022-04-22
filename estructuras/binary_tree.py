@@ -4,40 +4,11 @@ from typing import Optional, TypeVar
 T = TypeVar('T')
 
 
-class NodeInformation:
-    def __init__(self, data, id, left_child, right_child):
-        self.data = data
-        self.id = id
-
-        self.left_child = left_child
-        self.right_child = right_child
-
-    def get_data(self):
-        return self.data
-
-    def get_id(self):
-        return self.id
-
-    def have_left_child(self):
-        return self.left_child
-
-    def have_right_child(self):
-        return self.right_child
-
-    def is_leaf(self):
-        return not self.have_left_child() and not self.have_right_child()
-
-
 class Node:
     def __init__(self, data: T):
         self.data = data
         self.left: Optional[Node] = None
         self.right: Optional[Node] = None
-
-        self.buscado = False
-
-    def set_buscado(self, buscado: bool):
-        self.buscado = buscado
 
     def is_leaf(self):
         return self.left is None and self.right is None
