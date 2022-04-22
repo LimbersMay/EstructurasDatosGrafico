@@ -25,16 +25,16 @@ class ArbolBinarioModelTemplate:
         return self.obtener_informacion()
 
     def obtener_informacion(self):
-        nodes_level = []
-        root = self.tree.get_root()
-        cantidad_nodos = self.tree.count_nodes()
-        profundidad = self.tree.max_depth()
+        nodos_nivel = []  # Lista de nodos de un nivel
+        root = self.tree.get_root()  # Raiz del árbol
+        cantidad_nodos = self.tree.count_nodes()  # Cantidad de nodos del árbol
+        profundidad = self.tree.max_depth()  # Profundidad del árbol
 
         # Obtenemos los nodos de todos los niveles
         for i in range(self.tree.max_depth()):
-            nodes_level.append(self.tree.level_nodes(i))
+            nodos_nivel.append(self.tree.level_nodes(i))
 
-        return ArbolBinarioInformacion(nodes_level, root, cantidad_nodos, profundidad)
+        return ArbolBinarioInformacion(nodos_nivel, root, cantidad_nodos, profundidad)
 
     # ---- FUNCIONES PARA INTERACTUAR CON EL FICHERO DE INFORMACIÓN ------
     def cargar_opciones(self):

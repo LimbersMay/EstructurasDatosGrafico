@@ -1,5 +1,5 @@
 from .fichero import Fichero
-from .templates.binary_tree_model_template import ArbolBinarioModelTemplate
+from .templates.arbol_binario_model_template import ArbolBinarioModelTemplate
 
 
 class ArbolBinarioModel(ArbolBinarioModelTemplate):

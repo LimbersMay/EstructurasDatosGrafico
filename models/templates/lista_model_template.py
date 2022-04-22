@@ -1,4 +1,4 @@
-from models.fichero import Fichero
+from models.entities.estructura_lineal import *
 
 
 # Models for the lists
@@ -32,13 +32,13 @@ class ListaModelTemplate:
         nodo_buscado = self.list.search(elemento)
 
         informacion = self.obtener_informacion()
-        informacion.append(nodo_buscado)
+        informacion.set_selected_node(nodo_buscado)
 
         return informacion
 
     def guardar(self, nombre):
         # Obtenemos todos los elementos de la lista actual
-        lista_elementos = self.list.to_matrix()
+        lista_elementos = self.list.to_list()
 
         # Guardamos en el Json la clave con su valor
         # Ejemolo: lista_elementos = {'nombre': 'lista_elementos'}
@@ -59,11 +59,11 @@ class ListaModelTemplate:
 
         # Vaciamos la list actual
         self.list.clear()
-        
+
         # Insertamos los elementos de la lista en la lista actual
         for elemento in lista_elementos:
             self.list.append(elemento)
-            
+
         return self.obtener_informacion()
 
     def eliminar(self, nombre):
@@ -74,11 +74,33 @@ class ListaModelTemplate:
     def cargar_opciones(self):
         # Obtenemos todos los elementos lista del fichero
         lista_elementos_fichero = self.fichero.obtener_elementos()
-        
+
         # Obtenemos solamente las claves (Nombres de las listas) de los elementos
         lista_nombres = [nombre for nombre in lista_elementos_fichero]
-        
+
         return lista_nombres
 
     def obtener_informacion(self):
-        return [self.list.get_nodes_information(), self.list.get_list_information()]
+
+        # Obtenemos las siguiente información para la información de la lista
+        # 1. head
+        # 2. tail
+        # 3. size
+        # 5. Lista de nodos
+
+        estructura_informacion = EstructuraLinealInformacion(
+            self.list.get_head(),
+            self.list.get_tail(),
+            self.list.get_size()
+        )
+
+        # Ahora procesamos los nodos de la lista
+        lista_nodos = self.list.to_list(references=True)
+
+        # Por cada nodo creamos un objeto de tipo NodoInformacion
+        for nodo in lista_nodos:
+            estructura_informacion.list_nodes.append(
+                NodoInformacion(nodo.get_data(), id(nodo))
+            )
+
+        return estructura_informacion

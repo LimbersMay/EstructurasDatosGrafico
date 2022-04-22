@@ -1,4 +1,4 @@
-from .templates.list_model_template import ListaModelTemplate
+from .templates.lista_model_template import ListaModelTemplate
 from .fichero import Fichero
 
 
