@@ -5,10 +5,13 @@ T = TypeVar('T')
 
 
 class Node:
-    def __init__(self, data: T):
+    def __init__(self, data: T, father: Optional[Node] = None):
         self.data = data
+        self.father = father
         self.left: Optional[Node] = None
         self.right: Optional[Node] = None
+
+        self.visited = False
 
     def is_leaf(self):
         return self.left is None and self.right is None
@@ -27,12 +30,12 @@ class BinaryTree:
     def __init__(self, data=None):
         self.__root = Node(data)
 
-    # Method that insert a node in the left side with a reference
+    # Method that insert a node on the left side with a reference
     def insert_left(self, data: T, ref: T):
         node = self.__search(ref)
 
         if node is not None:
-            new_node = Node(data)
+            new_node = Node(data, node)
 
             if node.left is None or node.left.get_data() is None:
                 node.left = new_node
@@ -194,6 +197,7 @@ class BinaryTree:
 
         else:
             return 'a'
+ 
 
     def search(self, data: T) -> Optional[Node]:
         return self.__search(data)
@@ -288,7 +292,7 @@ class BinaryTree:
         # if the node has two children
         elif node.left is not None and node.right is not None:
             node.data = min_node.data
-            self.remove_node(min_node.data)
+            self.remove(min_node.data)
 
         # if the node is the root
         elif node.left is None and node.right is None:
@@ -297,22 +301,23 @@ class BinaryTree:
         else:
             raise Exception('The node does not exist')
 
-    # Method that returns the minimum node of a tree
+    # Method that returns the node with the minimum value of the tree walkin on the tree #
     def min_node(self, *args) -> Node:
-        node = self.__root if len(args) == 0 else args[0]
 
-        if node is not None:
-            if node.left is None:
-                return node
+        list_nodes = self.to_list()    
 
-            else:
-                return self.min_node(node.left)
+        list = [node for sublist in list_nodes for node in sublist if node is not None]
 
-        else:
-            return None
+        min_node = self.search(min(list))
+
+        return min_node
+
 
     def get_root(self) -> Node:
         return self.__root.data
+
+    def get_root_reference(self) -> Node:
+        return self.__root
 
     # Method that returns the return the total number of nodes in the tree
     def count_nodes(self, ) -> int:
@@ -341,3 +346,72 @@ class BinaryTree:
     # Method that clears the tree
     def clear(self) -> None:
         self.__root.data = None
+
+    # Method that search not visited nodes by reference
+    def search_not_visited(self, node: Node) -> Optional[Node]:
+        if node is not None:
+            if node.visited:
+                return self.search_not_visited(node.left)
+
+            else:
+                return node
+
+        else:
+            return None
+
+    # Method that search a node taking a node as reference
+    def search_node(self, node: Node, data: T) -> Optional[Node]:
+        if node is not None:
+            if node.data == data:
+                return node
+
+            else:
+                return self.search_node(node.left, data) or self.search_node(node.right, data)
+
+        else:
+            return None
+
+    # Search not visited node with a value
+    def search_not_visited_value(self, value: T) -> Optional[Node]:
+        node = self.search_node(self.__root, value)
+
+        print("Node: ", node)
+
+        if node is not None:
+            if node.visited:
+                return self.search_not_visited_value(node.left)
+
+            else:
+                return node
+
+        else:
+            return None
+
+
+    # Method that remove a node from the tree
+    def remove(self, node_ref, data: T) -> None:
+        node = self.search_not_visited_value(node_ref, data)
+
+        if node is not None:
+            if node.left is None and node.right is None:
+                print("Condicion 1")
+                node.data = None
+
+            elif node.left is None and node.right is not None:
+                print("Condicion 2")
+                node.data = node.right.data
+                node.right = None
+
+            elif node.left is not None and node.right is None:
+                print("Condicion 3")
+                node.data = node.left.data
+                node.left = None
+
+            else:
+                min_node = self.min_node(node.right)
+                node.data = min_node.data
+                node.visited = True
+                self.remove(min_node.data)
+
+        else:
+            raise Exception('The node does not exist')

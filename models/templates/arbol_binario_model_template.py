@@ -20,7 +20,7 @@ class ArbolBinarioModelTemplate:
         return arbol_informacion
 
     def eliminar(self, valor):
-        self.tree.remove_node(valor)
+        self.tree.remove(valor)
 
         return self.obtener_informacion()
 
