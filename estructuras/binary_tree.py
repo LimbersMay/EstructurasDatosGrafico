@@ -275,31 +275,15 @@ class BinaryTree:
             raise Exception('The root already exists')
 
     # Method that remove a node from a full binary tree
-    def remove_node(self, data: T) -> None:
-
-        node = self.__search(data)
-        min_node = self.min_node()
-
-        # if the node has only one child
-        if node.left is None and node.right is not None:
-            node.data = node.right.data
-            node.right = None
-
-        elif node.left is not None and node.right is None:
-            node.data = node.left.data
-            node.left = None
-
-        # if the node has two children
-        elif node.left is not None and node.right is not None:
-            node.data = min_node.data
-            self.remove(min_node.data)
-
-        # if the node is the root
-        elif node.left is None and node.right is None:
-            self.__root = None
-
+    def eliminar(self, ref: T, *args) -> Optional[Node]:
+        node = self.__root if len(args) == 0 else args[0]
+        if node is not None:
+            return node
+        elif self.__search(ref) == ref:
+            ref = None
+            return ref
         else:
-            raise Exception('The node does not exist')
+            return print('El nodo no existe')
 
     # Method that returns the node with the minimum value of the tree walkin on the tree #
     def min_node(self, *args) -> Node:

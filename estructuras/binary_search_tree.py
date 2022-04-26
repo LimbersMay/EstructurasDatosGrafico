@@ -223,3 +223,5 @@ class BinarySearchTree:
 
         clear_tree(self.__root)
 
+    def get_root_reference(self) -> Node:
+        return self.__root
