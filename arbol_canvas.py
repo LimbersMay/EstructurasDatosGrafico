@@ -4,6 +4,38 @@ from PIL import ImageTk, Image
 from estructuras.binary_tree import BinaryTree
 
 
+class NodoCoordenada:
+    def __init__(self, x1, y1, x2, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+
+    def get_x1(self):
+        return self.x1
+
+    def get_y1(self):
+        return self.y1
+
+    def get_x2(self):
+        return self.x2
+
+    def get_y2(self):
+        return self.y2
+
+    def set_x1(self, x1):
+        self.x1 = x1
+
+    def set_y1(self, y1):
+        self.y1 = y1
+
+    def set_x2(self, x2):
+        self.x2 = x2
+
+    def set_y2(self, y2):
+        self.y2 = y2
+
+
 class ArbolInterfaz(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -16,10 +48,7 @@ class ArbolInterfaz(Frame):
         self.canvas = Canvas(self, width=1000, height=350)
         self.canvas.pack()
 
-        self.coordenadas_raiz = [
-            500, 0,
-            550, 50,
-        ]
+        self.coordenadas_raiz = NodoCoordenada(500, 0, 550, 50)
 
         # 500 -> 490 -> (10)
         # 550 -> 530 -> (20), 50 -> 30 -> (20)
@@ -40,74 +69,47 @@ class ArbolInterfaz(Frame):
         if nodo is not None:
             if nodo.is_leaf():
                 # Dibujamos el nodo
-                self.canvas.create_oval(coordenadas[0], coordenadas[1],
-                                        coordenadas[2], coordenadas[3],
-                                        fill="green")
+                self.crear_nodo(coordenadas)
 
-                # Imprimimos el valor del nodo en el centro del nodo
-                self.canvas.create_text(coordenadas[0] + (coordenadas[2] - coordenadas[0]) / 2,
-                                        coordenadas[1] + (coordenadas[3] - coordenadas[1]) / 2,
-                                        text=str(nodo.get_data()))
+                self.crear_texto(coordenadas, str(nodo.get_data()))
 
             else:
                 # Obtenemos las coordenadas del nodo izquierdo
                 # Creamos un nuevo nodo con las coordenadas del nodo izquierdo
-                coordenadas_nodo_izquierdo = [
-                    coordenadas[0] - 160 + separacion,
-                    coordenadas[1] + 50,
-                    (coordenadas[2] - 160 + separacion) - 4,
-                    (coordenadas[3] + 50) - 4,
-                ]
+                coordenadas_izquierdo = NodoCoordenada(coordenadas.get_x1() - 160 + separacion,
+                                                       coordenadas.get_y1() + 50,
+                                                       (coordenadas.get_x2() - 160 + separacion) - 4,
+                                                       (coordenadas.get_y2() + 50) - 4)
 
-                coordenadas_nodo_derecho = [
-                    coordenadas[0] + 160 - separacion,
-                    coordenadas[1] + 50,
-                    (coordenadas[2] + 160 - separacion) - 4,
-                    (coordenadas[3] + 50) - 4,
-                ]
+                coordenadas_derecho = NodoCoordenada(coordenadas.get_x1() + 160 - separacion,
+                                                     coordenadas.get_y1() + 50,
+                                                     (coordenadas.get_x2() + 160 - separacion) - 4,
+                                                     (coordenadas.get_y2() + 50) - 4)
 
                 # Comprobamos que tenga un nodo izquierdo
                 if nodo.get_left() is not None:
                     # Dibujamos una linea del punto medio del ovalo del nodo actual al punto medio del ovalo del nodo
                     # izquierdo
-                    self.canvas.create_line(coordenadas[0] + (coordenadas[2] - coordenadas[0]) / 2,
-                                            coordenadas[1] + (coordenadas[3] - coordenadas[1]) / 2,
-                                            coordenadas_nodo_izquierdo[0] + (
-                                                    coordenadas_nodo_izquierdo[2] - coordenadas_nodo_izquierdo[
-                                                0]) / 2,
-                                            coordenadas_nodo_izquierdo[1] + (
-                                                    coordenadas_nodo_izquierdo[3] - coordenadas_nodo_izquierdo[
-                                                1]) / 2,
-                                            arrow=LAST, fill="black")
+                    self.crear_flecha(coordenadas, coordenadas_izquierdo)
 
                 # Comprobamos que tenga un nodo derecho
                 if nodo.get_right() is not None:
-                    # Dibujamos una linea del punto medio del ovalo del nodo actual al punto medio del ovalo del nodo derecho
-                    self.canvas.create_line(coordenadas[0] + (coordenadas[2] - coordenadas[0]) / 2,
-                                            coordenadas[1] + (coordenadas[3] - coordenadas[1]) / 2,
-                                            coordenadas_nodo_derecho[0] + (
-                                                    coordenadas_nodo_derecho[2] - coordenadas_nodo_derecho[0]) / 2,
-                                            coordenadas_nodo_derecho[1] + (
-                                                    coordenadas_nodo_derecho[3] - coordenadas_nodo_derecho[1]) / 2,
-                                            arrow=LAST, fill="black")
+                    # Dibujamos una linea del punto medio del ovalo del nodo actual al punto medio del ovalo del nodo
+                    # derecho
+                    self.crear_flecha(coordenadas, coordenadas_derecho)
 
                 # Escribimos encima de las flechas el valor del nodo y nuestro nodo
-
                 # En caso de tener hijos, dibujamos ambos nodos, los dibujamos encima de las flechas
-                self.canvas.create_oval(coordenadas[0], coordenadas[1],
-                                        coordenadas[2], coordenadas[3],
-                                        fill="green")
+                self.crear_nodo(coordenadas)
 
                 # Imprimimos el valor del nodo en el centro del nodo
-                self.canvas.create_text(coordenadas[0] + (coordenadas[2] - coordenadas[0]) / 2,
-                                        coordenadas[1] + (coordenadas[3] - coordenadas[1]) / 2,
-                                        text=str(nodo.get_data()))
+                self.crear_texto(coordenadas, str(nodo.get_data()))
 
                 # Dibujamos los nodos izquierdos
-                self.dibujar_arbol(nodo.left, coordenadas_nodo_izquierdo, separacion + 60)
+                self.dibujar_arbol(nodo.left, coordenadas_izquierdo, separacion + 60)
 
                 # Dibujamos los nodos derechos
-                self.dibujar_arbol(nodo.right, coordenadas_nodo_derecho, separacion + 60)
+                self.dibujar_arbol(nodo.right, coordenadas_derecho, separacion + 60)
 
         # Datos necesarios
         # Profundidad del árbol
@@ -116,3 +118,26 @@ class ArbolInterfaz(Frame):
 
     def set_arbol(self, arbol: BinaryTree):
         self.arbol = arbol
+
+    def crear_flecha(self, coordenada_actual, coordenada_siguiente):
+        self.canvas.create_line(
+            coordenada_actual.get_x1() + (coordenada_actual.get_x2() - coordenada_actual.get_x1()) / 2,
+            coordenada_actual.get_y1() + (coordenada_actual.get_y2() - coordenada_actual.get_y1()) / 2,
+            coordenada_siguiente.get_x1() + (
+                    coordenada_siguiente.get_x2() - coordenada_siguiente.get_x1()) / 2,
+            coordenada_siguiente.get_y1() + (
+                    coordenada_siguiente.get_y2() - coordenada_siguiente.get_y1()) / 2,
+            arrow=LAST, fill="black")
+
+    def crear_nodo(self, coordenada_actual):
+        self.canvas.create_oval(coordenada_actual.get_x1(), coordenada_actual.get_y1(),
+                                coordenada_actual.get_x2(), coordenada_actual.get_y2(),
+                                fill="green")
+
+    def crear_texto(self, coordenada_actual, texto):
+        self.canvas.create_text(coordenada_actual.get_x1() + (coordenada_actual.get_x2() -
+                                                              coordenada_actual.get_x1()) / 2,
+
+                                coordenada_actual.get_y1() + (coordenada_actual.get_y2() -
+                                                              coordenada_actual.get_y1()) / 2,
+                                text=texto)
