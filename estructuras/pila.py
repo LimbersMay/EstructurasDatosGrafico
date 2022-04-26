@@ -1,4 +1,3 @@
-
 class Nodo:
     def __init__(self, elemento):
         # Parte amarilla
@@ -71,7 +70,7 @@ class Pila:
     def search(self, elemento):
         aux = self.tope
         while True:
-            if aux == None:
+            if aux is None:
                 break
             else:
                 if aux.data == elemento:

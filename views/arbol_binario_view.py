@@ -39,9 +39,9 @@ class ArbolBinarioView(Frame):
 
         self.controlador.cargar_opciones()
 
-    def mostrar_arbol(self, args):
-        self.arbol_interfaz.actualizar(args)
-        self.arbol_informacion.actualizar(args)
+    def mostrar_arbol(self, arbol_informacion):
+        self.arbol_interfaz.actualizar(arbol_informacion)
+        self.arbol_informacion.actualizar(arbol_informacion)
 
     def actualizar_caja_opciones(self, opciones):
         self.arbol_informacion.actualizar_caja_opciones(opciones)

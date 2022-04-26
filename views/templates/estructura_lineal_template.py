@@ -23,6 +23,9 @@ class EstructuraInterfaz(Frame):
         lista_nodos = informacion_estructura.get_list_nodes()
         nodo_buscado = informacion_estructura.get_selected_node()
 
+        print("Nodo buscado: ", nodo_buscado)
+        print("Tipo: ", type(nodo_buscado))
+
         # Eliminamos los frames de la lista
         for frame in self.lista_frames:
             frame.destroy()
@@ -35,6 +38,9 @@ class EstructuraInterfaz(Frame):
 
         # Por cada nodo de la lista, se crea un frame
         for i in range(len(lista_nodos)):
+
+            print("Nodo actual: ", lista_nodos[i].get_data())
+            print("Tipo: ", type(lista_nodos[i].get_data()))
 
             nuevo_frame = Frame(self, width=50, height=50, bg='#141E27', highlightbackground="black",
                                 highlightthickness=1)

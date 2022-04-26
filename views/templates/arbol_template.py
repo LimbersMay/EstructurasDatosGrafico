@@ -47,6 +47,12 @@ class ArbolInterfaz(Frame):
 
         self.coordenadas_raiz = NodoCoordenada(500, 0, 550, 50)
 
+        # Nodo que se va a buscar
+        self.nodo_seleccionado = None
+
+        # Bandera para saber si ya hemos encontrado el nodo
+        self.encontrado = False
+
         # 500 -> 490 -> (10)
         # 550 -> 530 -> (20), 50 -> 30 -> (20)
 
@@ -66,7 +72,13 @@ class ArbolInterfaz(Frame):
         if nodo is not None:
             if nodo.is_leaf() and nodo.get_data() is not None:
                 # Dibujamos el nodo
-                self.crear_nodo(coordenadas)
+
+                # Comprobamos si este nodo es el nodo seleccionado
+                if nodo.get_data() == self.nodo_seleccionado:
+                    self.crear_nodo(coordenadas, 'blue')
+
+                else:
+                    self.crear_nodo(coordenadas)
 
                 self.crear_texto(coordenadas, str(nodo.get_data()))
 
@@ -74,7 +86,6 @@ class ArbolInterfaz(Frame):
                 # Comprobamos que
                 if nodo.get_data() is None:
                     return
-
 
                 # Obtenemos las coordenadas del nodo izquierdo
                 # Creamos un nuevo nodo con las coordenadas del nodo izquierdo
@@ -106,7 +117,18 @@ class ArbolInterfaz(Frame):
 
                 # Escribimos encima de las flechas el valor del nodo y nuestro nodo
                 # En caso de tener hijos, dibujamos ambos nodos, los dibujamos encima de las flechas
-                self.crear_nodo(coordenadas)
+
+                print("Nodo a buscar: ", self.nodo_seleccionado)
+                print("Nodo actual: ", nodo.get_data())
+                print()
+
+                # Comprobamos si el nodo actual es el que buscamos
+                if nodo.get_data() == self.nodo_seleccionado and not self.encontrado:
+                    self.crear_nodo(coordenadas, "blue")
+                    self.encontrado = True
+
+                if not nodo.get_data() == self.nodo_seleccionado:
+                    self.crear_nodo(coordenadas)
 
                 # Imprimimos el valor del nodo en el centro del nodo
                 self.crear_texto(coordenadas, str(nodo.get_data()))
@@ -125,7 +147,13 @@ class ArbolInterfaz(Frame):
     def actualizar(self, arbol):
         # Limpiamos el canvas
         self.canvas.delete("all")
+
+        # Le enviamos a la clase el árbol
         self.set_arbol(arbol)
+
+        # Le indicamos cual nodo estamos buscando
+        self.nodo_seleccionado = arbol.get_seleccionado()
+
         self.dibujar_arbol()
 
     def set_arbol(self, arbol_informacion):
@@ -141,10 +169,10 @@ class ArbolInterfaz(Frame):
                     coordenada_siguiente.get_y2() - coordenada_siguiente.get_y1()) / 2,
             arrow=LAST, fill="black")
 
-    def crear_nodo(self, coordenada_actual):
+    def crear_nodo(self, coordenada_actual, color="green"):
         self.canvas.create_oval(coordenada_actual.get_x1(), coordenada_actual.get_y1(),
                                 coordenada_actual.get_x2(), coordenada_actual.get_y2(),
-                                fill="green")
+                                fill=color)
 
     def crear_texto(self, coordenada_actual, texto):
         self.canvas.create_text(coordenada_actual.get_x1() + (coordenada_actual.get_x2() -
