@@ -20,7 +20,6 @@ class ArbolBinarioModel(ArbolBinarioModelTemplate):
 
     # Operaciones para guardar el árbol dentro de un fichero Json
     def guardar(self, nombre):
-
         # Para guardar el árbol en el Json obtenemos todos los nodos de cada nivel del arbol
         # ejemplo:
         # 0: [5] -> raíz

@@ -1,4 +1,4 @@
-from models.entities.arbol_binario import ArbolBinarioInformacion, NodoInformacion
+from models.entities.arbol_binario import ArbolBinarioInformacion
 
 
 class ArbolBinarioModelTemplate:
@@ -25,7 +25,6 @@ class ArbolBinarioModelTemplate:
         return self.obtener_informacion()
 
     def obtener_informacion(self):
-
         # Datos necesarios para el árbol
         # 1. Raíz
         # 2. Nodos: [NodoInformacion]
@@ -43,44 +42,8 @@ class ArbolBinarioModelTemplate:
 
         arbol_informacion = ArbolBinarioInformacion(root, cantidad_nodos, profundidad)
 
-        # Obtenemos los nodos de todos los niveles
-        for i in range(self.tree.max_depth()):
-            nodos_nivel = self.tree.level_nodes(i, references=True)
-
-            nodos_nivel_informacion = []
-            # Recorremos cada nodo y obtenemos los datos que necesitamos
-            for nodo in nodos_nivel:
-
-                # Obtenenmos todos los datos de cada nodo que necesitamos
-                data = nodo.get_data()
-                id_nodo = id(nodo)
-
-                tiene_hijo_izquierdo = False
-                tiene_hijo_derecho = False
-
-                # Comprobamos que este nodo no sea uno de relleno que usamos para completar el árbol
-                if nodo.left is not None:
-                    if nodo.left.data is not None:
-                        tiene_hijo_izquierdo = True
-
-                if nodo.right is not None:
-                    if nodo.right.data is not None:
-                        tiene_hijo_derecho = True
-
-                # Creamos un objeto nodo información y lo agregamos a la lista
-                nodo_informacion = NodoInformacion(data, id_nodo, tiene_hijo_izquierdo, tiene_hijo_derecho)
-                nodos_nivel_informacion.append(nodo_informacion)
-
-            arbol_informacion.nodos_nivel.append(nodos_nivel_informacion)
-
-            # Al final tendremos una matriz con los nodos de información de cada nivel
-            # Ejemplo:
-            # [
-            #   [nodo_informacion_nivel_0, nodo_informacion_nivel_1, nodo_informacion_nivel_2, ...], -> Raíz
-            #   [nodo_informacion_nivel_0, nodo_informacion_nivel_1, nodo_informacion_nivel_2, ...], -> Nivel 1
-            #   [nodo_informacion_nivel_0, nodo_informacion_nivel_1, nodo_informacion_nivel_2, ...], -> Nivel 2
-            #   ...
-            # ]
+        # Le enviamos al árbol información la referencia del árbol
+        arbol_informacion.set_arbol_referencia(self.tree)
 
         return arbol_informacion
 
