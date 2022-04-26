@@ -1,5 +1,36 @@
 from tkinter import *
-from PIL import ImageTk, Image
+
+
+class NodoCoordenada:
+    def __init__(self, x1, y1, x2, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+
+    def get_x1(self):
+        return self.x1
+
+    def get_y1(self):
+        return self.y1
+
+    def get_x2(self):
+        return self.x2
+
+    def get_y2(self):
+        return self.y2
+
+    def set_x1(self, x1):
+        self.x1 = x1
+
+    def set_y1(self, y1):
+        self.y1 = y1
+
+    def set_x2(self, x2):
+        self.x2 = x2
+
+    def set_y2(self, y2):
+        self.y2 = y2
 
 
 class ArbolInterfaz(Frame):
@@ -9,193 +40,116 @@ class ArbolInterfaz(Frame):
         # Elementos del frame
         self.config(width=1000, height=350)
 
-        self.matriz_frames = []
-        self.coordenadas = {}
+        self.arbol = None
 
-        self.filas = 9
-        self.columnas = 17
+        self.canvas = Canvas(self, width=1000, height=350)
+        self.canvas.pack()
 
-        # Imagenes de las flechas
-        self.diagonal_derecha = ImageTk.PhotoImage(Image.open("recursos/imagenes/derecha.png").resize((40, 40)))
-        self.diagonal_izquierda = ImageTk.PhotoImage(Image.open("recursos/imagenes/izquierda.png").resize((40, 40)))
+        self.coordenadas_raiz = NodoCoordenada(500, 0, 550, 50)
 
-        self.recta_derecha = ImageTk.PhotoImage(Image.open("recursos/imagenes/recta_derecha.png").resize((40, 40)))
-        self.recta_izquierda = ImageTk.PhotoImage(Image.open("recursos/imagenes/recta_izquierda.png").resize((40, 40)))
+        # 500 -> 490 -> (10)
+        # 550 -> 530 -> (20), 50 -> 30 -> (20)
 
-        self.inicializar_arbol()
-    
-    def actualizar(self, informacion_arbol):
-        self.dibujar_arbol(informacion_arbol)
+        # 1. 500 - 2.5 = 497.5
+        # 1. 550 - 5 = 545, 50 - 5 = 45
 
-    def dibujar_matriz(self):
-        # Definimos la cantidad de filas que tendrá el frame
-        for i in range(self.filas):
-            self.rowconfigure(i, weight=1)
+        # 2. 497.5 - 2.5 = 495
+        # 2. 545 - 5 = 540, 45 - 5 = 40
 
-        # Definimos la cantidad de columnas que tendrá el frame
-        for i in range(self.columnas):
-            self.columnconfigure(i, weight=1)
+        self.separacion = 0
 
-        for i in range(self.filas):
-            sub_matriz = []
-            for j in range(self.columnas):
-                nodo_frame = Frame(self, width=40, height=40, bg='white',
-                                   highlightbackground="black")
-                nodo_frame.pack_propagate(False)
-                sub_matriz.append(nodo_frame)
+    def dibujar_arbol(self, *args):
+        nodo = self.arbol.get_root_reference() if len(args) == 0 else args[0]
+        coordenadas = self.coordenadas_raiz if len(args) == 0 else args[1]
+        separacion = self.separacion if len(args) == 0 else args[2]
 
-                # Posicionamos el frame
-                nodo_frame.grid(row=i, column=j)
+        if nodo is not None:
+            if nodo.is_leaf() and nodo.get_data() is not None:
+                # Dibujamos el nodo
+                self.crear_nodo(coordenadas)
 
-            self.matriz_frames.append(sub_matriz)
+                self.crear_texto(coordenadas, str(nodo.get_data()))
 
-    def dibujar_arbol(self, informacion_arbol):
-        
-        self.destruir_frames()
-        self.dibujar_matriz()
+            else:
+                # Comprobamos que
+                if nodo.get_data() is None:
+                    return
 
-        contador = 2
 
-        nodo_buscado = informacion_arbol.get_seleccionado()
+                # Obtenemos las coordenadas del nodo izquierdo
+                # Creamos un nuevo nodo con las coordenadas del nodo izquierdo
+                coordenadas_izquierdo = NodoCoordenada(coordenadas.get_x1() - 160 + separacion,
+                                                       coordenadas.get_y1() + 50,
+                                                       (coordenadas.get_x2() - 160 + separacion) - 4,
+                                                       (coordenadas.get_y2() + 50) - 4)
+
+                coordenadas_derecho = NodoCoordenada(coordenadas.get_x1() + 160 - separacion,
+                                                     coordenadas.get_y1() + 50,
+                                                     (coordenadas.get_x2() + 160 - separacion) - 4,
+                                                     (coordenadas.get_y2() + 50) - 4)
+
+                # Comprobamos que tenga un nodo izquierdo
+                if nodo.get_left() is not None:
+                    # Comprobamos que el nodo izquierdo no sea de relleno
+                    if nodo.get_left().get_data() is not None:
+                        # Dibujamos una linea del punto medio del ovalo del nodo actual al punto medio del ovalo del
+                        # nodo izquierdo
+                        self.crear_flecha(coordenadas, coordenadas_izquierdo)
+
+                # Comprobamos que tenga un nodo derecho
+                if nodo.get_right() is not None:
+                    # Comprobamos que el nodo derecho no sea de relleno
+                    if nodo.get_right().get_data() is not None:
+                        # Dibujamos una linea del punto medio del ovalo del nodo actual al punto medio del ovalo del
+                        # nodo derecho
+                        self.crear_flecha(coordenadas, coordenadas_derecho)
+
+                # Escribimos encima de las flechas el valor del nodo y nuestro nodo
+                # En caso de tener hijos, dibujamos ambos nodos, los dibujamos encima de las flechas
+                self.crear_nodo(coordenadas)
+
+                # Imprimimos el valor del nodo en el centro del nodo
+                self.crear_texto(coordenadas, str(nodo.get_data()))
+
+                # Dibujamos los nodos izquierdos
+                self.dibujar_arbol(nodo.left, coordenadas_izquierdo, separacion + 60)
+
+                # Dibujamos los nodos derechos
+                self.dibujar_arbol(nodo.right, coordenadas_derecho, separacion + 60)
 
         # Datos necesarios
         # Profundidad del árbol
         # Nodos en un nivel determinado
         # Lista de nodos
 
-        for nivel in range(informacion_arbol.get_profundidad()):
-            
-            nodos_nivel = informacion_arbol.get_nodos_nivel()[nivel]
-            profundidad_y = nivel + contador
+    def actualizar(self, arbol):
+        # Limpiamos el canvas
+        self.canvas.delete("all")
+        self.set_arbol(arbol)
+        self.dibujar_arbol()
 
-            if nivel == 0:
-                self.dibujar_raiz(nivel, nodos_nivel)
+    def set_arbol(self, arbol_informacion):
+        self.arbol = arbol_informacion.get_arbol_referencia()
 
-            if nivel >= 1:
-                # Para los primeros hijos
-                self.dibujar_nivel(profundidad_y, profundidad_y, nodos_nivel, nodo_buscado)
-                contador += 1
-            
-    # Función para insertar el nodo raíz
-    def dibujar_raiz(self, profundidad_y: int, nodo):
-        
-        punto_medio_x = int(round(self.columnas / 2))
-        self.dibujar_nodo(nodo[0], profundidad_y, punto_medio_x)
+    def crear_flecha(self, coordenada_actual, coordenada_siguiente):
+        self.canvas.create_line(
+            coordenada_actual.get_x1() + (coordenada_actual.get_x2() - coordenada_actual.get_x1()) / 2,
+            coordenada_actual.get_y1() + (coordenada_actual.get_y2() - coordenada_actual.get_y1()) / 2,
+            coordenada_siguiente.get_x1() + (
+                    coordenada_siguiente.get_x2() - coordenada_siguiente.get_x1()) / 2,
+            coordenada_siguiente.get_y1() + (
+                    coordenada_siguiente.get_y2() - coordenada_siguiente.get_y1()) / 2,
+            arrow=LAST, fill="black")
 
-        # Pintamos 2 flechas en la diagonal izquierda
-        self.dibujar_flecha_izquierda(profundidad_y, punto_medio_x, self.recta_izquierda)
-        self.dibujar_flecha_izquierda(profundidad_y + 1, punto_medio_x - 1)
+    def crear_nodo(self, coordenada_actual):
+        self.canvas.create_oval(coordenada_actual.get_x1(), coordenada_actual.get_y1(),
+                                coordenada_actual.get_x2(), coordenada_actual.get_y2(),
+                                fill="green")
 
-        # Pintamos 2 flechas en la diagonal derecha
-        self.dibujar_flecha_derecha(profundidad_y, punto_medio_x, self.recta_derecha)
-        self.dibujar_flecha_derecha(profundidad_y + 1, punto_medio_x + 1)
+    def crear_texto(self, coordenada_actual, texto):
+        self.canvas.create_text(coordenada_actual.get_x1() + (coordenada_actual.get_x2() -
+                                                              coordenada_actual.get_x1()) / 2,
 
-    # Función para insertar nodos
-    def dibujar_nivel(self, profundidad_y: int, separacion_x: int, nodos: list, valor_buscado=None):
-        punto_medio = int(round(self.columnas / 2))
-
-        # Por la cantidad de nodos que tiene el nivel
-        encontrado = False
-        for i in range(0, len(nodos), 2):
-
-            auxiliar = i * 2
-
-            # Obtenemos el nodo izquierdo y derecho
-            nodo_izquierdo = nodos[0]
-            nodo_derecho = nodos[-1]
-
-            sep_izquierdo = punto_medio - separacion_x + auxiliar
-            sep_derecho = punto_medio + separacion_x - auxiliar
-
-            # Si este nodo no fue uno de relleno
-            if nodo_izquierdo.get_data() is not None:
-
-                # Comprobamos si el nodo izquierdo es el nodo buscado
-                if nodo_izquierdo.get_data() == valor_buscado and not encontrado:
-                    self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo, '#54BAB9')
-
-                    encontrado = True
-
-                elif not nodo_izquierdo == valor_buscado:
-                    self.dibujar_nodo(nodo_izquierdo, profundidad_y, sep_izquierdo)
-
-                # Comprobamos que el nodo tenga algún hijo
-                if not nodo_izquierdo.is_leaf():
-
-                    # Comprobamos que el nodo izquierdo tenga hijos
-                    if nodo_izquierdo.tiene_hijo_izquierdo():
-                        self.dibujar_flecha_izquierda(profundidad_y, sep_izquierdo)
-                    
-                    # Comprobamos que el nodo derecho tenga hijos
-                    if nodo_izquierdo.tiene_hijo_derecho():
-                        self.dibujar_flecha_derecha(profundidad_y, sep_izquierdo)
-
-            if nodo_derecho.get_data() is not None:
-
-                # Comprobamos si el nodo es el que estamos buscando
-                if nodo_derecho.get_data() == valor_buscado and not encontrado:
-                    self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho, '#54BAB9')
-
-                    encontrado = True
-                
-                elif not nodo_derecho.get_data() == valor_buscado:
-                    self.dibujar_nodo(nodo_derecho, profundidad_y, sep_derecho)
-
-                # Si este nodo no tiene ningún hijo
-                if not nodo_derecho.is_leaf():
-
-                    # Comprobamos si tiene un hijo derecho
-                    if nodo_derecho.tiene_hijo_derecho():
-                        self.dibujar_flecha_derecha(profundidad_y, sep_derecho)
-    
-                    # Comprobamos si tiene un hijo izquierdo
-                    if nodo_derecho.tiene_hijo_izquierdo():
-                        self.dibujar_flecha_izquierda(profundidad_y, sep_derecho)
-
-            # Eliminamos los nodos
-            nodos.pop()
-            nodos.pop(0)
-    
-    # Función para insertar UN NODO en la matriz
-    def dibujar_nodo(self, nodo, coordenada_y, coordenada_x, color='#FFD93D'):
-        frame_buscado = self.matriz_frames[coordenada_y][coordenada_x]
-
-        # Cambiamos de color al frame
-        frame_buscado.config(bg=color)
-
-        # Datos del nodo
-        nodo_dato = nodo.get_data()
-        id_nodo = nodo.get_id()
-
-        # Label que contiene el dato del nodo
-        Label(frame_buscado, text=nodo_dato, bg=color).pack()
-        Label(frame_buscado, text=id_nodo, bg=color, font=("Helvetica", 7)).pack()
-
-    def dibujar_flecha_derecha(self, coordenada_y: int, coordenada_x: int, imagen=None):
-        frame_buscado = self.matriz_frames[coordenada_y + 1][coordenada_x + 1]
-        flecha = Label(frame_buscado, image=self.diagonal_derecha, bg="white")
-
-        if imagen is not None:
-            flecha.config(image=imagen)
-        
-        flecha.pack()
-
-    def dibujar_flecha_izquierda(self, coordenada_y: int, coordenada_x: int, imagen=None):
-        frame_buscado = self.matriz_frames[coordenada_y + 1][coordenada_x - 1]
-        flecha = Label(frame_buscado, image=self.diagonal_izquierda, bg="white")
-
-        if imagen is not None:
-            flecha.config(image=imagen)
-        
-        flecha.pack()
-
-    def inicializar_arbol(self):
-        self.dibujar_matriz()
-    
-    def destruir_frames(self):
-        # Recorremos todos los frames y les ponemos el fondo blanco
-        for i in range(0, self.filas):
-            for j in range(0, self.columnas):
-                self.matriz_frames[i][j].destroy()
-        
-        self.matriz_frames.clear()
+                                coordenada_actual.get_y1() + (coordenada_actual.get_y2() -
+                                                              coordenada_actual.get_y1()) / 2,
+                                text=texto)
