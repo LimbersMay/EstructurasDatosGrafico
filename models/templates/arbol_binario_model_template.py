@@ -48,6 +48,9 @@ class ArbolBinarioModelTemplate:
         # 3. Tiene hijo derecho: bool
         # 4. Tiene hijo izquierdo: bool
 
+        # Estos datos que devolvemos serán los necesarios para que la vista pueda dibujar correctamente el árbol
+        # Y además para mostrar la información del árbol
+
         root = self.tree.get_root()  # Raiz del árbol
         cantidad_nodos = self.tree.count_nodes()  # Cantidad de nodos del árbol
         profundidad = self.tree.max_depth()  # Profundidad del árbol
