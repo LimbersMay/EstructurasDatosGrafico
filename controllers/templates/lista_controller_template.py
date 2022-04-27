@@ -1,4 +1,3 @@
-import traceback
 
 
 # Responsabiliddad: Informar al modelo de los cambios en los controles
@@ -16,7 +15,6 @@ class ListaControllerTemplate:
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
-            traceback.print_exc()
             print("Error: ", e)
 
     def insertar_final(self, valor):
@@ -36,7 +34,6 @@ class ListaControllerTemplate:
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
-            traceback.print_exc()
             print("Error: ", e)
 
     def eliminar_final(self):
@@ -46,7 +43,6 @@ class ListaControllerTemplate:
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
-            traceback.print_exc()
             print("Error: ", e)
 
     # Operaciones que se realizarán con el Json
@@ -67,7 +63,6 @@ class ListaControllerTemplate:
 
         except Exception as e:
             print("Error: ", e)
-            traceback.print_exc()
 
     def cargar(self, nombre):
         try:

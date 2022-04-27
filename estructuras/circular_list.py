@@ -58,13 +58,14 @@ class CircularList:
         return aux
 
     def remove_tail(self) -> Node:
+        aux = self._tail
+
         if self.is_empty():
             raise Exception('Subdesbordamiento')
 
         elif self._head == self._tail:
             self._head = None
             self._tail = None
-            self._tail.next = None
 
         else:
             aux = self._tail

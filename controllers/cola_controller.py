@@ -1,4 +1,3 @@
-import traceback
 
 
 # Controller for Queue
@@ -52,7 +51,6 @@ class ColaController:
             self.view.actualizar(informacion_cola)
 
         except Exception as e:
-            traceback.print_exc()
             print("Error: ", e)
 
     def eliminar(self, nombre):
