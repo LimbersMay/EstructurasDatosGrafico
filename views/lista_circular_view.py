@@ -6,7 +6,7 @@ from controllers.lista_circular_controller import ListaCircualarController
 
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
-from .templates.botones_lineales_template import BotonesEstructura
+from .templates.botones_lineales_template import BotonesListas
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
@@ -63,7 +63,7 @@ class EstructuraCircularInterfaz(EstructuraInterfaz):
 
 
 # Responsabilidad: Manejar los botones inferiores para manipular la lista circular
-class BotonesCircular(BotonesEstructura):
+class BotonesCircular(BotonesListas):
     def __init__(self, master, controlador):
         super().__init__(master, controlador)
 

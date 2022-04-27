@@ -58,7 +58,7 @@ class PilaInformacion(EstructuraInformacion):
         self.maximo_variable = StringVar(self)
 
         # Elementos del frame
-        self.maximo = Label(self, textvariable=self.maximo_variable, bg="darkred", fg="white")
+        self.maximo = Label(self, textvariable=self.maximo_variable, bg="#1A3C40", fg="white")
 
         # Posicionamiento de los elementos
         self.maximo.grid(row=1, column=0, sticky=W+E)

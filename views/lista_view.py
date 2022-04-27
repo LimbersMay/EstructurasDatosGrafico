@@ -6,7 +6,7 @@ from controllers.simple_list_controller import ListaSimpleController
 
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
-from .templates.botones_lineales_template import BotonesEstructura
+from .templates.botones_lineales_template import BotonesListas
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
@@ -64,7 +64,7 @@ class EstructuraSimpleInterfaz(EstructuraInterfaz):
 
 
 # Responsabilidad: Manejar los botones para manipular la lista
-class BotonesInferiores(BotonesEstructura):
+class BotonesInferiores(BotonesListas):
     def __init__(self, master, controlador):
         super().__init__(master, controlador)
 

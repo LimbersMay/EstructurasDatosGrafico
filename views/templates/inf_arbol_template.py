@@ -9,7 +9,7 @@ class ArbolInformacion(Frame):
         self.controlador = controlador
 
         # Configuración del frame
-        self.config(width=200, height=350, bg="darkred")
+        self.config(width=200, height=350, bg="#1A3C40")
         self.grid_propagate(False)
 
         # Variables camibiantes de los label
@@ -18,40 +18,40 @@ class ArbolInformacion(Frame):
         self.profundidad_variable = StringVar(self)
 
         # Label de las variables
-        self.titulo = Label(self, text="Información del árbol", bg="darkred", fg="white")
+        self.titulo = Label(self, text="Información del árbol", bg="#1A3C40", fg="white")
 
-        self.raiz = Label(self, textvariable=self.raiz_variable, bg="darkred", fg="white")
-        self.tamanio = Label(self, textvariable=self.tamanio_variable, bg="darkred", fg="white")
-        self.profundidad = Label(self, textvariable=self.profundidad_variable, bg="darkred", fg="white")
+        self.raiz = Label(self, textvariable=self.raiz_variable, bg="#1A3C40", fg="white")
+        self.tamanio = Label(self, textvariable=self.tamanio_variable, bg="#1A3C40", fg="white")
+        self.profundidad = Label(self, textvariable=self.profundidad_variable, bg="#1A3C40", fg="white")
 
         # --------- PARTE INFERIOR DE LA INTERFAZ DE INFORMACIÓN---------------
-        self.separador = Label(self, text="", bg="darkred")
-        self.titulo_inferior = Label(self, text="Opciones adicionales", bg="darkred", fg="white")
-        self.titulo_inferior2 = Label(self, text="Seleccionar estructura", bg="darkred", fg="white")
+        self.separador = Label(self, text="", bg="#1A3C40")
+        self.titulo_inferior = Label(self, text="Opciones adicionales", bg="#1A3C40", fg="white")
+        self.titulo_inferior2 = Label(self, text="Seleccionar estructura", bg="#1A3C40", fg="white")
         self.caja_opciones = ttk.Combobox(self, state="readonly")
         self.estructura_campo = Entry(self, width=23)
 
         # Contenedor de los botones
-        self.contenedor_botones = Frame(self, bg="darkred")
+        self.contenedor_botones = Frame(self, bg="#1A3C40")
 
         self.cargar_btn = Button(
             self.contenedor_botones,
             text="Cargar", command=self.cargar,
-            bg="darkred", fg="white"
+            bg="#1A3C40", fg="white"
         )
 
         self.guardar_btn = Button(
             self.contenedor_botones,
             text="Guardar",
             command=self.guardar,
-            bg="darkred", fg="white"
+            bg="#1A3C40", fg="white"
         )
 
         self.eliminar_btn = Button(
             self.contenedor_botones,
             text="Eliminar",
             command=self.eliminar,
-            bg="darkred", fg="white"
+            bg="#1A3C40", fg="white"
         )
 
         # Posicionamiento de los botones en el contenedor

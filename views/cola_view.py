@@ -57,7 +57,7 @@ class ColaInformacion(EstructuraInformacion):
         self.maximo_variable = StringVar(self)
 
         # Máximo de elementos de la pila
-        self.maximo = Label(self, textvariable=self.maximo_variable, bg="darkred", fg="white")
+        self.maximo = Label(self, textvariable=self.maximo_variable, bg="#1A3C40", fg="white")
         self.maximo.grid(row=1, column=0, sticky=W + E)
 
         # Enviamos el maximo por defecto

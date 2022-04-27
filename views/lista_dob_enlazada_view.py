@@ -6,7 +6,7 @@ from controllers.lista_doble_controller import ListaDobEnlazadaController
 
 from .templates.inf_estructura_template import EstructuraInformacion
 from .templates.estructura_lineal_template import EstructuraInterfaz
-from .templates.botones_lineales_template import BotonesEstructura
+from .templates.botones_lineales_template import BotonesListas
 
 
 # Responsabilidad: Mostrar todos los elementos de la interfaz
@@ -63,7 +63,7 @@ class ListaDobEnlazadaInterfaz(EstructuraInterfaz):
 
 
 # Responsabilidad: Manejar los botones de la lista para manipularla
-class BotonesDobEnlazada(BotonesEstructura):
+class BotonesDobEnlazada(BotonesListas):
 
     def __init__(self, master, controlador):
         super().__init__(master, controlador)

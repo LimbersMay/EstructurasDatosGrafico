@@ -14,7 +14,7 @@ class EstructuraInformacion(Frame):
         self.tope_variable = StringVar(self)
         self.fondo_variable = StringVar(self)
 
-        self.config(bg="darkred", width=200, height=350)
+        self.config(bg="#1A3C40", width=200, height=350)
         self.grid_propagate(False)
 
         # Elementos del frame
@@ -92,7 +92,7 @@ class EstructuraInformacion(Frame):
 
     # Método para aplicar estilo a todos los elementos
     def aplicar_estilo(self, elemento):
-        elemento.config(bg="darkred", fg="white")
+        elemento.config(bg="#1A3C40", fg="white")
 
     # Método para actualizar toda la información común de la estructura
     def actualizar(self, estructura_informacion):
