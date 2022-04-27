@@ -19,10 +19,10 @@ class ColaModel:
         return self.obtener_informacion()
 
     def search(self, nombre):
-        nodo_buscado = self.queue.search(nombre)
-
         informacion = self.obtener_informacion()
-        informacion.append(nodo_buscado)
+        nodo_buscado = self.queue.search(int(nombre))
+
+        informacion.set_selected_node(nodo_buscado)
 
         return informacion
 

@@ -117,11 +117,6 @@ class ArbolInterfaz(Frame):
 
                 # Escribimos encima de las flechas el valor del nodo y nuestro nodo
                 # En caso de tener hijos, dibujamos ambos nodos, los dibujamos encima de las flechas
-
-                print("Nodo a buscar: ", self.nodo_seleccionado)
-                print("Nodo actual: ", nodo.get_data())
-                print()
-
                 # Comprobamos si el nodo actual es el que buscamos
                 if nodo.get_data() == self.nodo_seleccionado and not self.encontrado:
                     self.crear_nodo(coordenadas, "blue")

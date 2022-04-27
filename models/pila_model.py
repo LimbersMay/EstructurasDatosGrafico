@@ -22,20 +22,10 @@ class PilaModel:
     def search(self, elemento):
 
         informacion = self.obtener_informacion()
+        nodo_buscado = self.stack.search(int(elemento))
 
-        # Comprobamos si el elemento es de tipo numérico o string
-        if isinstance(elemento, int):
-            informacion.set_selected_node(elemento)
-            return informacion
+        informacion.set_selected_node(nodo_buscado)
 
-        # Comprobamo si es un string con valor numérico
-        if elemento.isdigit():
-            informacion.set_selected_node(int(elemento))
-            return informacion
-
-        # En caso de no pasar ninguna comprobación anterior, damos por hecho que el elemento es un string alfabético
-
-        informacion.set_selected_node(elemento)
         return informacion
 
     def guardar(self, nombre):

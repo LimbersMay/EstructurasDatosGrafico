@@ -77,7 +77,8 @@ class Pila:
                     return aux.data
                 else:
                     aux = aux.siguiente
-        return False
+
+        raise Exception('Elemento no se encuentra en la pila')
 
     def buscar_nodo(self, elemento):
         # Buscamos la referencia en memoria del nodo
