@@ -101,6 +101,8 @@ class ColaModel:
         lista_nodos = self.queue.to_list(references=True)
 
         # Por cada nodo creamos un objeto de tipo NodoInformacion
+        # Comprobamos que la lista contenga elementos
+
         for nodo in lista_nodos:
             estructura_informacion.list_nodes.append(
                 NodoInformacion(nodo.get_data(), id(nodo))

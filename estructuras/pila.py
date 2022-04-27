@@ -117,7 +117,7 @@ class Pila:
         return self.max
 
     def get_head(self):
-        return self.tope.data
+        return self.tope.data if self.tope is not None else None
 
     # Method that return the tail of the stack
     def get_tail(self):

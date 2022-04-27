@@ -36,6 +36,7 @@ class ListaControllerTemplate:
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
+            traceback.print_exc()
             print("Error: ", e)
 
     def eliminar_final(self):
@@ -45,6 +46,7 @@ class ListaControllerTemplate:
             self.view.actualizar(informacion_lista)
 
         except Exception as e:
+            traceback.print_exc()
             print("Error: ", e)
 
     # Operaciones que se realizarán con el Json

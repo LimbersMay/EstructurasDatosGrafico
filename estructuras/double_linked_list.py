@@ -306,10 +306,10 @@ class DoubleLinkedList:
         return self._head is None and self._tail is None
 
     def get_head(self) -> Node:
-        return self._head.data
+        return self._head.data if self._head is not None else None
 
     def get_tail(self) -> Node:
-        return self._tail.data
+        return self._tail.data if self._tail is not None else None
 
     def get_size(self) -> int:
         return self._size

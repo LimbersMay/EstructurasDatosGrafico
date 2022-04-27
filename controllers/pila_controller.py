@@ -1,6 +1,4 @@
 # Controller for Stack
-import traceback
-
 
 class PilaController:
     def __init__(self, model, view):

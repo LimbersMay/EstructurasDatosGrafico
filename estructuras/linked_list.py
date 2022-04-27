@@ -193,10 +193,10 @@ class LinkedList(Generic[T]):
         return self._size
     
     def get_head(self):
-        return self._head.data
+        return self._head.data if self._head is not None else None
 
     def get_tail(self):
-        return self._tail.data
+        return self._tail.data if self._tail is not None else None
 
     # Method that clear the list
     def clear(self):

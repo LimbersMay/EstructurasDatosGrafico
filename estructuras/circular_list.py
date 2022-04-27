@@ -39,13 +39,14 @@ class CircularList:
             self._tail = anterior
 
     def remove_head(self) -> Node:
+        aux = self._head
+
         if self.is_empty():
             raise Exception('Subdesbordamiento')
 
         elif self._head == self._tail:
             self._head = None
             self._tail = None
-            self._tail.next = None
 
         else:
             aux = self._head
@@ -204,10 +205,10 @@ class CircularList:
         return self._size
 
     def get_head(self):
-        return self._head.data
+        return self._head.data if self._head is not None else None
 
     def get_tail(self):
-        return self._tail.data
+        return self._tail.data if self._tail is not None else None
 
     def clear(self):
         self._head = None

@@ -130,10 +130,10 @@ class Cola:
         return self.max
 
     def get_head(self):
-        return self.frente.data
+        return self.frente.data if self.frente is not None else None
 
     def get_tail(self):
-        return self.fondo.data
+        return self.fondo.data if self.fondo is not None else None
 
     # Method that clear the stack
     def clear(self):
