@@ -13,12 +13,12 @@ class EstructuraInterfaz(Frame):
         self.config(width=1000, height=350, bg="#146356")
         self.grid_propagate(False)
 
-        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
     
-    def actualizar(self, informacion_estructura):
-        self.dibujar_lista(informacion_estructura)
+    def actualizar(self, informacion_estructura, direccion="Horizontal"):
+        self.dibujar_estructura(informacion_estructura, direccion)
 
-    def dibujar_lista(self, informacion_estructura):
+    def dibujar_estructura(self, informacion_estructura, direccion):
 
         lista_nodos = informacion_estructura.get_list_nodes()
         nodo_buscado = informacion_estructura.get_selected_node()
@@ -71,6 +71,12 @@ class EstructuraInterfaz(Frame):
             texto.grid(row=0, column=0)
             referencia.grid(row=1, column=0)
 
-        # Posicionamos los frames en el medio de la ventana, uno a la derecha del otro
-        for i in range(len(self.lista_frames)):
-            self.lista_frames[i].grid(row=0, column=i, sticky=W)
+        if direccion == "Horizontal":
+            # Posicionamos los frames en el medio de la ventana, uno a la derecha del otro
+            for i in range(len(self.lista_frames)):
+                self.lista_frames[i].grid(row=0, column=i, sticky=W)
+
+        elif direccion == "Vertical":
+            # Posicionamos los frames en el medio de la ventana, uno debajo del otro
+            for i in range(len(self.lista_frames)):
+                self.lista_frames[i].grid(row=i, column=0, sticky=S)

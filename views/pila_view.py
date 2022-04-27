@@ -43,7 +43,7 @@ class PilaView(Frame):
     def actualizar(self, informacion_pila):
 
         self.pila_informacion.actualizar(informacion_pila)
-        self.pila_interfaz.actualizar(informacion_pila)
+        self.pila_interfaz.actualizar(informacion_pila, 'Vertical')
 
     # Actualizamos la caja de opciones que el usuario tiene para guardar y elegir elementos
     def actualizar_pila_opciones(self, lista_opciones):
