@@ -13,7 +13,7 @@ class EstructuraInterfaz(Frame):
         self.config(width=1000, height=350, bg="#146356")
         self.grid_propagate(False)
 
-        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
     
     def actualizar(self, informacion_estructura, direccion="Horizontal"):
         self.dibujar_estructura(informacion_estructura, direccion)
@@ -77,6 +77,7 @@ class EstructuraInterfaz(Frame):
                 self.lista_frames[i].grid(row=0, column=i, sticky=W)
 
         elif direccion == "Vertical":
+            self.columnconfigure(0, weight=1)
             # Posicionamos los frames en el medio de la ventana, uno debajo del otro
             for i in range(len(self.lista_frames)):
                 self.lista_frames[i].grid(row=i, column=0, sticky=S)
