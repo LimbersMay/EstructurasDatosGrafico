@@ -26,7 +26,8 @@ class ArbolBinarioModel(ArbolBinarioModelTemplate):
         # 1: [2, 3] -> hijos de raíz
         # 2: [8, 9, 4, 6] -> hijos de hijos de raíz
 
-        nodos_niveles = self.tree.to_matrix()
+        self.tree.complete_tree()
+        nodos_niveles = self.tree.to_list()
         niveles_dic = {}
 
         # Creamos un diccionario con la información de los niveles del árbol

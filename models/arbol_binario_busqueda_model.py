@@ -13,6 +13,7 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
 
         return self.obtener_informacion()
 
+    # -------- OPERACIONES QUE INTERACTUAN CON EL FICHERO DEL ÁRBOL --------
     def guardar(self, nombre):
         # Obtenemos una lista de los árboles en orden de niveñ
         nodos_niveles = self.tree.to_list()
@@ -27,7 +28,6 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
         return nombres_arboles
 
     def cargar(self, nombre):
-
         # Obtenemos la lista de nodos del árbol dentro del Json
         nodos_arbol = self.fichero.obtener_valor(nombre)
 
@@ -41,7 +41,6 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
         return self.obtener_informacion()
 
     def remover(self, nombre):
-
         # Removemos el árbol del Json
         self.fichero.eliminar_elemento(nombre)
 
