@@ -32,9 +32,6 @@ class BinaryTree:
 
     # Method that insert a node on the left side with a reference
     def insert_left(self, data: T, ref: T):
-        print("Data: ", data)
-        print("Ref: ", ref)
-        print("List: ", self.to_list())
         node = self.__search(ref)
 
         if node is not None:
@@ -50,9 +47,6 @@ class BinaryTree:
             raise Exception('The reference does not exist.')
 
     def insert_right(self, data: T, ref: T):
-        print("Data: ", data)
-        print("Ref: ", ref)
-        print("List: ", self.to_list())
         node = self.__search(ref)
 
         if node is not None:
