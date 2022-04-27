@@ -21,11 +21,7 @@ class Cola:
 
     def enqueue(self, elemento):
 
-        if self.is_digit(elemento):
-            nuevo = Nodo(int(elemento))
-
-        else:
-            nuevo = Nodo(elemento)
+        nuevo = Nodo(elemento)
 
         # 2 - visitar el nodo
         # 3 - consultar si la cola esta vacia

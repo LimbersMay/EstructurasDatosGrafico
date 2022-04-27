@@ -22,7 +22,7 @@ class PilaModel:
     def search(self, elemento):
 
         informacion = self.obtener_informacion()
-        nodo_buscado = self.stack.search(int(elemento))
+        nodo_buscado = self.stack.search(elemento)
 
         informacion.set_selected_node(nodo_buscado)
 

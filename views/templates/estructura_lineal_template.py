@@ -33,6 +33,14 @@ class EstructuraInterfaz(Frame):
         # Bandera para saber si se encontró el nodo buscado
         buscado = False
 
+        # Creamos un scrollbar para dezplazarnos a la derecha
+        # Y otro para desplazarnos hacia arriba
+        scrollbar_derecha = Scrollbar(self, orient=HORIZONTAL)
+        scrollbar_derecha.grid(row=1, column=0, sticky=E+W)
+
+        scrollbar_arriba = Scrollbar(self, orient=VERTICAL)
+        scrollbar_arriba.grid(row=0, column=1, sticky=N+S)
+
         # Por cada nodo de la lista, se crea un frame
         for i in range(len(lista_nodos)):
 
@@ -70,6 +78,8 @@ class EstructuraInterfaz(Frame):
             # Los empaquetamos
             texto.grid(row=0, column=0)
             referencia.grid(row=1, column=0)
+
+        # Cuando tenemos más de 6 nodos, se agrega una barra de desplazamiento
 
         if direccion == "Horizontal":
             # Posicionamos los frames en el medio de la ventana, uno a la derecha del otro

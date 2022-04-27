@@ -19,9 +19,6 @@ class Pila:
     def push(self, elemento):
         if self.max == -1 or self._size < self.max:
 
-            if self.is_digit(elemento):
-                elemento = int(elemento)
-
             nuevo_nodo = Nodo(elemento)
             nuevo_nodo.siguiente = self.tope
             self.tope = nuevo_nodo
