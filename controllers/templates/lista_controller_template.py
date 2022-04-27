@@ -1,5 +1,4 @@
 
-
 # Responsabiliddad: Informar al modelo de los cambios en los controles
 class ListaControllerTemplate:
     def __init__(self, model, view):
