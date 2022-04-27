@@ -32,7 +32,7 @@ class BinarySearchTree:
     def __init__(self, data=None):
         self.__root = Node(data)
 
-    def insert(self, data, *args):
+    def insert1(self, data, *args):
         subtree = self.__root if len(args) == 0 else args[0]
 
         if subtree.data is None:
@@ -44,14 +44,39 @@ class BinarySearchTree:
                 subtree.left = Node(data)
 
             else:
-                self.insert(data, subtree.left)
+                self.insert1(data, subtree.left)
 
         elif data > subtree.data:
             if subtree.right is None:
                 subtree.right = Node(data)
 
             else:
-                self.insert(data, subtree.right)
+                self.insert1(data, subtree.right)
+
+    # Method for to insert a node in the search tree
+    def insert(self, data: T, *args) -> None:
+        node = self.__root if len(args) == 0 else args[0]
+
+        if node is not None:
+            if node.data is None:
+                node.data = data
+
+            elif data < node.data:
+                if node.left is None:
+                    node.left = Node(data)
+
+                else:
+                    self.insert(data, node.left)
+
+            elif data > node.data:
+                if node.right is None:
+                    node.right = Node(data)
+
+                else:
+                    self.insert(data, node.right)
+
+        else:
+            self.__root = Node(data)
 
     def pre_order(self, *args) -> str:
         node = self.__root if len(args) == 0 else args[0]
