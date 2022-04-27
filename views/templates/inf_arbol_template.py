@@ -90,7 +90,7 @@ class ArbolInformacion(Frame):
         self.controlador.guardar(self.estructura_campo.get())
 
     def eliminar(self):
-        self.controlador.eliminar(self.caja_opciones.get())
+        self.controlador.remover(self.caja_opciones.get())
 
     # Método para actualizar toda la información del árbol
     def actualizar(self, arbol_info):
@@ -100,3 +100,10 @@ class ArbolInformacion(Frame):
 
     def actualizar_caja_opciones(self, opciones):
         self.caja_opciones.config(values=opciones)
+
+        # Comprobamos si la lista contiene alguna opción
+        if opciones:
+            self.caja_opciones.set(opciones[0])
+
+        else:
+            self.caja_opciones.set("")

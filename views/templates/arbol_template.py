@@ -70,11 +70,13 @@ class ArbolInterfaz(Frame):
         separacion = self.separacion if len(args) == 0 else args[2]
 
         if nodo is not None:
+            self.encontrado = False
+
             if nodo.is_leaf() and nodo.get_data() is not None:
                 # Dibujamos el nodo
 
                 # Comprobamos si este nodo es el nodo seleccionado
-                if nodo.get_data() == self.nodo_seleccionado:
+                if nodo.get_data() == self.nodo_seleccionado and not self.encontrado:
                     self.crear_nodo(coordenadas, 'blue')
 
                 else:
@@ -83,7 +85,8 @@ class ArbolInterfaz(Frame):
                 self.crear_texto(coordenadas, str(nodo.get_data()))
 
             else:
-                # Comprobamos que
+                # Comprobamos que este nodo no sea uno de relleno
+                # Los nodos de relleno se usan para completar el arbol, estos tienen como dato None
                 if nodo.get_data() is None:
                     return
 
@@ -117,12 +120,13 @@ class ArbolInterfaz(Frame):
 
                 # Escribimos encima de las flechas el valor del nodo y nuestro nodo
                 # En caso de tener hijos, dibujamos ambos nodos, los dibujamos encima de las flechas
+
                 # Comprobamos si el nodo actual es el que buscamos
                 if nodo.get_data() == self.nodo_seleccionado and not self.encontrado:
                     self.crear_nodo(coordenadas, "blue")
                     self.encontrado = True
 
-                if not nodo.get_data() == self.nodo_seleccionado:
+                else:
                     self.crear_nodo(coordenadas)
 
                 # Imprimimos el valor del nodo en el centro del nodo
