@@ -7,8 +7,20 @@ class ArbolBinarioModelTemplate:
         self.fichero = None
 
     def insertar_raiz(self, valor):
-        self.tree.insert_root(valor)
 
+        # Comprobamos si se trata de un entero
+        if isinstance(valor, int):
+            self.tree.insert(valor)
+
+            return self.obtener_informacion()
+
+        # Comprobamos si se trata de un valor numérico
+        elif valor.isdigit():
+            self.tree.insert(int(valor))
+
+            return self.obtener_informacion()
+
+        self.tree.insert_root(valor)
         return self.obtener_informacion()
 
     def buscar(self, valor):

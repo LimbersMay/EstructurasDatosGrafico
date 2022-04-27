@@ -9,8 +9,31 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
         self.fichero = Fichero("recursos/datos/arboles_busqueda.json")
 
     def insertar(self, valor):
-        self.tree.insert(valor)
 
+        # Comprobamos si el valor es un entero
+        if isinstance(valor, int):
+            self.tree.insert(valor)
+
+            return self.obtener_informacion()
+
+        # Comprobamos si el valor de la cadena es un digito
+        elif valor.isdigit():
+            self.tree.insert(int(valor))
+
+            return self.obtener_informacion()
+
+        # Comprobamos si es un valor flotante
+        try:
+            valor = float(valor)
+            self.tree.insert(valor)
+
+            return self.obtener_informacion()
+
+        except ValueError:
+            pass
+
+        # De llegar aquí, damos por hecho que el valor es una cadena
+        self.tree.insert(valor)
         return self.obtener_informacion()
 
     # -------- OPERACIONES QUE INTERACTUAN CON EL FICHERO DEL ÁRBOL --------
