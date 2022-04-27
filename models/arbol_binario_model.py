@@ -8,7 +8,17 @@ class ArbolBinarioModel(ArbolBinarioModelTemplate):
 
         self.fichero = Fichero("recursos/datos/arboles_binarios.json")
 
+    def insertar_raiz(self, valor):
+        self.tree.insert_root(valor)
+
+        return self.obtener_informacion()
+
     def insertar_izquierda(self, valor, padre):
+
+        print("Tipo de valor: ", type(valor))
+        print("Tipo de padre: ", type(padre))
+        print("Tipo de raíz: ", type(self.tree.get_root()))
+
         self.tree.insert_left(valor, padre)
 
         return self.obtener_informacion()

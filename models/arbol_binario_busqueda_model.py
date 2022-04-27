@@ -8,6 +8,23 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
 
         self.fichero = Fichero("recursos/datos/arboles_busqueda.json")
 
+    def insertar_raiz(self, valor):
+
+        # Comprobamos si se trata de un entero
+        if isinstance(valor, int):
+            self.tree.insert_root(valor)
+
+            return self.obtener_informacion()
+
+        # Comprobamos si se trata de un valor numérico
+        elif valor.isdigit():
+            self.tree.insert_root(int(valor))
+
+            return self.obtener_informacion()
+
+        self.tree.insert_root(valor)
+        return self.obtener_informacion()
+
     def insertar(self, valor):
         # Comprobamos si el valor es un entero
         if isinstance(valor, int):

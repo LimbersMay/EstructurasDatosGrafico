@@ -197,7 +197,6 @@ class BinaryTree:
 
         else:
             return 'a'
- 
 
     def search(self, data: T) -> Optional[Node]:
         return self.__search(data)
@@ -288,14 +287,13 @@ class BinaryTree:
     # Method that returns the node with the minimum value of the tree walkin on the tree #
     def min_node(self, *args) -> Node:
 
-        list_nodes = self.to_list()    
+        list_nodes = self.to_list()
 
         list = [node for sublist in list_nodes for node in sublist if node is not None]
 
         min_node = self.search(min(list))
 
         return min_node
-
 
     def get_root(self) -> Node:
         return self.__root.data
