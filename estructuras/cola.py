@@ -64,7 +64,7 @@ class Cola:
                 elementos_ref.append(aux)
                 aux = aux.siguiente
 
-        if elementos_ref:
+        if references:
             return elementos_ref
 
         return elementos
