@@ -10,26 +10,18 @@ class ArbolBinarioModelTemplate:
 
         # Comprobamos si se trata de un entero
         if isinstance(valor, int):
-            self.tree.insert(valor)
+            self.tree.insert_root(valor)
 
             return self.obtener_informacion()
 
         # Comprobamos si se trata de un valor numérico
         elif valor.isdigit():
-            self.tree.insert(int(valor))
+            self.tree.insert_root(int(valor))
 
             return self.obtener_informacion()
 
         self.tree.insert_root(valor)
         return self.obtener_informacion()
-
-    def buscar(self, valor):
-        nodo_buscado = self.tree.search(valor).get_data()
-
-        arbol_informacion = self.obtener_informacion()
-        arbol_informacion.set_seleccionado(nodo_buscado)
-
-        return arbol_informacion
 
     def eliminar(self, valor):
         self.tree.remove(valor)

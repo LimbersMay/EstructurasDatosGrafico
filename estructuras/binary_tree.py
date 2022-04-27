@@ -32,6 +32,9 @@ class BinaryTree:
 
     # Method that insert a node on the left side with a reference
     def insert_left(self, data: T, ref: T):
+        print("Data: ", data)
+        print("Ref: ", ref)
+        print("List: ", self.to_list())
         node = self.__search(ref)
 
         if node is not None:
@@ -47,6 +50,9 @@ class BinaryTree:
             raise Exception('The reference does not exist.')
 
     def insert_right(self, data: T, ref: T):
+        print("Data: ", data)
+        print("Ref: ", ref)
+        print("List: ", self.to_list())
         node = self.__search(ref)
 
         if node is not None:
@@ -370,32 +376,3 @@ class BinaryTree:
 
         else:
             return None
-
-
-    # Method that remove a node from the tree
-    def remove(self, node_ref, data: T) -> None:
-        node = self.search_not_visited_value(node_ref, data)
-
-        if node is not None:
-            if node.left is None and node.right is None:
-                print("Condicion 1")
-                node.data = None
-
-            elif node.left is None and node.right is not None:
-                print("Condicion 2")
-                node.data = node.right.data
-                node.right = None
-
-            elif node.left is not None and node.right is None:
-                print("Condicion 3")
-                node.data = node.left.data
-                node.left = None
-
-            else:
-                min_node = self.min_node(node.right)
-                node.data = min_node.data
-                node.visited = True
-                self.remove(min_node.data)
-
-        else:
-            raise Exception('The node does not exist')

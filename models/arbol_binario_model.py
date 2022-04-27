@@ -18,6 +18,14 @@ class ArbolBinarioModel(ArbolBinarioModelTemplate):
 
         return self.obtener_informacion()
 
+    def buscar(self, valor):
+        nodo_buscado = self.tree.search(valor).get_data()
+
+        arbol_informacion = self.obtener_informacion()
+        arbol_informacion.set_seleccionado(nodo_buscado)
+
+        return arbol_informacion
+
     # Operaciones para guardar el árbol dentro de un fichero Json
     def guardar(self, nombre):
         # Para guardar el árbol en el Json obtenemos todos los nodos de cada nivel del arbol
