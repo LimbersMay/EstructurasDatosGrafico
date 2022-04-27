@@ -10,6 +10,8 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
 
     def insertar(self, valor):
 
+        print("Lista del árbol: ", self.tree.to_list())
+
         # Comprobamos si el valor es un entero
         if isinstance(valor, int):
             self.tree.insert(valor)
