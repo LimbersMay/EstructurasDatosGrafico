@@ -6,11 +6,6 @@ class ArbolBinarioModelTemplate:
         self.tree = tree
         self.fichero = None
 
-    def eliminar(self, valor):
-        self.tree.remove(valor)
-
-        return self.obtener_informacion()
-
     def obtener_informacion(self):
         # Datos necesarios para el árbol
         # 1. Raíz

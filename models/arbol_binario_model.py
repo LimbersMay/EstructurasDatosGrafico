@@ -22,6 +22,11 @@ class ArbolBinarioModel(ArbolBinarioModelTemplate):
         self.tree.insert_right(valor, padre)
 
         return self.obtener_informacion()
+    
+    def eliminar(self, valor):
+        self.tree.delete(valor)
+
+        return self.obtener_informacion()
 
     def buscar(self, valor):
         nodo_buscado = self.tree.search(valor).get_data()
