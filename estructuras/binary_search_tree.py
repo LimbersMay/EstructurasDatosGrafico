@@ -131,6 +131,82 @@ class BinarySearchTree:
         else:
             return -1
 
+    # Method that remove a node from a full binary tree
+    def remove(self, data, *args):
+        ref = self.__root if len(args) == 0 else args[0]
+        parent: Optional[Node] = None if len(args) == 0 else args[1]
+
+        if ref is not None:
+            if data < ref.data:
+                return self.remove(data, ref.left, ref)
+            elif data > ref.data:
+                return self.remove(data, ref.right, ref)
+            else:
+                if ref.is_leaf():
+                    if ref.data < parent.data:
+                        parent.left = None
+                        return ref
+                    else:
+                        parent.right = None
+                        return ref
+                else:
+                    if ref.left is not None and ref.right is not None:
+                        min_node: Optional[Node] = self.min(ref.right)
+                        parent = self.get_parent(min_node.data)
+                        if min_node.data < parent.data:
+                            parent.left = min_node.right
+                        else:
+                            parent.right = min_node.right
+                        ref.data = min_node.data
+                    else:
+                        child: Optional[Node] = ref.right if ref.left is None else ref.left
+
+                        if child.data < ref.data:
+                            ref.left = None
+                        else:
+                            ref.right = None
+
+                        if ref.data < parent.data:
+                            parent.left = child
+                        else:
+                            parent.right = child
+        else:
+            pass
+
+    def min(self, *args):
+        node = self.__root if len(args) == 0 else args[0]
+        if node is not None:
+            if node.left is None:
+                return node
+            else:
+                return self.min(node.left)
+        else:
+            return None
+
+    def max(self, *args):
+        node = self.__root if len(args) == 0 else args[0]
+        if node is not None:
+            if node.right is None:
+                return node
+            else:
+                return self.max(node.right)
+        else:
+            return None
+
+    def get_parent(self, data, *args):
+        ref = self.__root if len(args) == 0 else args[0]
+        parent: Optional[Node] = None if len(args) == 0 else args[1]
+        if ref is not None:
+            if data < ref.data:
+                result = self.get_parent(data, ref.left, ref)
+                return result
+            elif data > ref.data:
+                return self.get_parent(data, ref.right, ref)
+            else:
+                return parent
+        else:
+            return None
+
     # Convert the binary tree to a list using Eytzi's algorithm
     def to_matrix(self) -> list:
         result = []
