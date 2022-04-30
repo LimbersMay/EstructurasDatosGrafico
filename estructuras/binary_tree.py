@@ -174,12 +174,12 @@ class BinaryTree:
         return result
 
     # Search the father of a node
-    def search_father(self, *args, child: Node) -> str:
+    def search_father(self, *args, child: Node) -> Optional[Node]:
         node = self.__root if len(args) == 0 else args[0]
 
         if node is not None:
             if node.is_leaf():
-                return str(node.data)
+                return node
 
             else:
 
@@ -196,7 +196,7 @@ class BinaryTree:
                     return father_right
 
         else:
-            return 'a'
+            return None
 
     def search(self, data: T) -> Optional[Node]:
         return self.__search(data)
@@ -273,27 +273,15 @@ class BinaryTree:
         else:
             raise Exception('The root already exists')
 
-    # Method that remove a node from a full binary tree
-    def eliminar(self, ref: T, *args) -> Optional[Node]:
-        node = self.__root if len(args) == 0 else args[0]
-        if node is not None:
-            return node
-        elif self.__search(ref) == ref:
-            ref = None
+    # Method that returns the min node in the side of a node of reference
+    def min_node(self, ref: Node) -> Optional[Node]:
+        if ref is None:
+            return None
+
+        if ref.left is None:
             return ref
-        else:
-            return print('El nodo no existe')
 
-    # Method that returns the node with the minimum value of the tree walkin on the tree #
-    def min_node(self, *args) -> Node:
-
-        list_nodes = self.to_list()
-
-        list = [node for sublist in list_nodes for node in sublist if node is not None]
-
-        min_node = self.search(min(list))
-
-        return min_node
+        return self.min_node(ref.left)
 
     def get_root(self) -> Node:
         return self.__root.data
@@ -329,18 +317,6 @@ class BinaryTree:
     def clear(self) -> None:
         self.__root.data = None
 
-    # Method that search not visited nodes by reference
-    def search_not_visited(self, node: Node) -> Optional[Node]:
-        if node is not None:
-            if node.visited:
-                return self.search_not_visited(node.left)
-
-            else:
-                return node
-
-        else:
-            return None
-
     # Method that search a node taking a node as reference
     def search_node(self, node: Node, data: T) -> Optional[Node]:
         if node is not None:
@@ -349,22 +325,6 @@ class BinaryTree:
 
             else:
                 return self.search_node(node.left, data) or self.search_node(node.right, data)
-
-        else:
-            return None
-
-    # Search not visited node with a value
-    def search_not_visited_value(self, value: T) -> Optional[Node]:
-        node = self.search_node(self.__root, value)
-
-        print("Node: ", node)
-
-        if node is not None:
-            if node.visited:
-                return self.search_not_visited_value(node.left)
-
-            else:
-                return node
 
         else:
             return None
