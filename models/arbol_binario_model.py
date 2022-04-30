@@ -22,9 +22,9 @@ class ArbolBinarioModel(ArbolBinarioModelTemplate):
         self.tree.insert_right(valor, padre)
 
         return self.obtener_informacion()
-    
+
     def eliminar(self, valor):
-        self.tree.delete(valor)
+        self.tree.remove(valor)
 
         return self.obtener_informacion()
 

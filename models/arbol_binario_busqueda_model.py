@@ -55,13 +55,13 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
     def eliminar(self, valor):
         # Comprobamos si el valor es un entero
         if valor.isdigit():
-            self.tree.delete(int(valor))
+            self.tree.remove(int(valor))
 
             return self.obtener_informacion()
 
         # Comprobamos si el valor es un valor flotante
         try:
-            self.tree.delete(float(valor))
+            self.tree.remove(float(valor))
 
             return self.obtener_informacion()
 
@@ -69,7 +69,7 @@ class ArbolBinarioBusquedaModel(ArbolBinarioModelTemplate):
             pass
 
         # De llegar aquí, damos por hecho que el valor es una cadena
-        self.tree.delete(valor)
+        self.tree.remove(valor)
 
         return self.obtener_informacion()
 
